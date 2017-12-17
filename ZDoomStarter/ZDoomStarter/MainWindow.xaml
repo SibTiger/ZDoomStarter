@@ -1,0 +1,33 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZDoomStarter"
+        mc:Ignorable="d"
+        Title="ZDoom Starter" Height="350" Width="525">
+    <Menu x:Name="MainMenu" MinHeight="18" Height="18" VerticalAlignment="Top">
+        <MenuItem x:Name="FileMenu" Header="File" Click="FileMenu_Click" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <MenuItem x:Name="FileMenuExit" Header="Exit"/>
+        </MenuItem>
+        <MenuItem x:Name="ConfigureMenu" Header="Configure">
+            <MenuItem x:Name="ConfigureMenuSourcePorts" Header="Source Ports"/>
+            <MenuItem x:Name="ConfigureMenuIWADs" Header="IWAD's"/>
+            <MenuItem x:Name="ConfigureMenuPWADsDir" Header="PWAD's Directory"/>
+        </MenuItem>
+        <MenuItem x:Name="HelpMenu" Header="Help">
+            <MenuItem x:Name="HelpMenuUpdatesGitHub" Header="Updates [Github]" Click="HelpMenuUpdatesGitHub_Click"/>
+            <Separator HorizontalAlignment="Left" Height="0" Width="175" RenderTransformOrigin="0.5,0.5">
+                <Separator.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Separator.RenderTransform>
+            </Separator>
+            <MenuItem x:Name="HelpMenuAbout" Header="About" Click="HelpMenuAbout_Click"/>
+        </MenuItem>
+    </Menu>
+</Window>
