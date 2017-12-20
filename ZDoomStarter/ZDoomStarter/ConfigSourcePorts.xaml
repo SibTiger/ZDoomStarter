@@ -6,8 +6,5 @@
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
         Title="ConfigSourcePorts" Height="300" Width="300">
-    <Grid>
-        <Label x:Name="label" Content="OH NOES&#xD;&#xA;" HorizontalAlignment="Left" Margin="67,91,0,0" VerticalAlignment="Top" Width="151"/>
-
-    </Grid>
+    <Grid/>
 </Window>
