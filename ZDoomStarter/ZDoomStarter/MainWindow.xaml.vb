@@ -11,12 +11,21 @@
     ' Configure File Menu: Configure Source Ports
     ' ==========================================
     Private Sub ConfigureMenuSourcePorts_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuSourcePorts.Click
-        ' Create the form instance
-        Dim instance As New ConfigSourcePorts
 
-        ' Open the form
+        ' Create the form instance
+        Dim newWindowInstance As New ConfigSourcePorts
+
+        ' Dim the parent window; visually show that it is not available
+        '  for activity
         Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
-        instance.ShowDialog()   ' This will open the desired form
+
+        ' This will open the desired window
+        '  but will also change focus from
+        '  Parent to this new window instance.
+        newWindowInstance.ShowDialog()
+
+        ' Restore the parent window's opacity setting; visually show
+        '  that it Is Now active.
         Me.Opacity = 1.0        ' OPACITY EXPERIMENTAL ONLY
     End Sub
 
