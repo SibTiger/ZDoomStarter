@@ -1,31 +1,43 @@
 ﻿Class MainWindow
-    ' Destroy
+    ' File Menu: Destroy
+    ' ==========================================
+    ' This will close the program properly.
     Private Sub Menu_Exit_Click(sender As Object, e As RoutedEventArgs) Handles FileMenuExit.Click
         ' When clicked, just immediately close the program.
         Close()
     End Sub
 
-    ' Configure Source Ports
+
+    ' Configure File Menu: Configure Source Ports
+    ' ==========================================
     Private Sub ConfigureMenuSourcePorts_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuSourcePorts.Click
         ' TODO: Implement this
     End Sub
 
-    ' Configure IWAD's
+
+    ' Configure File Menu: Configure IWAD's
+    ' ==========================================
     Private Sub ConfigureMenuIWADs_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuIWADs.Click
         ' TODO: Implement this
     End Sub
 
-    ' Configure PWAD Directory Path
+
+    ' Configure File Menu: Configure PWAD Directory Path
+    ' ==========================================
     Private Sub ConfigureMenuPWADsDir_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuPWADsDir.Click
         ' TODO: Implement this
     End Sub
 
-    ' Allow the end-user to check for updates
+
+    ' Help File Menu: Allow the end-user to check for updates
+    ' ==========================================
     Private Sub HelpMenuUpdatesGitHub_Click(sender As Object, e As RoutedEventArgs)
         ' TODO: Implement this
     End Sub
 
-    ' Display software information
+
+    ' Help File Menu: Display software information
+    ' ==========================================
     Private Sub HelpMenuAbout_Click(sender As Object, e As RoutedEventArgs)
         ' TODO: Implement this
     End Sub
