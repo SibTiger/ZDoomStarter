@@ -11,7 +11,13 @@
     ' Configure File Menu: Configure Source Ports
     ' ==========================================
     Private Sub ConfigureMenuSourcePorts_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuSourcePorts.Click
-        ' TODO: Implement this
+        ' Create the form instance
+        Dim instance As New ConfigSourcePorts
+
+        ' Open the form
+        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+        instance.ShowDialog()   ' This will open the desired form
+        Me.Opacity = 1.0        ' OPACITY EXPERIMENTAL ONLY
     End Sub
 
 
