@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ZDoom Starter" Height="350" Width="525">
     <Menu x:Name="MainMenu" MinHeight="18" Height="18" VerticalAlignment="Top">
-        <MenuItem x:Name="FileMenu" Header="File" Click="FileMenu_Click" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <MenuItem x:Name="FileMenu" Header="File" HorizontalAlignment="Left" VerticalAlignment="Center">
             <MenuItem x:Name="FileMenuExit" Header="Exit"/>
         </MenuItem>
         <MenuItem x:Name="ConfigureMenu" Header="Configure">
