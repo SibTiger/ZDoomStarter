@@ -5,6 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
-        Title="ConfigSourcePorts" Height="300" Width="300">
-    <Grid/>
+        Title="Configure Source Ports" Height="425.212" Width="451.907">
+    <Grid>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="labelHeader" Content="Configure Source Ports" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="424" FontWeight="Bold"/>
+        <TextBlock x:Name="textBlockHeader" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="82" Width="424" Text="&lt;ADD INFORMATION HERE&gt;"/>
+        <Button x:Name="buttonAdd" Content="Add" HorizontalAlignment="Left" Margin="85,261,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonDelete" Content="Remove" HorizontalAlignment="Left" Margin="288,261,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="116,334,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="256,334,0,0" VerticalAlignment="Top" Width="75"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="2" Margin="10,137,0,0" VerticalAlignment="Top" Width="424"/>
+    </Grid>
 </Window>
