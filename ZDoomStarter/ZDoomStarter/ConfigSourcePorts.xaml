@@ -7,19 +7,19 @@
         mc:Ignorable="d"
         Title="Configure Source Ports" Height="425.212" Width="451.907">
     <Grid Margin="0,0,0,-0.5" HorizontalAlignment="Left" Width="447" Height="398" VerticalAlignment="Top">
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424">
+        <ListView x:Name="ListView" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="labelHeader" Content="Configure Source Ports" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="424" FontWeight="Bold"/>
-        <TextBlock x:Name="textBlockHeader" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="67" Width="424" Text="This configuration window will allow you to add or remove source ports available to this program.  When you add a source port (or an advanced Doom engine, such as ZDoom) to this program, you can then use that entry to launch your games - when selected."/>
-        <Button x:Name="buttonAdd" Content="Add" HorizontalAlignment="Left" Margin="85,261,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="buttonDelete" Content="Remove" HorizontalAlignment="Left" Margin="288,261,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="buttonOK" Content="OK" HorizontalAlignment="Left" Margin="116,334,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="buttonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="256,334,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="LabelHeader" Content="Configure Source Ports" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="424" FontWeight="Bold"/>
+        <TextBlock x:Name="TextBlockHeader" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="67" Width="424" Text="This configuration window will allow you to add or remove source ports available to this program.  When you add a source port (or an advanced Doom engine, such as ZDoom) to this program, you can then use that entry to launch your games - when selected."/>
+        <Button x:Name="ButtonAdd" Content="Add" HorizontalAlignment="Left" Margin="85,261,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="ButtonDelete" Content="Remove" HorizontalAlignment="Left" Margin="288,261,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="ButtonOK" Content="OK" HorizontalAlignment="Left" Margin="116,334,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="256,334,0,0" VerticalAlignment="Top" Width="75"/>
         <Separator HorizontalAlignment="Left" Height="23" Margin="10,118,0,0" VerticalAlignment="Top" Width="424"/>
     </Grid>
 </Window>
