@@ -17,7 +17,7 @@
     ' ------------------------------------------
     ' When clicked, this will merely close the configuration window and cancel all pending alterations.
     Private Sub ButtonCancel_Click(sender As Object, e As RoutedEventArgs) Handles ButtonCancel.Click
-        Close()
+        Close()     ' Close the child window
     End Sub
 
 
@@ -27,7 +27,7 @@
     ' ------------------------------------------
     ' When clicked, this will save all pending changes and close the configuration window.
     Private Sub ButtonOK_Click(sender As Object, e As RoutedEventArgs) Handles ButtonOK.Click
-
+        Close()     ' Close the child window
     End Sub
 
 
