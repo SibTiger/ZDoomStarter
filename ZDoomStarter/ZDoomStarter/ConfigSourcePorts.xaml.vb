@@ -4,6 +4,15 @@
     ' -------------------------------------------------
 
 
+    ' Window Load [EVENT: Form Load]
+    ' ------------------------------------------
+    ' This function will automatically execute once the window has been fully rendered
+    Public Sub Window_Load() Handles MyBase.Loaded
+
+    End Sub
+
+
+
 
     ' UI ELEMENTS
     ' =================================================
@@ -56,7 +65,7 @@
     ' Source Ports Available [List Box]
     ' ------------------------------------------
     ' Displays all source ports available to this program; provided by the end-user (or through a configuration file or entity).
-    Private Sub ListView_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles ListView.SelectionChanged
+    Private Sub ListView_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles ListSourcePorts.SelectionChanged
 
     End Sub
 End Class
