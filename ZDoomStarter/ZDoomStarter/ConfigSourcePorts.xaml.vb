@@ -1,7 +1,7 @@
 ﻿Public Class ConfigSourcePorts
     ' Declarations and Initializations
     ' -------------------------------------------------
-    Public displayEngineList As New List(Of SourcePort)
+    Public Property displayEngineList As New List(Of SourcePort)
     ' -------------------------------------------------
 
 
@@ -12,6 +12,7 @@
         InitializeComponent()
 
         Dim Engine1 As New SourcePort
+        Dim Engine2 As New SourcePort
 
         With Engine1
             .absolutePath = ".\ZDoom.exe"
@@ -19,7 +20,15 @@
             .niceName = "ZDoom"
         End With
 
+        With Engine2
+            .absolutePath = ".\Zandronum.exe"
+            .customNotes = "Online Testing"
+            .niceName = "Zandronum"
+        End With
+
         displayEngineList.Add(Engine1)
+        displayEngineList.Add(Engine2)
+
 
         DataContext = Me
     End Sub

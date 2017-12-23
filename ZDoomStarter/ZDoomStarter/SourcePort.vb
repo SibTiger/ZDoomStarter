@@ -1,9 +1,9 @@
 ﻿Public Class SourcePort
     ' Declarations and Initializations
     ' -------------------------------------------------
-    Public absolutePath As String      ' Absolute path to that executable
-    Public niceName As String          ' Name of that executable
-    Public customNotes As String       ' Optional notes provided by the end-user
+    Public Property absolutePath As String      ' Absolute path to that executable
+    Public Property niceName As String          ' Name of that executable
+    Public Property customNotes As String       ' Optional notes provided by the end-user
     ' -------------------------------------------------
 
 
