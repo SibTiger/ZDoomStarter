@@ -34,7 +34,14 @@
     End Sub
 
 
-
+    ' TODO Finish implementing this
+    ' Cache the list index and then use it when 'Remove' is requested.
+    ' References:
+    ' https://stackoverflow.com/questions/1367665/wpf-listview-selectionchanged-event
+    ' https://stackoverflow.com/questions/8693897/how-do-i-get-the-selecteditem-or-selectedindex-of-listview-in-vb-net
+    Private Sub ListSourcePorts_ItemSelected()
+        MsgBox("HIT!")
+    End Sub
 
     ' UI ELEMENTS
     ' =================================================
