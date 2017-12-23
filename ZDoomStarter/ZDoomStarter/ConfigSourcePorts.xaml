@@ -10,9 +10,9 @@
         <ListView x:Name="ListSourcePorts" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424" ItemsSource="{Binding displayEngineList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Engine" DisplayMemberBinding="{Binding niceName}"/>
-                    <GridViewColumn Header="Notes" DisplayMemberBinding="{Binding customNotes}"/>
-                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding absolutePath}"/>
+                    <GridViewColumn Header="Engine" DisplayMemberBinding="{Binding NiceName}"/>
+                    <GridViewColumn Header="Notes" DisplayMemberBinding="{Binding CustomNotes}"/>
+                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding AbsolutePath}"/>
                 </GridView>
             </ListView.View>
         </ListView>

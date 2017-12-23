@@ -15,15 +15,15 @@
         Dim Engine2 As New SourcePort
 
         With Engine1
-            .absolutePath = ".\ZDoom.exe"
-            .customNotes = "Optional Notes"
-            .niceName = "ZDoom"
+            .AbsolutePath = ".\ZDoom.exe"
+            .CustomNotes = "Optional Notes"
+            .NiceName = "ZDoom"
         End With
 
         With Engine2
-            .absolutePath = ".\Zandronum.exe"
-            .customNotes = "Online Testing"
-            .niceName = "Zandronum"
+            .AbsolutePath = ".\Zandronum.exe"
+            .CustomNotes = "Online Testing"
+            .NiceName = "Zandronum"
         End With
 
         displayEngineList.Add(Engine1)
