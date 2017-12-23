@@ -7,10 +7,12 @@
         mc:Ignorable="d"
         Title="Configure Source Ports" Height="425.212" Width="451.907">
     <Grid Margin="0,0,0,-0.5" HorizontalAlignment="Left" Width="447" Height="398" VerticalAlignment="Top">
-        <ListView x:Name="ListSourcePorts" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424">
+        <ListView x:Name="ListSourcePorts" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424" ItemsSource="{Binding displayEngineList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Engine" DisplayMemberBinding="{Binding niceName}"/>
+                    <GridViewColumn Header="Notes" DisplayMemberBinding="{Binding customNotes}"/>
+                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding absolutePath}"/>
                 </GridView>
             </ListView.View>
         </ListView>

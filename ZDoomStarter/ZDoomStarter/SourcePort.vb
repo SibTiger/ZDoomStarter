@@ -1,9 +1,9 @@
 ﻿Public Class SourcePort
     ' Declarations and Initializations
     ' -------------------------------------------------
-    Dim absolutePath As String      ' Absolute path to that executable
-    Dim niceName As String          ' Name of that executable
-    Dim CustomNotes As String       ' Optional notes provided by the end-user
+    Public absolutePath As String      ' Absolute path to that executable
+    Public niceName As String          ' Name of that executable
+    Public customNotes As String       ' Optional notes provided by the end-user
     ' -------------------------------------------------
 
 
@@ -15,7 +15,7 @@
     Public Sub New()
         absolutePath = Nothing      ' Null Value
         niceName = Nothing          ' Null Value
-        CustomNotes = Nothing       ' Null Value
+        customNotes = Nothing       ' Null Value
     End Sub
 
 
@@ -29,6 +29,6 @@
                    note As String)
         absolutePath = path
         niceName = name
-        CustomNotes = note
+        customNotes = note
     End Sub
 End Class

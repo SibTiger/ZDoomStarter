@@ -1,6 +1,7 @@
 ﻿Public Class ConfigSourcePorts
     ' Declarations and Initializations
     ' -------------------------------------------------
+    Public displayEngineList As New List(Of SourcePort)
     ' -------------------------------------------------
 
 
@@ -8,7 +9,19 @@
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Public Sub Window_Load() Handles MyBase.Loaded
+        InitializeComponent()
 
+        Dim Engine1 As New SourcePort
+
+        With Engine1
+            .absolutePath = ".\ZDoom.exe"
+            .customNotes = "Optional Notes"
+            .niceName = "ZDoom"
+        End With
+
+        displayEngineList.Add(Engine1)
+
+        DataContext = Me
     End Sub
 
 
