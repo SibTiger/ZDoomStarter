@@ -1,14 +1,24 @@
 ﻿Public Class ConfigSourcePorts
     ' Declarations and Initializations
     ' -------------------------------------------------
-    Public Property displayEngineList As New List(Of SourcePort)
+    ' This list will hold all source port entries available to this program.
+    ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
+    ' naming scheme.
+    Public Property DisplayEngineList As New List(Of SourcePort)
+
+    ' Hold the index highlighted by the end-user from the ViewList UI component.
+    ' Default value will be '-1', this is to signify that nothing was selected.
+    Private viewListSelectedIndex As Int32 = -1
     ' -------------------------------------------------
+
+
 
 
     ' Window Load [EVENT: Form Load]
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Public Sub Window_Load() Handles MyBase.Loaded
+        ' Initialize the UI components within the window.
         InitializeComponent()
 
         Dim Engine1 As New SourcePort
@@ -26,22 +36,29 @@
             .NiceName = "Zandronum"
         End With
 
-        displayEngineList.Add(Engine1)
-        displayEngineList.Add(Engine2)
+        DisplayEngineList.Add(Engine1)
+        DisplayEngineList.Add(Engine2)
 
-
+        ' Update the data
         DataContext = Me
     End Sub
 
 
-    ' TODO Finish implementing this
-    ' Cache the list index and then use it when 'Remove' is requested.
-    ' References:
-    ' https://stackoverflow.com/questions/1367665/wpf-listview-selectionchanged-event
-    ' https://stackoverflow.com/questions/8693897/how-do-i-get-the-selecteditem-or-selectedindex-of-listview-in-vb-net
+
+
+    ' List Source Ports - Item Selected [EVENT]
+    ' ------------------------------------------
+    ' This function will be automatically called when the user clicks
+    ' an item from the ViewList.
+    ' When clicked, this will cache the index that was selected.  We may
+    ' use that index when the user clicks on the 'Remove' UI button.
     Private Sub ListSourcePorts_ItemSelected()
-        MsgBox("HIT!")
+        ' Update the cached index.
+        viewListSelectedIndex = ListSourcePorts.SelectedIndex
     End Sub
+
+
+
 
     ' UI ELEMENTS
     ' =================================================
