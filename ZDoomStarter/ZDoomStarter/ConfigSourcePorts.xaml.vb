@@ -197,6 +197,12 @@
     ' ------------------------------------------
     ' When clicked, this will allow the end-user to select an executable engine and add that to the list.
     Private Sub ButtonAdd_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAdd.Click
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim engineLocation As String    ' Absolute location of the source port
+        Dim engineName As String        ' Name of the executable
+        Dim userNotes As String         ' Custom notes regarding the executable
+        ' ----------------------------------
 
     End Sub
 End Class
