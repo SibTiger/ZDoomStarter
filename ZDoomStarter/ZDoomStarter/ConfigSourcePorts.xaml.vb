@@ -6,9 +6,12 @@
     ' naming scheme.
     Public Property DisplayEngineList As New List(Of SourcePort)
 
+    ' Default cached index value
+    Private cachedIndexDefault As Int32 = -1
+
     ' Hold the index highlighted by the end-user from the ViewList UI component.
     ' Default value will be '-1', this is to signify that nothing was selected.
-    Private viewListSelectedIndex As Int32 = -1
+    Private viewListSelectedIndex As Int32 = cachedIndexDefault
     ' -------------------------------------------------
 
 
@@ -36,11 +39,31 @@
             .NiceName = "Zandronum"
         End With
 
-        DisplayEngineList.Add(Engine1)
-        DisplayEngineList.Add(Engine2)
-
+        'DisplayEngineList.Add(Engine1)
+        'DisplayEngineList.Add(Engine2)
+        ListSourcePorts.Items.Add(Engine1)
+        ListSourcePorts.Items.Add(Engine2)
         ' Update the data
         DataContext = Me
+    End Sub
+
+
+
+
+    ' Render ViewList
+    ' ------------------------------------------
+    ' This function will populate the ViewList with the available
+    ' data provided from the List<T>.
+    ' -----------------------
+    ' Parameters:
+    '   availableData
+    '       List<T>(SourcePort)
+    '           A list of source ports that is available program.
+    Public Sub RenderViewList(availableData As List(Of SourcePort))
+        ' Scan through the list by its initial size to capture all the available source ports.
+        For Each i As SourcePort In availableData
+            ListSourcePorts.Items.Add(i)
+        Next
     End Sub
 
 
@@ -53,8 +76,20 @@
     ' When clicked, this will cache the index that was selected.  We may
     ' use that index when the user clicks on the 'Remove' UI button.
     Private Sub ListSourcePorts_ItemSelected()
-        ' Update the cached index.
+        ' Cache the selected index
         viewListSelectedIndex = ListSourcePorts.SelectedIndex
+    End Sub
+
+
+
+
+    ' Clear ViewList
+    ' ------------------------------------------
+    ' When called, this function will merely thrash all contents
+    ' within the ViewList.  This is primarily useful when updating
+    ' the list after modifications were requested.
+    Public Sub ClearDisplayList()
+        ListSourcePorts.Items.Clear()
     End Sub
 
 
@@ -92,7 +127,17 @@
     ' ------------------------------------------
     ' When clicked and an entry has been selected within the list, the entry (or row) will be thrashed off the array.
     Private Sub ButtonDelete_Click(sender As Object, e As RoutedEventArgs) Handles ButtonDelete.Click
+        If viewListSelectedIndex > cachedIndexDefault Then
+            ' Remove the item from the list as requested by the end-user
+            'DisplayEngineList.RemoveAt(viewListSelectedIndex)
 
+            ' Update the cached index to its default value.
+            viewListSelectedIndex = cachedIndexDefault
+            MsgBox("HIT!")
+            ' Initialize the UI components within the window.
+            InitializeComponent()
+            RenderViewList()
+        End If
     End Sub
 
 

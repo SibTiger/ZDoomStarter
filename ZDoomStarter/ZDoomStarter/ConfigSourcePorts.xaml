@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Configure Source Ports" Height="425.212" Width="451.907">
     <Grid Margin="0,0,0,-0.5" HorizontalAlignment="Left" Width="447" Height="398" VerticalAlignment="Top">
-        <ListView x:Name="ListSourcePorts" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424" ItemsSource="{Binding DisplayEngineList}" SelectionMode="Single" SelectionChanged="ListSourcePorts_ItemSelected" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <ListView x:Name="ListSourcePorts" HorizontalAlignment="Left" Height="100" Margin="10,153,0,0" VerticalAlignment="Top" Width="424" SelectionMode="Single" SelectionChanged="ListSourcePorts_ItemSelected" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Engine" DisplayMemberBinding="{Binding NiceName}"/>
