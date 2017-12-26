@@ -95,6 +95,33 @@
 
 
 
+    ' Delete Item in List
+    ' ------------------------------------------
+    ' This function will expunge an item from the list
+    ' -----------------------
+    ' Parameters:
+    '   itemIndex [Int32]
+    '       The index of the item to be expunged from the list.
+    '   dataList [List<T>(SourcePort)]
+    '       The list to be modified directly.
+    ' -----------------------
+    ' Output:
+    '   True = Error Occurred
+    '   False = Successful operation
+    Function ExpungeItem(itemIndex As Int32, dataList As List(Of SourcePort)) As Boolean
+        ' Make sure that the list size is exactly or greater than the index
+        ' selected.
+        If (dataList.Count >= itemIndex) Then
+            dataList.RemoveAt(itemIndex)    ' Expunge the item from the List<T>
+            Return False    ' Successful
+        End If
+
+        Return True         ' Error
+    End Function
+
+
+
+
     ' UI ELEMENTS
     ' =================================================
     ' =================================================
@@ -127,16 +154,24 @@
     ' ------------------------------------------
     ' When clicked and an entry has been selected within the list, the entry (or row) will be thrashed off the array.
     Private Sub ButtonDelete_Click(sender As Object, e As RoutedEventArgs) Handles ButtonDelete.Click
-        If viewListSelectedIndex > cachedIndexDefault Then
+        ' Make sure that /something/ from the ViewList was actually selected.
+        ' If nothing was selected or valid, then nothing is to be performed.
+        If (viewListSelectedIndex > cachedIndexDefault) Then
             ' Remove the item from the list as requested by the end-user
-            'DisplayEngineList.RemoveAt(viewListSelectedIndex)
+            If (Not ExpungeItem(viewListSelectedIndex, DisplayEngineList)) Then
+                ' If in case an error occurred, display an error message.
+                MessageBox.Show("UNABLE TO DELETE AT INDEX [ " + CStr(viewListSelectedIndex) + " ]!",
+                        "Delete Operation Failure")
+            End If
 
             ' Update the cached index to its default value.
             viewListSelectedIndex = cachedIndexDefault
-            MsgBox("HIT!")
-            ' Initialize the UI components within the window.
-            InitializeComponent()
-            RenderViewList()
+
+            ' Clear the ViewList UI Component
+            ClearDisplayList()
+
+            ' Regenerate the items for the ViewList
+            RenderViewList(DisplayEngineList)
         End If
     End Sub
 
