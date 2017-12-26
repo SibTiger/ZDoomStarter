@@ -24,6 +24,8 @@
         ' Initialize the UI components within the window.
         InitializeComponent()
 
+        ' TESTING REGION
+        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Dim Engine1 As New SourcePort
         Dim Engine2 As New SourcePort
 
@@ -43,6 +45,7 @@
         DisplayEngineList.Add(Engine2)
 
         RefreshViewList()
+        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     End Sub
 
 
