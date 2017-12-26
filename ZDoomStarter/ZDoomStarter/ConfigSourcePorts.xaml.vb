@@ -177,7 +177,9 @@
             If (ExpungeItem(viewListSelectedIndex, DisplayEngineList)) Then
                 ' If in case an error occurred, display an error message.
                 MessageBox.Show("UNABLE TO DELETE AT INDEX [ " + CStr(viewListSelectedIndex) + " ]!",
-                        "Delete Operation Failure")
+                        "Delete Operation Failure",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error)
             Else
                 ' Update the cached index to its default value.
                 viewListSelectedIndex = cachedIndexDefault
