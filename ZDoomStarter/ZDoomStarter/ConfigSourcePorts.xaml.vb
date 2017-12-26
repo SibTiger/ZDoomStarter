@@ -20,7 +20,7 @@
     ' Window Load [EVENT: Form Load]
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
-    Public Sub Window_Load() Handles MyBase.Loaded
+    Private Sub Window_Load() Handles MyBase.Loaded
         ' Initialize the UI components within the window.
         InitializeComponent()
 
@@ -39,12 +39,10 @@
             .NiceName = "Zandronum"
         End With
 
-        'DisplayEngineList.Add(Engine1)
-        'DisplayEngineList.Add(Engine2)
-        ListSourcePorts.Items.Add(Engine1)
-        ListSourcePorts.Items.Add(Engine2)
-        ' Update the data
-        DataContext = Me
+        DisplayEngineList.Add(Engine1)
+        DisplayEngineList.Add(Engine2)
+
+        RefreshViewList()
     End Sub
 
 
@@ -59,7 +57,7 @@
     '   availableData
     '       List<T>(SourcePort)
     '           A list of source ports that is available program.
-    Public Sub RenderViewList(availableData As List(Of SourcePort))
+    Private Sub RenderViewList(availableData As List(Of SourcePort))
         ' Scan through the list by its initial size to capture all the available source ports.
         For Each i As SourcePort In availableData
             ListSourcePorts.Items.Add(i)
@@ -88,7 +86,7 @@
     ' When called, this function will merely thrash all contents
     ' within the ViewList.  This is primarily useful when updating
     ' the list after modifications were requested.
-    Public Sub ClearDisplayList()
+    Private Sub ClearDisplayList()
         ListSourcePorts.Items.Clear()
     End Sub
 
@@ -108,7 +106,7 @@
     ' Output:
     '   True = Error Occurred
     '   False = Successful operation
-    Function ExpungeItem(itemIndex As Int32, dataList As List(Of SourcePort)) As Boolean
+    Private Function ExpungeItem(itemIndex As Int32, dataList As List(Of SourcePort)) As Boolean
         ' Make sure that the list size is exactly or greater than the index
         ' selected.
         If (dataList.Count >= itemIndex) Then
@@ -118,6 +116,21 @@
 
         Return True         ' Error
     End Function
+
+
+
+
+    ' Refresh ViewList
+    ' ------------------------------------------
+    ' This function will refresh the ViewList UI component with
+    ' the latest changes from the list.
+    Private Sub RefreshViewList()
+        ' Clear the ViewList UI Component
+        ClearDisplayList()
+
+        ' Regenerate the items for the ViewList
+        RenderViewList(DisplayEngineList)
+    End Sub
 
 
 
@@ -167,11 +180,8 @@
             ' Update the cached index to its default value.
             viewListSelectedIndex = cachedIndexDefault
 
-            ' Clear the ViewList UI Component
-            ClearDisplayList()
-
-            ' Regenerate the items for the ViewList
-            RenderViewList(DisplayEngineList)
+            ' Refresh the ViewList UI Component
+            RefreshViewList()
         End If
     End Sub
 
