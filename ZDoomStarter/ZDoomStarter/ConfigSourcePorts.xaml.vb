@@ -199,14 +199,4 @@
     Private Sub ButtonAdd_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAdd.Click
 
     End Sub
-
-
-
-
-    ' Source Ports Available [List Box]
-    ' ------------------------------------------
-    ' Displays all source ports available to this program; provided by the end-user (or through a configuration file or entity).
-    Private Sub ListView_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles ListSourcePorts.SelectionChanged
-
-    End Sub
 End Class
