@@ -174,18 +174,18 @@
         ' If nothing was selected or valid, then nothing is to be performed.
         If (viewListSelectedIndex > cachedIndexDefault) Then
             ' Remove the item from the list as requested by the end-user
-            If (Not ExpungeItem(viewListSelectedIndex, DisplayEngineList)) Then
+            If (ExpungeItem(viewListSelectedIndex, DisplayEngineList)) Then
                 ' If in case an error occurred, display an error message.
                 MessageBox.Show("UNABLE TO DELETE AT INDEX [ " + CStr(viewListSelectedIndex) + " ]!",
                         "Delete Operation Failure")
-            End If
+            Else
+                ' Update the cached index to its default value.
+                viewListSelectedIndex = cachedIndexDefault
 
-            ' Update the cached index to its default value.
-            viewListSelectedIndex = cachedIndexDefault
-
-            ' Refresh the ViewList UI Component
-            RefreshViewList()
-        End If
+                ' Refresh the ViewList UI Component
+                RefreshViewList()
+            End If  ' Expunge Operation
+        End If      ' If selection is valid
     End Sub
 
 
