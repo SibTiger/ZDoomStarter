@@ -212,7 +212,21 @@
         browseFileDialog.Filter = "Executable|*.exe"        ' Filter the search to only executables.
 
         ' Open the OpenFileDialog() browse window
-        Dim result? As Boolean = browseFileDialog.ShowDialog()  ' Open the Dialog box
+        Dim result As Boolean = browseFileDialog.ShowDialog()  ' Open the Dialog box
+
+        ' Test to make sure that the data was pulled successfully.
+        ' Usually this will fail ONLY if the user cancels within the dialog window.
+        If (Not (result = True)) Then
+            ' Display an error that the new item request was canceled or failed.
+            MessageBox.Show("Unable to add a new entry to the list!",
+                            "Add New Item Failure",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+
+            ' Immediately exit from this function.
+            Exit Sub
+        End If
+
         engineLocation = browseFileDialog.FileName              ' Save the absolute path
         ' Save the engine name
         engineName = CapitalizeFirstChar(System.IO.Path.GetFileNameWithoutExtension(browseFileDialog.SafeFileName))
