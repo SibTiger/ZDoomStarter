@@ -236,13 +236,21 @@
         ' Ask the user for custom notes regarding the engine
         ' For example: Testing, default, online testing, or whatever the user desires.
 
+        ' Yes, we are going to use the InputBox().  I know its old,
+        ' but it does exactly what we are looking for here.
+        userNotes = InputBox("(OPTIONAL) Add notes for this Source Port.  For example: Testing, netgames, single-player, etc...", "Add Customized Notes")
+
+        ' If incase the user added nothing, then insert something.
+        If (String.IsNullOrEmpty(userNotes)) Then
+            userNotes = "<<EMPTY>>"
+        End If
 
         ' ===================
 
         With newItem
             .AbsolutePath = engineLocation
             .NiceName = engineName
-            .CustomNotes = "DEFAULT"
+            .CustomNotes = userNotes
         End With
 
 
