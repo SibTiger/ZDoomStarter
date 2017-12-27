@@ -199,10 +199,83 @@
     Private Sub ButtonAdd_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAdd.Click
         ' Declarations and Initializations
         ' ----------------------------------
+        Dim newItem As New SourcePort       ' New entry to add into the list
         Dim engineLocation As String    ' Absolute location of the source port
         Dim engineName As String        ' Name of the executable
         Dim userNotes As String         ' Custom notes regarding the executable
+        Dim browseFileDialog As New _
+            Microsoft.Win32.OpenFileDialog() ' Create an instance of the OpenFileDialog
         ' ----------------------------------
 
+
+        ' Setup the properties for the OpenFileDialog() instance
+        browseFileDialog.Filter = "Executable|*.exe"        ' Filter the search to only executables.
+
+        ' Open the OpenFileDialog() browse window
+        Dim result? As Boolean = browseFileDialog.ShowDialog()  ' Open the Dialog box
+        engineLocation = browseFileDialog.FileName              ' Save the absolute path
+        ' Save the engine name
+        engineName = CapitalizeFirstChar(System.IO.Path.GetFileNameWithoutExtension(browseFileDialog.SafeFileName))
+
+        ' ===================
+
+        ' Ask the user for custom notes regarding the engine
+        ' For example: Testing, default, online testing, or whatever the user desires.
+
+
+        ' ===================
+
+        With newItem
+            .AbsolutePath = engineLocation
+            .NiceName = engineName
+            .CustomNotes = "DEFAULT"
+        End With
+
+
+        ' Add the new item to the List<T>
+        DisplayEngineList.Add(newItem)
+
+        ' Refresh the ViewList UI Component
+        RefreshViewList()
     End Sub
+
+
+
+
+    ' Capitalize First Char
+    ' ------------------------------------------
+    ' This function will take the requested string and capitalize the first character.
+    ' For example: "my dog loves to walk." --> "My dog loves to walk."
+    ' -----------------------
+    ' Parameters:
+    '   str [String]
+    '       The requested string that will have the first character capitalized.
+    ' -----------------------
+    ' Output:
+    '   String
+    '       The new string that contains the first capitalization.
+    '       NOTE: If the string is empty, null, or contains a space in the first char index, then
+    '           the string itself will be sent back with no modifications.
+    Private Function CapitalizeFirstChar(str As String) As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim charArr() As Char
+        ' ----------------------------------
+
+
+        ' First make sure that the string is not empty nor contains
+        ' whitespace at the first index of the string (array).
+        If (String.IsNullOrWhiteSpace(str)) Then
+            Return str  ' We can't do anything with this; return as-is.
+        End If
+
+        ' Convert the string to a char-array
+        charArr = str.ToCharArray
+
+        ' Capitalize the first character
+        charArr(0) = Char.ToUpper(charArr(0))
+
+        ' Return the character array (as a string).
+        Return New String(charArr)
+    End Function
 End Class
