@@ -1,7 +1,40 @@
 ﻿Class MainWindow
     ' Declarations and Initializations
     ' -------------------------------------------------
+    ' This list will hold all source port entries available to this program.
+    ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
+    ' naming scheme.
+    Public Property SourcePortList As New List(Of SourcePort)
     ' -------------------------------------------------
+
+
+
+    ' Window Load [EVENT: Form Load]
+    ' ------------------------------------------
+    ' This function will automatically execute once the window has been fully rendered
+    Private Sub Window_Load() Handles MyBase.Loaded
+        ' TESTING REGION
+        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Dim Engine1 As New SourcePort
+        Dim Engine2 As New SourcePort
+
+        With Engine1
+            .AbsolutePath = ".\ZDoom.exe"
+            .CustomNotes = "Optional Notes"
+            .NiceName = "ZDoom"
+        End With
+
+        With Engine2
+            .AbsolutePath = ".\Zandronum.exe"
+            .CustomNotes = "Online Testing"
+            .NiceName = "Zandronum"
+        End With
+
+        SourcePortList.Add(Engine1)
+        SourcePortList.Add(Engine2)
+        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    End Sub
+
 
 
 
@@ -28,7 +61,7 @@
     Private Sub ConfigureMenuSourcePorts_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuSourcePorts.Click
 
         ' Create the form instance
-        Dim newWindowInstance As New ConfigSourcePorts
+        Dim newWindowInstance As New ConfigSourcePorts(SourcePortList)
 
         ' Dim the parent window; visually show that it is not available
         '  for activity
@@ -42,6 +75,13 @@
         ' Restore the parent window's opacity setting; visually show
         '  that it Is Now active.
         Me.Opacity = 1.0        ' OPACITY EXPERIMENTAL ONLY
+
+        ' ===================================
+        ' ===================================
+
+        If (newWindowInstance.updateSourcePortList = True) Then
+            MsgBox("Save settings!")
+        End If
     End Sub
 
 

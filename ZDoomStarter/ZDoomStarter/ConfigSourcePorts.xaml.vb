@@ -12,8 +12,22 @@
     ' Hold the index highlighted by the end-user from the ViewList UI component.
     ' Default value will be '-1', this is to signify that nothing was selected.
     Private viewListSelectedIndex As Int32 = cachedIndexDefault
+
+    Public updateSourcePortList As New Boolean
     ' -------------------------------------------------
 
+
+
+
+    Public Sub New(ByVal sourcePortList As List(Of SourcePort))
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        DisplayEngineList = sourcePortList
+
+        RefreshViewList()
+    End Sub
 
 
 
@@ -21,30 +35,27 @@
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
-        ' Initialize the UI components within the window.
-        InitializeComponent()
-
         ' TESTING REGION
         ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Dim Engine1 As New SourcePort
-        Dim Engine2 As New SourcePort
+        'Dim Engine1 As New SourcePort
+        'Dim Engine2 As New SourcePort
 
-        With Engine1
-            .AbsolutePath = ".\ZDoom.exe"
-            .CustomNotes = "Optional Notes"
-            .NiceName = "ZDoom"
-        End With
+        'With Engine1
+        '.AbsolutePath = ".\ZDoom.exe"
+        '.CustomNotes = "Optional Notes"
+        '.NiceName = "ZDoom"
+        'End With
 
-        With Engine2
-            .AbsolutePath = ".\Zandronum.exe"
-            .CustomNotes = "Online Testing"
-            .NiceName = "Zandronum"
-        End With
+        'With Engine2
+        '.AbsolutePath = ".\Zandronum.exe"
+        '.CustomNotes = "Online Testing"
+        '.NiceName = "Zandronum"
+        'End With
 
-        DisplayEngineList.Add(Engine1)
-        DisplayEngineList.Add(Engine2)
+        'DisplayEngineList.Add(Engine1)
+        'DisplayEngineList.Add(Engine2)
 
-        RefreshViewList()
+        'RefreshViewList()
         ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     End Sub
 
@@ -150,6 +161,7 @@
     ' ------------------------------------------
     ' When clicked, this will merely close the configuration window and cancel all pending alterations.
     Private Sub ButtonCancel_Click(sender As Object, e As RoutedEventArgs) Handles ButtonCancel.Click
+        updateSourcePortList = False
         Close()     ' Close the child window
     End Sub
 
@@ -160,6 +172,7 @@
     ' ------------------------------------------
     ' When clicked, this will save all pending changes and close the configuration window.
     Private Sub ButtonOK_Click(sender As Object, e As RoutedEventArgs) Handles ButtonOK.Click
+        updateSourcePortList = True
         Close()     ' Close the child window
     End Sub
 
