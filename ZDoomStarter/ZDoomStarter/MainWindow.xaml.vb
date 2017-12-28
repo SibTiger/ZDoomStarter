@@ -79,8 +79,12 @@
         ' ===================================
         ' ===================================
 
+        ' When the user finishes with that window, determine if the source port list needs to be updated.
+        '   When true, update the source port list
+        '   When false, ignore all changes and keep the existing list as-is.
         If (newWindowInstance.updateSourcePortList = True) Then
-            MsgBox("Save settings!")
+            ' Update the source port
+            SourcePortList = newWindowInstance.DisplayEngineList
         End If
     End Sub
 

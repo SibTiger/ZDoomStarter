@@ -7,26 +7,39 @@
     Public Property DisplayEngineList As New List(Of SourcePort)
 
     ' Default cached index value
+    ' Default value will be '-1', this is to signify that nothing was selected.
     Private cachedIndexDefault As Int32 = -1
 
     ' Hold the index highlighted by the end-user from the ViewList UI component.
-    ' Default value will be '-1', this is to signify that nothing was selected.
     Private viewListSelectedIndex As Int32 = cachedIndexDefault
 
+    ' Exit flag; when the user clicks on either cancel or okay button, this variable will dictate rather
+    ' the source port list will be updated or remain as-is.
+    ' Meaning of the values:
+    '   Cancel = False
+    '       Nothing is updated
+    '   OK = True
+    '       Update the source port list
     Public updateSourcePortList As New Boolean
     ' -------------------------------------------------
 
 
 
 
+    ' Constructor Window
+    ' ------------------------------------------
+    ' This is the default constructor for this window.
+    ' This is ideal for transferring data from one end to another.
+    ' -----------------------
+    ' Parameters:
+    '   sourecePortList [List<T>(SourcePort)]
+    '       Holds all source ports available to this program as declared by the end-user
     Public Sub New(ByVal sourcePortList As List(Of SourcePort))
         ' This call is required by the designer.
         InitializeComponent()
 
-        ' Add any initialization after the InitializeComponent() call.
+        ' Use the incoming source port list for possible modification if needed.
         DisplayEngineList = sourcePortList
-
-        RefreshViewList()
     End Sub
 
 
@@ -35,28 +48,9 @@
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
-        ' TESTING REGION
-        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        'Dim Engine1 As New SourcePort
-        'Dim Engine2 As New SourcePort
-
-        'With Engine1
-        '.AbsolutePath = ".\ZDoom.exe"
-        '.CustomNotes = "Optional Notes"
-        '.NiceName = "ZDoom"
-        'End With
-
-        'With Engine2
-        '.AbsolutePath = ".\Zandronum.exe"
-        '.CustomNotes = "Online Testing"
-        '.NiceName = "Zandronum"
-        'End With
-
-        'DisplayEngineList.Add(Engine1)
-        'DisplayEngineList.Add(Engine2)
-
-        'RefreshViewList()
-        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ' Refresh the ViewList UI component
+        ' This will display the source ports available to this program.
+        RefreshViewList()
     End Sub
 
 
@@ -161,8 +155,8 @@
     ' ------------------------------------------
     ' When clicked, this will merely close the configuration window and cancel all pending alterations.
     Private Sub ButtonCancel_Click(sender As Object, e As RoutedEventArgs) Handles ButtonCancel.Click
-        updateSourcePortList = False
-        Close()     ' Close the child window
+        updateSourcePortList = False    ' Do not save source port list; keep the existing.
+        Close()                         ' Close the child window
     End Sub
 
 
@@ -172,8 +166,8 @@
     ' ------------------------------------------
     ' When clicked, this will save all pending changes and close the configuration window.
     Private Sub ButtonOK_Click(sender As Object, e As RoutedEventArgs) Handles ButtonOK.Click
-        updateSourcePortList = True
-        Close()     ' Close the child window
+        updateSourcePortList = True     ' Save the source port and overwrite the existing.
+        Close()                         ' Close the child window
     End Sub
 
 
@@ -212,7 +206,7 @@
     Private Sub ButtonAdd_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAdd.Click
         ' Declarations and Initializations
         ' ----------------------------------
-        Dim newItem As New SourcePort       ' New entry to add into the list
+        Dim newItem As New SourcePort   ' New entry to add into the list
         Dim engineLocation As String    ' Absolute location of the source port
         Dim engineName As String        ' Name of the executable
         Dim userNotes As String         ' Custom notes regarding the executable
@@ -260,10 +254,11 @@
 
         ' ===================
 
+        ' Populate the new information to the temporary list.
         With newItem
-            .AbsolutePath = engineLocation
-            .NiceName = engineName
-            .CustomNotes = userNotes
+            .AbsolutePath = engineLocation  ' Absolute path
+            .NiceName = engineName          ' Name of the engine
+            .CustomNotes = userNotes        ' Customary notes - if added
         End With
 
 
