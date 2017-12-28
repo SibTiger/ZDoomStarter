@@ -13,7 +13,7 @@
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
-        ' TESTING REGION
+        ' TESTING REGION -- SOURCE PORT LIST
         ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Dim Engine1 As New SourcePort
         Dim Engine2 As New SourcePort
@@ -33,6 +33,7 @@
         SourcePortList.Add(Engine1)
         SourcePortList.Add(Engine2)
         ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ' END OF SOURCE PORT LIST
     End Sub
 
 
