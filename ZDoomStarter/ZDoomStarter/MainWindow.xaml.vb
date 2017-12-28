@@ -83,7 +83,7 @@
         '   When true, update the source port list
         '   When false, ignore all changes and keep the existing list as-is.
         If (newWindowInstance.updateSourcePortList = True) Then
-            ' Update the source port
+            ' Update the source port list
             SourcePortList = newWindowInstance.DisplayEngineList
         End If
     End Sub
