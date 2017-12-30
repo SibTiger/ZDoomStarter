@@ -240,7 +240,8 @@
 
         ' Easter Egg
         If (engineName = My.Application.Info.AssemblyName) Then
-            ' Display an error that the new item request was canceled or failed.
+            ' Display easter egg message:
+            ' https://fud.community.services.support.microsoft.com/Fud/FileDownloadHandler.ashx?fid=f11faae2-c44a-4b98-8cba-3198ddab7cac
             MessageBox.Show("Something Happened",
                             "Something Happened",
                             MessageBoxButton.OK,
