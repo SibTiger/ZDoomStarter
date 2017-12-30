@@ -227,7 +227,7 @@
         feedback = InputBox("(OPTIONAL) Add notes for this Source Port.  For example: Testing, netgames, single-player, etc...",
                             "Add Customized Notes")
 
-        ' If incase the user does NOT provide any feedback, then insert a default value.
+        ' If in case the user does NOT provide any feedback, then insert a default value.
         If (String.IsNullOrEmpty(feedback)) Then
             feedback = defaultReturnValue
         End If
