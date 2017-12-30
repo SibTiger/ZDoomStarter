@@ -2,7 +2,7 @@
     ' Declarations and Initializations
     ' -------------------------------------------------
     ' Default cached index value
-    ' Default value will be '-1', this is to signify that nothing was selected.
+    ' The default value will signify that nothing was selected in the ViewList.
     Private cachedIndexDefault As Int32 = -1
 
     ' Hold the index highlighted by the end-user from the ViewList UI component.
@@ -15,6 +15,8 @@
     ' When available, this will hold the file's name that was selected by the end-user.
     ' This is only modified when the user selects a file.
     Private fileSafeName As String = Nothing
+
+    ' ----
     ' ----
 
     ' This list will hold all source port entries available to this program.
@@ -53,6 +55,7 @@
 
 
 
+
     ' Window Load [EVENT: Form Load]
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
@@ -73,7 +76,7 @@
     ' Parameters:
     '   availableData
     '       List<T>(SourcePort)
-    '           A list of source ports that is available program.
+    '           A list of source ports that is available to this program.
     Private Sub RenderViewList(availableData As List(Of SourcePort))
         ' Scan through the list by its initial size to capture all the available source ports.
         For Each i As SourcePort In availableData
@@ -171,9 +174,8 @@
         Dim filterSearch = "Executable|*.exe"   ' Used for limiting our search to only the selected extensions
         ' ----------------------------------
 
-
         ' Setup the properties for the OpenFileDialog() instance
-        browseFileDialog.Filter = filterSearch        ' Filter the search.
+        browseFileDialog.Filter = filterSearch              ' Filter the search.
 
         ' Open the OpenFileDialog() browse window
         If (browseFileDialog.ShowDialog()) Then
