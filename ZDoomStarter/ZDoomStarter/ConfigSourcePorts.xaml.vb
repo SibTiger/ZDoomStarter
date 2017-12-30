@@ -409,7 +409,6 @@
             .CustomNotes = userNotes        ' Customary notes - if added
         End With
 
-
         ' Add the new item to the List<T>
         DisplayEngineList.Add(newItem)
 
