@@ -1,17 +1,26 @@
 ﻿Public Class ConfigSourcePorts
     ' Declarations and Initializations
     ' -------------------------------------------------
-    ' This list will hold all source port entries available to this program.
-    ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
-    ' naming scheme.
-    Public Property DisplayEngineList As New List(Of SourcePort)
-
     ' Default cached index value
     ' Default value will be '-1', this is to signify that nothing was selected.
     Private cachedIndexDefault As Int32 = -1
 
     ' Hold the index highlighted by the end-user from the ViewList UI component.
     Private viewListSelectedIndex As Int32 = cachedIndexDefault
+
+    ' When available, this will hold the file's absolute path that was selected by the end-user.
+    ' This is only modified when the user selects a file.
+    Private fileAbsolutePath As String = Nothing
+
+    ' When available, this will hold the file's name that was selected by the end-user.
+    ' This is only modified when the user selects a file.
+    Private fileSafeName As String = Nothing
+    ' ----
+
+    ' This list will hold all source port entries available to this program.
+    ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
+    ' naming scheme.
+    Public Property DisplayEngineList As New List(Of SourcePort)
 
     ' Exit flag; when the user clicks on either cancel or okay button, this variable will dictate rather
     ' the source port list will be updated or remain as-is.
@@ -143,6 +152,93 @@
 
 
 
+    ' Browse UI Executable
+    ' ------------------------------------------
+    ' This function is dedicated for managing the Browsing Dialog Window.  When the user selects an '.exe' file, all information necessary is recorded in the appropriate variables:
+    ' fileAbsolutePath - Used for capturing the entire absolute path of the selected file.
+    ' fileSafeName - Used for capturing the name of the selected file.
+    ' -----------------------
+    ' Output:
+    '   Boolean
+    '       True: User canceled or an error occurred during the process.
+    '       False: User selected a file and all information is recorded and ready.
+    Private Function BrowseUIExecutable() As Boolean
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim browseFileDialog As New _
+            Microsoft.Win32.OpenFileDialog()    ' Create an instance of the OpenFileDialog
+
+        Dim filterSearch = "Executable|*.exe"   ' Used for limiting our search to only the selected extensions
+        ' ----------------------------------
+
+
+        ' Setup the properties for the OpenFileDialog() instance
+        browseFileDialog.Filter = filterSearch        ' Filter the search.
+
+        ' Open the OpenFileDialog() browse window
+        If (browseFileDialog.ShowDialog()) Then
+            ' Successful result
+            fileAbsolutePath = browseFileDialog.FileName    ' Selected file absolute path
+            fileSafeName = browseFileDialog.SafeFileName    ' Selected file name
+            Return True
+        Else
+            ' User Canceled or denied
+            ' Reset to nothing for assurance
+            fileAbsolutePath = Nothing
+            fileSafeName = Nothing
+            Return False
+        End If
+    End Function
+
+
+
+
+    ' Filter Name - Extension
+    ' ------------------------------------------
+    ' This function is dedicated to filtering the incoming file name by removing the file extension.
+    ' -----------------------
+    ' Parameters:
+    '   name [String]
+    '       Incoming file name to be filtered.
+    Private Function FilterNameExtension(fileName As String) As String
+        Return System.IO.Path.GetFileNameWithoutExtension(fileName)
+    End Function
+
+
+
+
+    ' Get User Notes
+    ' ------------------------------------------
+    ' This function is designed to get user notes regarding the selected file.
+    ' If the user provides no feedback whatsoever, then a default value will take place to assure some sort of data is being sent back.
+    ' -----------------------
+    ' Output:
+    '   String
+    '       Customized notes provided by the end-user.
+    Private Function GetUserNotes() As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim defaultReturnValue As String = "<<EMPTY>>"
+        Dim feedback As String
+        ' ----------------------------------
+
+        ' Yes, we are going to use the InputBox().  I know its old,
+        ' but it does exactly what we are looking for here.
+        feedback = InputBox("(OPTIONAL) Add notes for this Source Port.  For example: Testing, netgames, single-player, etc...",
+                            "Add Customized Notes")
+
+        ' If incase the user does NOT provide any feedback, then insert a default value.
+        If (String.IsNullOrEmpty(feedback)) Then
+            feedback = defaultReturnValue
+        End If
+
+        ' Return the notes back to the calling function
+        Return feedback
+    End Function
+
+
+
+
     ' UI ELEMENTS
     ' =================================================
     ' =================================================
@@ -210,20 +306,10 @@
         Dim engineLocation As String    ' Absolute location of the source port
         Dim engineName As String        ' Name of the executable
         Dim userNotes As String         ' Custom notes regarding the executable
-        Dim browseFileDialog As New _
-            Microsoft.Win32.OpenFileDialog() ' Create an instance of the OpenFileDialog
         ' ----------------------------------
 
-
-        ' Setup the properties for the OpenFileDialog() instance
-        browseFileDialog.Filter = "Executable|*.exe"        ' Filter the search to only executables.
-
-        ' Open the OpenFileDialog() browse window
-        Dim result As Boolean = browseFileDialog.ShowDialog()  ' Open the Dialog box
-
-        ' Test to make sure that the data was pulled successfully.
-        ' Usually this will fail ONLY if the user cancels within the dialog window.
-        If (Not (result = True)) Then
+        ' Determine if the user selected a file or the user canceled or an error occurred.
+        If (Not (BrowseUIExecutable())) Then
             ' Display an error that the new item request was canceled or failed.
             MessageBox.Show("Unable to add a new entry to the list!",
                             "Add New Item Failure",
@@ -232,16 +318,30 @@
 
             ' Immediately exit from this function.
             Exit Sub
+            ' Check to make sure that the necessary information is properly recorded and available for use.
+        ElseIf ((fileAbsolutePath = Nothing) Or
+            (fileSafeName = Nothing)) Then
+            ' Display an error that the necessary information was not available.
+            ' This should never really happen unless something horribly goes wrong.
+            MessageBox.Show("Information is missing or was never properly recorded!",
+                            "Add New Item Failure",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+
+            ' Immediately exit from this function.
+            Exit Sub
         End If
 
-        engineLocation = browseFileDialog.FileName              ' Save the absolute path
-        ' Save the engine name
-        engineName = CapitalizeFirstChar(System.IO.Path.GetFileNameWithoutExtension(browseFileDialog.SafeFileName))
+        ' Fetch the information necessary and prep the data so it can be in the list.
+        engineLocation = fileAbsolutePath       ' Save the absolute path
+
+        engineName = CapitalizeFirstChar(FilterNameExtension(fileSafeName))               ' Save the engine name [filtered]
 
         ' Easter Egg
+        ' If the selected file was this program, than immediately avoid further execution and opt-out.  But display the best, helpful, and verbose error message of all time.
+        ' https://fud.community.services.support.microsoft.com/Fud/FileDownloadHandler.ashx?fid=f11faae2-c44a-4b98-8cba-3198ddab7cac
         If (engineName = My.Application.Info.AssemblyName) Then
             ' Display easter egg message:
-            ' https://fud.community.services.support.microsoft.com/Fud/FileDownloadHandler.ashx?fid=f11faae2-c44a-4b98-8cba-3198ddab7cac
             MessageBox.Show("Something Happened",
                             "Something Happened",
                             MessageBoxButton.OK,
@@ -255,15 +355,7 @@
 
         ' Ask the user for custom notes regarding the engine
         ' For example: Testing, default, online testing, or whatever the user desires.
-
-        ' Yes, we are going to use the InputBox().  I know its old,
-        ' but it does exactly what we are looking for here.
-        userNotes = InputBox("(OPTIONAL) Add notes for this Source Port.  For example: Testing, netgames, single-player, etc...", "Add Customized Notes")
-
-        ' If incase the user added nothing, then insert something.
-        If (String.IsNullOrEmpty(userNotes)) Then
-            userNotes = "<<EMPTY>>"
-        End If
+        userNotes = GetUserNotes()
 
         ' ===================
 
