@@ -238,6 +238,18 @@
         ' Save the engine name
         engineName = CapitalizeFirstChar(System.IO.Path.GetFileNameWithoutExtension(browseFileDialog.SafeFileName))
 
+        ' Easter Egg
+        If (engineName = My.Application.Info.AssemblyName) Then
+            ' Display an error that the new item request was canceled or failed.
+            MessageBox.Show("Something Happened",
+                            "Something Happened",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+
+            ' Immediately exit from this function.
+            Exit Sub
+        End If
+
         ' ===================
 
         ' Ask the user for custom notes regarding the engine
