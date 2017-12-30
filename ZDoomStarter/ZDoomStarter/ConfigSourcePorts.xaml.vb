@@ -16,9 +16,6 @@
     ' This is only modified when the user selects a file.
     Private fileSafeName As String = Nothing
 
-    ' ----
-    ' ----
-
     ' This list will hold all source port entries available to this program.
     ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
     ' naming scheme.
@@ -159,7 +156,7 @@
     ' ------------------------------------------
     ' This function is dedicated for managing the Browsing Dialog Window.  When the user selects an '.exe' file, all information necessary is recorded in the appropriate variables:
     ' fileAbsolutePath - Used for capturing the entire absolute path of the selected file.
-    ' fileSafeName - Used for capturing the name of the selected file.
+    ' fileSafeName - Used for capturing the name of the selected file with extension applied.
     ' -----------------------
     ' Output:
     '   Boolean
@@ -226,8 +223,9 @@
 
         ' Yes, we are going to use the InputBox().  I know its old,
         ' but it does exactly what we are looking for here.
-        feedback = InputBox("(OPTIONAL) Add notes for this Source Port.  For example: Testing, netgames, single-player, etc...",
-                            "Add Customized Notes")
+        feedback = InputBox(
+            "(OPTIONAL) Add notes for this Source Port.  For example: Testing, netgames, single-player, etc...",
+            "Add Customized Notes")
 
         ' If in case the user does NOT provide any feedback, then insert a default value.
         If (String.IsNullOrEmpty(feedback)) Then
@@ -236,6 +234,45 @@
 
         ' Return the notes back to the calling function
         Return feedback
+    End Function
+
+
+
+
+    ' Capitalize First Char
+    ' ------------------------------------------
+    ' This function will take the requested string and capitalize the first character.
+    ' For example: "my dog loves to walk." --> "My dog loves to walk."
+    ' -----------------------
+    ' Parameters:
+    '   str [String]
+    '       The requested string that will have the first character capitalized.
+    ' -----------------------
+    ' Output:
+    '   String
+    '       The new string that contains the first capitalization.
+    '       NOTE: If the string is empty, null, or contains a space in the first char index, then
+    '           the string itself will be sent back with no modifications.
+    Private Function CapitalizeFirstChar(str As String) As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim charArr() As Char
+        ' ----------------------------------
+
+        ' First make sure that the string is not empty nor contains
+        ' whitespace at the first index of the string (array).
+        If (String.IsNullOrWhiteSpace(str)) Then
+            Return str  ' We can't do anything with this; return as-is.
+        End If
+
+        ' Convert the string to a char-array
+        charArr = str.ToCharArray
+
+        ' Capitalize the first character
+        charArr(0) = Char.ToUpper(charArr(0))
+
+        ' Return the character array (as a string).
+        Return New String(charArr)
     End Function
 
 
@@ -310,7 +347,7 @@
         Dim userNotes As String         ' Custom notes regarding the executable
         ' ----------------------------------
 
-        ' Determine if the user selected a file or the user canceled or an error occurred.
+        ' Determine if the user selected a file or the user canceled (or if an error occurred).
         If (BrowseUIExecutable()) Then
             ' Display an error that the new item request was canceled or failed.
             MessageBox.Show("Unable to add a new entry to the list!",
@@ -320,9 +357,11 @@
 
             ' Immediately exit from this function.
             Exit Sub
-            ' Check to make sure that the necessary information is properly recorded and available for use.
+
         ElseIf ((fileAbsolutePath = Nothing) Or
             (fileSafeName = Nothing)) Then
+            ' Check to make sure that the necessary information is properly recorded and available for use.
+
             ' Display an error that the necessary information was not available.
             ' This should never really happen unless something horribly goes wrong.
             MessageBox.Show("Information is missing or was never properly recorded!",
@@ -337,10 +376,12 @@
         ' Fetch the information necessary and prep the data so it can be in the list.
         engineLocation = fileAbsolutePath       ' Save the absolute path
 
-        engineName = CapitalizeFirstChar(FilterNameExtension(fileSafeName))               ' Save the engine name [filtered]
+        engineName = CapitalizeFirstChar(
+            FilterNameExtension(fileSafeName))  ' Save the engine name [filtered]
 
         ' Easter Egg
-        ' If the selected file was this program, than immediately avoid further execution and opt-out.  But display the best, helpful, and verbose error message of all time.
+        ' If the selected file was this program than immediately avoid further execution and opt-out.
+        '  But display the best, helpful, And verbose error message of all time!
         ' https://fud.community.services.support.microsoft.com/Fud/FileDownloadHandler.ashx?fid=f11faae2-c44a-4b98-8cba-3198ddab7cac
         If (engineName = My.Application.Info.AssemblyName) Then
             ' Display easter egg message:
@@ -375,44 +416,4 @@
         ' Refresh the ViewList UI Component
         RefreshViewList()
     End Sub
-
-
-
-
-    ' Capitalize First Char
-    ' ------------------------------------------
-    ' This function will take the requested string and capitalize the first character.
-    ' For example: "my dog loves to walk." --> "My dog loves to walk."
-    ' -----------------------
-    ' Parameters:
-    '   str [String]
-    '       The requested string that will have the first character capitalized.
-    ' -----------------------
-    ' Output:
-    '   String
-    '       The new string that contains the first capitalization.
-    '       NOTE: If the string is empty, null, or contains a space in the first char index, then
-    '           the string itself will be sent back with no modifications.
-    Private Function CapitalizeFirstChar(str As String) As String
-        ' Declarations and Initializations
-        ' ----------------------------------
-        Dim charArr() As Char
-        ' ----------------------------------
-
-
-        ' First make sure that the string is not empty nor contains
-        ' whitespace at the first index of the string (array).
-        If (String.IsNullOrWhiteSpace(str)) Then
-            Return str  ' We can't do anything with this; return as-is.
-        End If
-
-        ' Convert the string to a char-array
-        charArr = str.ToCharArray
-
-        ' Capitalize the first character
-        charArr(0) = Char.ToUpper(charArr(0))
-
-        ' Return the character array (as a string).
-        Return New String(charArr)
-    End Function
 End Class
