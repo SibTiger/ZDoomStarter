@@ -182,13 +182,13 @@
             ' Successful result
             fileAbsolutePath = browseFileDialog.FileName    ' Selected file absolute path
             fileSafeName = browseFileDialog.SafeFileName    ' Selected file name
-            Return True
+            Return False
         Else
             ' User Canceled or denied
             ' Reset to nothing for assurance
             fileAbsolutePath = Nothing
             fileSafeName = Nothing
-            Return False
+            Return True
         End If
     End Function
 
@@ -311,7 +311,7 @@
         ' ----------------------------------
 
         ' Determine if the user selected a file or the user canceled or an error occurred.
-        If (Not (BrowseUIExecutable())) Then
+        If (BrowseUIExecutable()) Then
             ' Display an error that the new item request was canceled or failed.
             MessageBox.Show("Unable to add a new entry to the list!",
                             "Add New Item Failure",
