@@ -47,7 +47,7 @@
         InitializeComponent()
 
         ' Use the incoming source port list for possible modification if needed.
-        DisplayEngineList = sourcePortList
+        DisplayEngineList = New List(Of SourcePort)(sourcePortList)
     End Sub
 
 
