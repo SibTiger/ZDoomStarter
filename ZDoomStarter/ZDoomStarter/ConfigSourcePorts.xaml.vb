@@ -10,8 +10,8 @@
 
 
 Public Class ConfigSourcePorts
-    ' Declarations and Initializations
-    ' -------------------------------------------------
+
+#Region "Declarations and Initializations"
     ' Default cached index value
     ' The default value will signify that nothing was selected in the ViewList.
     Private cachedIndexDefault As Int32 = -1
@@ -40,7 +40,7 @@ Public Class ConfigSourcePorts
     '   OK = True
     '       Update the source port list
     Public updateSourcePortList As New Boolean
-    ' -------------------------------------------------
+#End Region
 
 
 
