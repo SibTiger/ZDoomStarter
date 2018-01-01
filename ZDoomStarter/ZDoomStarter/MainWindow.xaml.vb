@@ -15,6 +15,11 @@ Class MainWindow
     ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
     ' naming scheme.
     Public Property SourcePortList As New List(Of SourcePort)
+
+    ' ----
+
+    ' This list will hold all IWAD entries available to this program.
+    Public Property IWADList As New List(Of IWAD)
 #End Region
 
 
@@ -24,8 +29,8 @@ Class MainWindow
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
-        ' TESTING REGION -- SOURCE PORT LIST
-        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#Region "TESTING: Source Port List"
+        ' Temporary Testing; remove when saving is possible
         Dim Engine1 As New SourcePort
         Dim Engine2 As New SourcePort
 
@@ -43,8 +48,8 @@ Class MainWindow
 
         SourcePortList.Add(Engine1)
         SourcePortList.Add(Engine2)
-        ' !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        ' END OF SOURCE PORT LIST
+#End Region
+
     End Sub
 
 
