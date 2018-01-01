@@ -1,4 +1,14 @@
-﻿Public Class SourcePort
+﻿' Source Port
+' ---------------------------------------
+' =======================================
+' This class is designed to hold basic information regarding the
+' source ports (executable) that is available to this program.
+' ---------------------------------------
+
+
+
+
+Public Class SourcePort
     ' Declarations and Initializations
     ' -------------------------------------------------
     Private _absolutePath As String      ' Absolute path to that executable
