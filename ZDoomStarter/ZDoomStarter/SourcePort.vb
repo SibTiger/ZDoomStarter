@@ -9,12 +9,11 @@
 
 
 Public Class SourcePort
-    ' Declarations and Initializations
-    ' -------------------------------------------------
+#Region "Declarations and Initializations"
     Private _absolutePath As String      ' Absolute path to that executable
     Private _niceName As String          ' Name of that executable
     Private _customNotes As String       ' Optional notes provided by the end-user
-    ' -------------------------------------------------
+#End Region
 
 
 
