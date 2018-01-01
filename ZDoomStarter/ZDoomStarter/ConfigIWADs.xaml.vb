@@ -301,6 +301,9 @@ Public Class ConfigIWADs
     ' =================================================
     ' =================================================
 
+
+
+
     ' Add Entry [BUTTON]
     ' ------------------------------------------
     ' When clicked, this will allow the end-user to select an IWAD file and add that to the list.
@@ -367,6 +370,9 @@ Public Class ConfigIWADs
         RefreshViewList()
     End Sub
 
+
+
+
     ' Expunge Entry [BUTTON]
     ' ------------------------------------------
     ' When clicked and an entry has been selected within the list, the entry (or row) will be thrashed off the array.
@@ -392,6 +398,8 @@ Public Class ConfigIWADs
     End Sub
 
 
+
+
     ' Okay [BUTTON]
     ' ------------------------------------------
     ' When clicked, this will save all pending changes and close the configuration window.
@@ -400,6 +408,9 @@ Public Class ConfigIWADs
         Close()                     ' Close the child window
     End Sub
 
+
+
+
     ' Cancel [BUTTON]
     ' ------------------------------------------
     ' When clicked, this will merely close the configuration window and cancel all pending alterations.
@@ -407,6 +418,8 @@ Public Class ConfigIWADs
         updateIWADList = False      'Do not save IWAD list; keep the existing.
         Close()                     ' Close the child window
     End Sub
+
+
 
 
     ' List IWAD - Item Selected [EVENT]
