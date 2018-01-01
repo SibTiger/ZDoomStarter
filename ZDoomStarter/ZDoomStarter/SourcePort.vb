@@ -22,9 +22,9 @@ Public Class SourcePort
     ' -------------------------------------------------
     ' The default constructor for this class; implicit values will be given once instantiated.
     Public Sub New()
-        _absolutePath = Nothing      ' Null Value
-        _niceName = Nothing          ' Null Value
-        _customNotes = Nothing       ' Null Value
+        _absolutePath = Nothing      ' Assign it as 'Nothing'
+        _niceName = Nothing          ' Assign it as 'Nothing'
+        _customNotes = Nothing       ' Assign it as 'Nothing'
     End Sub
 
 
