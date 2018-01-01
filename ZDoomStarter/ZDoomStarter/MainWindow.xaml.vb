@@ -130,7 +130,18 @@ Class MainWindow
     ' Configure File Menu: Configure IWAD's
     ' ------------------------------------------
     Private Sub ConfigureMenuIWADs_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuIWADs.Click
-        ' TODO: Implement this
+        ' Create the form instance
+        Dim newWindowInstance As New ConfigIWADs()
+
+        ' Dim the parent window; visually show that it is not available for activity
+        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+
+        ' This will open the desired window by will also change
+        ' focus from Parent to this new window instance
+        newWindowInstance.ShowDialog()
+
+        ' Restore the parent window's opacity setting; visually show that it is now active.
+        Me.Opacity = 1.0        ' OPACITY EXPERIEMENTAL ONLY
     End Sub
 
 
