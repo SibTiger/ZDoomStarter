@@ -1,11 +1,11 @@
 ﻿Class MainWindow
-    ' Declarations and Initializations
-    ' -------------------------------------------------
+#Region "Declarations and Initializations"
     ' This list will hold all source port entries available to this program.
     ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
     ' naming scheme.
     Public Property SourcePortList As New List(Of SourcePort)
-    ' -------------------------------------------------
+#End Region
+
 
 
 
