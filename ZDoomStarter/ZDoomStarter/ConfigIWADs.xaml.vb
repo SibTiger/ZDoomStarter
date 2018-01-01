@@ -62,8 +62,92 @@ Public Class ConfigIWADs
 
 
 
+    ' Window Load [EVENT: Form Load]
+    ' ------------------------------------------
+    ' This function will automatically execute once the window has been fully rendered
+    Private Sub Window_Load() Handles MyBase.Loaded
+        ' Refresh the ViewList UI component
+        ' This will display the source ports available to this program.
+        RefreshViewList()
+    End Sub
 
-    ' Browse UI Executable
+
+
+
+    ' Render ViewList
+    ' ------------------------------------------
+    ' This function will populate the ViewList with the available
+    ' data provided from the List<T>.
+    ' -----------------------
+    ' Parameters:
+    '   availableData
+    '       List<T>(IWAD)
+    '           A list of IWADs that is available to this program.
+    Private Sub RenderViewList(availableData As List(Of IWAD))
+        ' Scan through the list by its initial size to capture all the available IWADs.
+        For Each i As IWAD In availableData
+            ListIWADs.Items.Add(i)
+        Next
+    End Sub
+
+
+
+
+    ' Clear ViewList
+    ' ------------------------------------------
+    ' When called, this function will merely thrash all contents
+    ' within the ViewList.  This is primarily useful when updating
+    ' the list after modifications were requested.
+    Private Sub ClearDisplayList()
+        ListIWADs.Items.Clear()
+    End Sub
+
+
+
+
+    ' Refresh ViewList
+    ' ------------------------------------------
+    ' This function will refresh the ViewList UI component with
+    ' the latest changes from the list.
+    Private Sub RefreshViewList()
+        ' Clear the ViewList UI Component
+        ClearDisplayList()
+
+        ' Regenerate the items for the ViewList
+        RenderViewList(DisplayIWADList)
+    End Sub
+
+
+
+
+    ' Delete Item in List
+    ' ------------------------------------------
+    ' This function will expunge an item from the list
+    ' -----------------------
+    ' Parameters:
+    '   itemIndex [Int32]
+    '       The index of the item to be expunged from the list.
+    '   dataList [List<T>(IWAD)]
+    '       The list to be modified directly.
+    ' -----------------------
+    ' Output:
+    '   True = Error Occurred
+    '   False = Successful operation
+    Private Function ExpungeItem(itemIndex As Int32, dataList As List(Of IWAD)) As Boolean
+        ' Make sure that the list size is exactly or greater than the index
+        ' selected.
+        If (dataList.Count >= itemIndex) Then
+            dataList.RemoveAt(itemIndex)    ' Expunge the item from the List<T>
+            Return False    ' Successful
+        End If
+
+        Return True         ' Error
+    End Function
+
+
+
+
+    ' Browse UI IWAD
     ' ------------------------------------------
     ' This function is dedicated for managing the Browsing Dialog Window.  When the user selects an '.wad' (or other supported archives data files) file, all information necessary is recorded in the appropriate variables:
     ' fileAbsolutePath - Used for capturing the entire absolute path of the selected file.
@@ -79,13 +163,15 @@ Public Class ConfigIWADs
     '   > .ZIP
     '   > .PK3 [implies: .ZIP]
     '   > .IPK3 [implies: .ZIP]
+    '       (Open Conventional FileExt; in-house Standards)
     '   > .7z
     '   > .PK7 [implies: .7z]
     '   > .IPK7 [implies: .7z]
+    '       (Open Conventional FileExt; in-house Standards)
     '
     ' UNSUPPORTED:
     '   > Directories
-    '       I don't have much time on this project, I will not be able to quickly get this one finished at time.
+    '       I don't have much time on this project, I will not be able to quickly get this one finished in time.
     '   > Any File
     '       For sheer User-Friendliness and simplicity, I can not support this.  Not only is this vague to all files but and more importantly - this can confuse some end-users.
     '   
@@ -94,7 +180,7 @@ Public Class ConfigIWADs
     '   Boolean
     '       True: User canceled or an error occurred during the process.
     '       False: User selected a file and all information is recorded and ready.
-    Private Function BrowseUIExecutable() As Boolean
+    Private Function BrowseUIIWAD() As Boolean
         ' Declarations and Initializations
         ' ----------------------------------
         Dim browseFileDialog As New _
@@ -215,13 +301,97 @@ Public Class ConfigIWADs
     ' =================================================
     ' =================================================
 
+    ' Add Entry [BUTTON]
+    ' ------------------------------------------
+    ' When clicked, this will allow the end-user to select an IWAD file and add that to the list.
     Private Sub ButtonAdd_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAdd.Click
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim newItem As New IWAD     ' New entry to add into the list
+        Dim fileLocation As String  ' Absolute location of the file
+        Dim fileName As String      ' Name of the file
+        Dim userNotes As String     ' Custom notes regarding the file
+        ' ----------------------------------
 
+        ' Determine if the user selected a file or the user canceled (or if an error occurred).
+        If (BrowseUIIWAD()) Then
+            ' Display an error that the new item request was canceled or failed.
+            MessageBox.Show("Unable to add a new entry to the list!",
+                            "Add New Item Failure",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+
+            ' Immediately exit from this function.
+            Exit Sub
+
+        ElseIf ((fileAbsolutePath = Nothing) Or
+            (fileSafeName = Nothing)) Then
+            ' Check to make sure that the necessary information is properly recorded and available for use.
+
+            ' Display an error that the necessary information was not available.
+            ' This should never really happen unless something horribly goes wrong.
+            MessageBox.Show("Information is missing or was never properly recorded!",
+                            "Add New Item Failure",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+
+            ' Immediately exit from this function.
+            Exit Sub
+        End If
+
+        ' Fetch the information necessary and prep the data so it can be in the list.
+        fileLocation = fileAbsolutePath       ' Save the absolute path
+
+        fileName = CapitalizeFirstChar(
+            FilterNameExtension(fileSafeName))  ' Save the engine name [filtered]
+
+        ' ===================
+
+        ' Ask the user for custom notes regarding the IWAD file
+        ' For example: Doom II: Hell on Earth, WolfenBlade, My Ultra Cool IWAD, or whatever the user desires.
+        userNotes = GetUserNotes()
+
+        ' ===================
+
+        ' Populate the new information to the temporary list.
+        With newItem
+            .AbsolutePath = fileLocation  ' Absolute path
+            .NiceName = fileName          ' Name of the file
+            .CustomNotes = userNotes      ' Customary notes - if added
+        End With
+
+        ' Add the new item to the List<T>
+        DisplayIWADList.Add(newItem)
+
+        ' Refresh the ViewList UI Component
+        RefreshViewList()
     End Sub
 
+    ' Expunge Entry [BUTTON]
+    ' ------------------------------------------
+    ' When clicked and an entry has been selected within the list, the entry (or row) will be thrashed off the array.
     Private Sub ButtonDelete_Click(sender As Object, e As RoutedEventArgs) Handles ButtonDelete.Click
+        ' Make sure that /something/ from the ViewList was actually selected.
+        ' If nothing was selected or valid, then nothing is to be performed.
+        If (viewListSelectedIndex > cachedIndexDefault) Then
+            ' Remove the item from the list as requested by the end-user
+            If (ExpungeItem(viewListSelectedIndex, DisplayIWADList)) Then
+                ' If in case an error occurred, display an error message.
+                MessageBox.Show("UNABLE TO DELETE AT INDEX [ " + CStr(viewListSelectedIndex) + " ]!",
+                        "Delete Operation Failure",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error)
+            Else
+                ' Update the cached index to its default value.
+                viewListSelectedIndex = cachedIndexDefault
 
+                ' Refresh the ViewList UI Component
+                RefreshViewList()
+            End If  ' Expunge Operation
+        End If      ' If selection is valid
     End Sub
+
+
     ' Okay [BUTTON]
     ' ------------------------------------------
     ' When clicked, this will save all pending changes and close the configuration window.
