@@ -142,6 +142,17 @@ Class MainWindow
 
         ' Restore the parent window's opacity setting; visually show that it is now active.
         Me.Opacity = 1.0        ' OPACITY EXPERIEMENTAL ONLY
+
+        ' ===================================
+        ' ===================================
+
+        ' When the user finishes with that window, determine if the IWAD list needs to be updated.
+        '   When true, update the IWAD list
+        '   When false, ignore all changes and keep the existing list as-is.
+        If (newWindowInstance.updateIWADList = True) Then
+            ' Update the source port list
+            IWADList = newWindowInstance.DisplayIWADList
+        End If
     End Sub
 
 
