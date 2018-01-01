@@ -2,7 +2,7 @@
 ' ---------------------------------------
 ' =======================================
 ' This class is designed to hold basic information regarding the
-' IWAD' that is available to this program.
+' IWAD's that is available to this program.
 ' ---------------------------------------
 
 
