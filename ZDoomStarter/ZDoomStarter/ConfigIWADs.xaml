@@ -1,0 +1,28 @@
+﻿<Window x:Class="ConfigIWADs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZDoomStarter"
+        mc:Ignorable="d"
+        Title="ConfigIWADs" Height="425.212" Width="451.907">
+    <Grid>
+        <Label Content="Configure IWAD's" VerticalAlignment="Bottom" Margin="10,0,0,358" FontWeight="Bold" HorizontalAlignment="Left" Width="424"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="This configuration window will allow you to add or remove IWAD's available to this program.  When you add an IWAD to this program, you can then use that entry when you launch your game." VerticalAlignment="Top" Margin="10,41,0,0" Width="424"/>
+        <Separator HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" VerticalAlignment="Top" Width="424"/>
+        <ListView HorizontalAlignment="Left" Height="124" VerticalAlignment="Top" Width="424" Margin="10,122,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="IWAD" DisplayMemberBinding="{Binding NiceName}"/>
+                    <GridViewColumn Header="Notes" DisplayMemberBinding="{Binding CustomNotes}"/>
+                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding AbsolutePath}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ButtonAdd" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="75,261,0,0"/>
+        <Button x:Name="ButtonDelete" Content="Remove" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="278,261,0,0"/>
+        <Button x:Name="ButtonOK" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="112,342,0,0"/>
+        <Button x:Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="252,342,0,0"/>
+
+    </Grid>
+</Window>
