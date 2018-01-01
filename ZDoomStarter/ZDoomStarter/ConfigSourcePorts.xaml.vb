@@ -10,7 +10,6 @@
 
 
 Public Class ConfigSourcePorts
-
 #Region "Declarations and Initializations"
     ' Default cached index value
     ' The default value will signify that nothing was selected in the ViewList.
