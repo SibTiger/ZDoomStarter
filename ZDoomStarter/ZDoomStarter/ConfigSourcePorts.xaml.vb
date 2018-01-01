@@ -2,7 +2,7 @@
 ' ---------------------------------------
 ' =======================================
 ' This class is designed to allow the end-user to customize the
-' source ports list that this program is allowed To invoke.  With that,
+' source ports list that this program is allowed to invoke.  With that,
 ' the user can add or remove executables within the source port list.
 ' ---------------------------------------
 

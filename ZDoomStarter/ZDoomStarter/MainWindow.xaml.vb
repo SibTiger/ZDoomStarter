@@ -109,7 +109,7 @@ Class MainWindow
         newWindowInstance.ShowDialog()
 
         ' Restore the parent window's opacity setting; visually show
-        '  that it Is Now active.
+        '  that it is now active.
         Me.Opacity = 1.0        ' OPACITY EXPERIMENTAL ONLY
 
         ' ===================================
