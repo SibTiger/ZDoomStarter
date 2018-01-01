@@ -50,6 +50,25 @@ Class MainWindow
         SourcePortList.Add(Engine2)
 #End Region
 
+#Region "TESTING: IWAD List"
+        Dim IWAD1 As New IWAD
+        Dim IWAD2 As New IWAD
+
+        With IWAD1
+            .AbsolutePath = ".\ZDoom\IWAD\Doom2.wad"
+            .CustomNotes = "Doom 2: Hell on Earth"
+            .NiceName = "Doom II"
+        End With
+
+        With IWAD2
+            .AbsolutePath = ".\ZDoom\IWAD\Heretic.wad"
+            .CustomNotes = "Heretic: Shadow of the Serpent Riders"
+            .NiceName = "Heretic"
+        End With
+
+        IWADList.Add(IWAD1)
+        IWADList.Add(IWAD2)
+#End Region
     End Sub
 
 
