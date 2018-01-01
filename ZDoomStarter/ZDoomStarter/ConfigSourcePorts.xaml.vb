@@ -94,19 +94,6 @@ Public Class ConfigSourcePorts
 
 
 
-    ' List Source Ports - Item Selected [EVENT]
-    ' ------------------------------------------
-    ' This function will be automatically called when the user clicks
-    ' an item from the ViewList.
-    ' When clicked, this will cache the index that was selected.  We may
-    ' use that index when the user clicks on the 'Remove' UI button.
-    Private Sub ListSourcePorts_ItemSelected()
-        ' Cache the selected index
-        viewListSelectedIndex = ListSourcePorts.SelectedIndex
-    End Sub
-
-
-
 
     ' Clear ViewList
     ' ------------------------------------------
@@ -292,6 +279,20 @@ Public Class ConfigSourcePorts
     ' =================================================
     ' =================================================
     ' =================================================
+
+
+
+
+    ' List Source Ports - Item Selected [EVENT]
+    ' ------------------------------------------
+    ' This function will be automatically called when the user clicks
+    ' an item from the ViewList.
+    ' When clicked, this will cache the index that was selected.  We may
+    ' use that index when the user clicks on the 'Remove' UI button.
+    Private Sub ListSourcePorts_ItemSelected()
+        ' Cache the selected index
+        viewListSelectedIndex = ListSourcePorts.SelectedIndex
+    End Sub
 
 
 
