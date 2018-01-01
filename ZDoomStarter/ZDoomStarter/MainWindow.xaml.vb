@@ -131,7 +131,7 @@ Class MainWindow
     ' ------------------------------------------
     Private Sub ConfigureMenuIWADs_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuIWADs.Click
         ' Create the form instance
-        Dim newWindowInstance As New ConfigIWADs()
+        Dim newWindowInstance As New ConfigIWADs(IWADList)
 
         ' Dim the parent window; visually show that it is not available for activity
         Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
