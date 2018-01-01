@@ -50,7 +50,7 @@ Public Class ConfigSourcePorts
     ' This is ideal for transferring data from one end to another.
     ' -----------------------
     ' Parameters:
-    '   sourecePortList [List<T>(SourcePort)]
+    '   sourcePortList [List<T>(SourcePort)]
     '       Holds all source ports available to this program as declared by the end-user
     Public Sub New(ByVal sourcePortList As List(Of SourcePort))
         ' This call is required by the designer.
