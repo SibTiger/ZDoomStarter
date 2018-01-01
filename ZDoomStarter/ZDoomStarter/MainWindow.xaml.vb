@@ -1,4 +1,15 @@
-﻿Class MainWindow
+﻿' Main Window [UI]
+' ---------------------------------------
+' =======================================
+' This is our main entry point to this program.
+' This class is designed to allow the user to quickly setup and start
+' their game with minimal interaction as possible.
+' ---------------------------------------
+
+
+
+
+Class MainWindow
 #Region "Declarations and Initializations"
     ' This list will hold all source port entries available to this program.
     ' NOTE: Property (or {get; set;}) is adjacent to a function call, hence the different
