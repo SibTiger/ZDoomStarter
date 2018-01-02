@@ -90,9 +90,16 @@
     <Compile Include="ConfigIWADs.xaml.vb">
       <DependentUpon>ConfigIWADs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfigPWADPath.xaml.vb">
+      <DependentUpon>ConfigPWADPath.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IWAD.vb" />
     <Compile Include="SourcePort.vb" />
     <Page Include="ConfigIWADs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigPWADPath.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
