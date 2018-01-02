@@ -169,15 +169,6 @@ Public Class ConfigIWADs
     '       (Open Conventional FileExt; in-house Standards)
     '   > .7z
     '   > .PK7 [implies: .7z]
-    '   > .IPK7 [implies: .7z]
-    '       (Open Conventional FileExt; in-house Standards)
-    '
-    ' UNSUPPORTED:
-    '   > Directories
-    '       I don't have much time on this project, I will not be able to quickly get this one finished in time.
-    '   > Any File
-    '       For sheer User-Friendliness and simplicity, I can not support this.  Not only is this vague to all files but and more importantly - this can confuse some end-users.
-    '   
     ' -----------------------
     ' Output:
     '   Boolean
@@ -189,7 +180,7 @@ Public Class ConfigIWADs
         Dim browseFileDialog As New _
             Microsoft.Win32.OpenFileDialog()    ' Create an instance of the OpenFileDialog
 
-        Dim filterSearch = "IWAD File|*.wad; *.grp; *.rff; *pak; *.zip; *.pk3; *.ipk3; *.7z; *.pk7; *.ipk7"   ' Used for limiting our search to only the selected extensions
+        Dim filterSearch = "IWAD File|*.wad; *.ipk3; *.pk3; *.pk7; *.zip; *.7z; *.grp; *.rff; *pak;"   ' Used for limiting our search to only the selected extensions
         ' ----------------------------------
 
         ' Setup the properties for the OpenFileDialog() instance
