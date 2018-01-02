@@ -20,6 +20,11 @@ Class MainWindow
 
     ' This list will hold all IWAD entries available to this program.
     Public Property IWADList As New List(Of IWAD)
+
+    ' ----
+
+    ' This string will hold the PWAD directory that is available to this program.
+    Public Property PWADPath As String
 #End Region
 
 
@@ -68,6 +73,10 @@ Class MainWindow
 
         IWADList.Add(IWAD1)
         IWADList.Add(IWAD2)
+#End Region
+
+#Region "TESTING: PWAD Directory"
+        PWADPath = "C:\WADs"
 #End Region
     End Sub
 
