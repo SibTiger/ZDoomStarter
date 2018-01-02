@@ -399,7 +399,7 @@ Public Class ConfigSourcePorts
             MessageBox.Show("Something Happened",
                             "Something Happened",
                             MessageBoxButton.OK,
-                            MessageBoxImage.Error)
+                            MessageBoxImage.Exclamation)
 
             ' Immediately exit from this function.
             Exit Sub
