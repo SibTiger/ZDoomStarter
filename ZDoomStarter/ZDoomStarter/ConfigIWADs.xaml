@@ -8,7 +8,7 @@
         Title="Configure IWADs" Height="425.212" Width="451.907">
     <Grid>
         <Label Content="Configure IWAD's" VerticalAlignment="Bottom" Margin="10,0,0,358" FontWeight="Bold" HorizontalAlignment="Left" Width="424"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="This configuration window will allow you to add or remove IWAD's available to this program.  When you add an IWAD to this program, you can then use that entry when you launch your game." VerticalAlignment="Top" Margin="10,41,0,0" Width="424"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="This configuration window will allow you to add or remove IWADs available to this program.  When you add an IWAD to this program, you can then use that entry when you launch your game." VerticalAlignment="Top" Margin="10,41,0,0" Width="424"/>
         <Separator HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" VerticalAlignment="Top" Width="424"/>
         <ListView x:Name="ListIWADs" HorizontalAlignment="Left" Height="124" VerticalAlignment="Top" Width="424" Margin="10,122,0,0" SelectionChanged="ListView_SelectionChanged" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.View>
