@@ -2,8 +2,9 @@
 ' ---------------------------------------
 ' =======================================
 ' This class is designed to allow the end-user to customize the IWAD
-' list that this program is allowed to invoke.  With that, the user
-' can add or remove the IWAD's within the IWAD list.
+' list that this program is allowed to attach when invoking the
+' requested executable.  With that, the user can add or remove the
+' IWADs within the IWAD list.
 ' ---------------------------------------
 
 
