@@ -186,7 +186,7 @@ Public Class ConfigIWADs
         Dim browseFileDialog As New _
             Microsoft.Win32.OpenFileDialog()    ' Create an instance of the OpenFileDialog
 
-        Dim filterSearch = "WAD|*.wad, GRP|*.grp, RFF|*.rff, PAK|*.pak, ZIP|*.zip, PK3|*.pk3, IPK3|*.ipk3, 7z|*.7z, PK7|*.pk7, IPK7|*.ipk7"   ' Used for limiting our search to only the selected extensions
+        Dim filterSearch = "IWAD File|*.wad; *.grp; *.rff; *pak; *.zip; *.pk3; *.ipk3; *.7z; *.pk7; *.ipk7"   ' Used for limiting our search to only the selected extensions
         ' ----------------------------------
 
         ' Setup the properties for the OpenFileDialog() instance
