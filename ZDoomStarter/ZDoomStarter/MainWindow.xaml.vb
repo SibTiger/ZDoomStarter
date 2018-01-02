@@ -170,7 +170,12 @@ Class MainWindow
     ' Help File Menu: Allow the end-user to check for updates
     ' ------------------------------------------
     Private Sub HelpMenuUpdatesGitHub_Click(sender As Object, e As RoutedEventArgs)
-        ' TODO: Implement this
+        ' URL for updates
+        Dim updateURL As String = "https://github.com/SibTiger/ZDoomStarter/releases"
+
+        ' This will merely open a hyper-link to this project's Releases page on GitHub.
+        ' NOTE: This should use the end-user's default web-browser.
+        Process.Start(updateURL)
     End Sub
 
 
