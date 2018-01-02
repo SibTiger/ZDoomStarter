@@ -51,7 +51,7 @@ Public Class ConfigIWADs
     ' -----------------------
     ' Parameters:
     '   iwadList [List<T>(IWAD)]
-    '       HOlds all IWAD's available to this program as declared by the end-user.
+    '       Holds all IWADs available to this program as declared by the end-user.
     Public Sub New(ByVal iwadList As List(Of IWAD))
         ' This call is required by the designer.
         InitializeComponent()
@@ -68,7 +68,7 @@ Public Class ConfigIWADs
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
         ' Refresh the ViewList UI component
-        ' This will display the source ports available to this program.
+        ' This will display the IWADs available to this program.
         RefreshViewList()
     End Sub
 
@@ -150,7 +150,9 @@ Public Class ConfigIWADs
 
     ' Browse UI IWAD
     ' ------------------------------------------
-    ' This function is dedicated for managing the Browsing Dialog Window.  When the user selects an '.wad' (or other supported archives data files) file, all information necessary is recorded in the appropriate variables:
+    ' This function is dedicated for managing the Browsing Dialog Window.
+    '  When the user selects an '.wad' (or other supported archives data files) file,
+    '  all information necessary Is recorded In the appropriate variables:
     ' fileAbsolutePath - Used for capturing the entire absolute path of the selected file.
     ' fileSafeName - Used for capturing the name of the selected file with extension applied.
     ' ----
@@ -416,7 +418,7 @@ Public Class ConfigIWADs
     ' ------------------------------------------
     ' When clicked, this will merely close the configuration window and cancel all pending alterations.
     Private Sub ButtonCancel_Click(sender As Object, e As RoutedEventArgs) Handles ButtonCancel.Click
-        updateIWADList = False      'Do not save IWAD list; keep the existing.
+        updateIWADList = False      ' Do not save IWAD list; keep the existing.
         Close()                     ' Close the child window
     End Sub
 
