@@ -147,6 +147,9 @@ Public Class ConfigPWADPath
         If (SelectNewDirectory()) Then
             ' If the user selected a path, then save it
             PWADPath = newDirectoryRequest
+
+            ' Refresh the PWAD Directory TextBox
+            RefreshDirectory()
         Else
             ' If in case the request was denied or the user canceled,
             '   display a message stating that the change will not take place.
