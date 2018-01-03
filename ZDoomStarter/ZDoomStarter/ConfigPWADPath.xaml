@@ -10,7 +10,7 @@
         <Label Content="Configure PWADs Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="424" FontWeight="Bold"/>
         <TextBox HorizontalAlignment="Left" Height="91" TextWrapping="Wrap" VerticalAlignment="Top" Width="424" Margin="10,41,0,0" Text="When configured, this will allow you to easily go to the PWAD directory when setting up your games.  A PWAD allows you to customize and adds flavor to your games in many ways.  Some provide visual enhancement, high quality multimedia, more enemies or arsenal, or maybe just more maps than the original game. "/>
         <Separator HorizontalAlignment="Left" Height="16" Margin="10,137,0,0" VerticalAlignment="Top" Width="424"/>
-        <TextBox x:Name="TextBoxDirectoryPath" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="424" Margin="10,189,0,0" IsReadOnlyCaretVisible="True"/>
+        <TextBox x:Name="TextBoxDirectoryPath" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="424" Margin="10,189,0,0" IsReadOnlyCaretVisible="True" IsReadOnly="True" IsUndoEnabled="False"/>
         <Label Content="PWAD Directory:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,158,0,0" Width="424"/>
         <Button x:Name="ButtonBrowse" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="50,245,0,0"/>
         <Button x:Name="ButtonClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="295,245,0,0"/>
