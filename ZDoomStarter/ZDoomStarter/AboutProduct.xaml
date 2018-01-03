@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
-        Title="AboutProduct" Height="300" Width="300">
+        Title="AboutProduct" Height="300" Width="300" ResizeMode="NoResize">
     <Grid>
-        
+        <Image HorizontalAlignment="Left" Height="32" Margin="134,10,0,0" VerticalAlignment="Top" Width="32" Source="DoomSkull.ico"/>
+        <Label x:Name="LabelProductName" Content="Product Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,47,0,0" Width="272" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Separator HorizontalAlignment="Left" Height="16" Margin="10,78,0,0" VerticalAlignment="Top" Width="272"/>
+        <Label x:Name="LabelProductVersion" Content="Product Version" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,99,0,0" Width="272" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="LabelProductCopyright" Content="Product Copyright" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0" Width="272" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBlock x:Name="TextBlockProductDescription" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Margin="10,192,0,0" Height="67" Width="272"/>
+        <Label Content="Description:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,161,0,0" Width="272"/>
+
     </Grid>
 </Window>

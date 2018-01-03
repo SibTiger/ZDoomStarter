@@ -16,7 +16,10 @@ Public Class AboutProduct
     Private productVersion As String        ' Product Version
     Private productCopyright As String      ' Product Copyright
     Private productDescription As String    ' Product Description
+    Private Const authorName As String _
+        = "Nicholas ""Tiger"" Gautier"      ' Author; I tried to set this in the project properties, but I don't think it is possible.
 #End Region
+
 
 
 
@@ -39,8 +42,28 @@ Public Class AboutProduct
 
 
 
-    ' UI ELEMENTS
-    ' =================================================
-    ' =================================================
-    ' =================================================
+    ' Window Load [EVENT: Form Load]
+    ' ------------------------------------------
+    ' This function will automatically execute once the window has been fully rendered
+    Private Sub Window_Load() Handles MyBase.Loaded
+        ' Setup all of the UI components
+        LoadProductDetails()
+    End Sub
+
+
+
+
+    ' Load Product Details
+    ' ------------------------------------------
+    ' This function is dedicated to initializing labels and other UI components with product information and details.
+    Private Sub LoadProductDetails()
+        ' Product name with Author name
+        LabelProductName.Content = productName + " By " + authorName
+        ' Product version
+        LabelProductVersion.Content = "Version: " + productVersion
+        ' Product copyright
+        LabelProductCopyright.Content = productCopyright
+        ' Description
+        TextBlockProductDescription.Text = productDescription
+    End Sub
 End Class
