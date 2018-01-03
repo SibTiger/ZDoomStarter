@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
-        Title="Configure PWAD Directory" Height="300" Width="300">
+        Title="Configure PWAD Directory" Height="425.212" Width="451.907">
     <Grid>
-        <Label Content="Configure PWADs Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="272" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Height="50" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Margin="10,41,0,0" Text="When configured, this will allow you to easily go to the PWAD directory when setting up your games."/>
-        <Separator HorizontalAlignment="Left" Height="16" Margin="10,96,0,0" VerticalAlignment="Top" Width="272"/>
-        <TextBox x:Name="TxtDirectoryPath" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Margin="10,148,0,0" IsReadOnlyCaretVisible="True"/>
-        <Label Content="PWAD Directory:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,117,0,0" Width="272"/>
-        <Button Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="28,193,0,0"/>
-        <Button Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="186,193,0,0"/>
-        <Button Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="49,239,0,0"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="163,239,0,0"/>
+        <Label Content="Configure PWADs Directory" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="424" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Height="91" TextWrapping="Wrap" VerticalAlignment="Top" Width="424" Margin="10,41,0,0" Text="When configured, this will allow you to easily go to the PWAD directory when setting up your games.  A PWAD allows you to customize and adds flavor to your games in many ways.  Some provide visual enhancement, high quality multimedia, more enemies or arsenal, or maybe just more maps than the original game. "/>
+        <Separator HorizontalAlignment="Left" Height="16" Margin="10,137,0,0" VerticalAlignment="Top" Width="424"/>
+        <TextBox x:Name="TextBoxDirectoryPath" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="424" Margin="10,189,0,0" IsReadOnlyCaretVisible="True"/>
+        <Label Content="PWAD Directory:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,158,0,0" Width="424"/>
+        <Button x:Name="ButtonBrowse" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="50,245,0,0"/>
+        <Button x:Name="ButtonClear" Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="295,245,0,0"/>
+        <Button x:Name="ButtonOK" Content="OK" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="108,343,0,0"/>
+        <Button x:Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="245,343,0,0"/>
 
     </Grid>
 </Window>
