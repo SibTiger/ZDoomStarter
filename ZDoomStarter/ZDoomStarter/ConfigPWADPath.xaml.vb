@@ -16,7 +16,7 @@ Public Class ConfigPWADPath
     ' This will hold the current (and, if modified) PWAD directory
     '  This will be automatically set when this window is initialized; the
     '  parent window will set this variable in the New() function.
-    Public Property PWADDirectory As String
+    Public Property PWADPath As String
 
     ' Exit flag; when the user clicks on either cancel or okay
     ' button, this variable will dictate rather the PWAD path will
@@ -44,6 +44,9 @@ Public Class ConfigPWADPath
         ' This call is required by the designer.
         InitializeComponent()
 
+        ' Cache the PWAD Directory
+        PWADPath = pwadDirectory
+
         ' Update the TextBox that contains the PWAD path.
         RefreshDirectory()
     End Sub
@@ -64,15 +67,15 @@ Public Class ConfigPWADPath
         ' ---------------------------------
         ' First check to make sure that the string is not empty (or Nothing).
         ' If it is nothing or not set, then set it accordingly.
-        If PWADDirectory Is Nothing Then
+        If PWADPath Is Nothing Then
             ' If the text is 'Nothing'; provide something meaningful
             TextBoxDirectoryPath.Text = defaultEmptyMSG
-        ElseIf PWADDirectory Is "" Then
+        ElseIf PWADPath Is "" Then
             ' If the text is empty; provide something meaningful
             TextBoxDirectoryPath.Text = defaultEmptyMSG
         Else
             ' Provide the path as the text
-            TextBoxDirectoryPath.Text = PWADDirectory
+            TextBoxDirectoryPath.Text = PWADPath
         End If
     End Sub
 
@@ -103,8 +106,13 @@ Public Class ConfigPWADPath
     ' Clear Directory [Button]
     ' ------------------------------------------
     ' When clicked, this will clear the current PWAD directory location.
+    ' Once cleared, refresh the TextBox so the user is aware that it was changed.
     Private Sub ButtonClear_Click(sender As Object, e As RoutedEventArgs) Handles ButtonClear.Click
-        PWADDirectory = Nothing
+        ' Set the directory to 'Nothing'.
+        PWADPath = Nothing
+
+        ' Refresh the text box
+        RefreshDirectory()
     End Sub
 
 

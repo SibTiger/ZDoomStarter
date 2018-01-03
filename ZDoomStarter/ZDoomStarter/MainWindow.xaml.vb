@@ -194,7 +194,7 @@ Class MainWindow
         '   When false, ignore all changes and keep the existing path.
         If (newWindowInstance.updatePWADPath = True) Then
             ' Update the PWAD Directory
-            PWADPath = newWindowInstance.PWADDirectory
+            PWADPath = newWindowInstance.PWADPath
         End If
     End Sub
 
