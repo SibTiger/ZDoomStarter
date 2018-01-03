@@ -170,7 +170,32 @@ Class MainWindow
     ' Configure File Menu: Configure PWAD Directory Path
     ' ------------------------------------------
     Private Sub ConfigureMenuPWADsDir_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuPWADsDir.Click
-        ' TODO: Implement this
+        ' Create the form instance
+        Dim newWindowInstance As New ConfigPWADPath(PWADPath)
+
+        ' Dim the parent window; visually show that it is not available for activity.
+        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+
+        ' This will open the desired window but will
+        '   also change focus from Parent to this new
+        '   window instance.
+        newWindowInstance.ShowDialog()
+
+        ' Restore the parent window's opacity setting;
+        '   visually show that it is now active.
+        Me.Opacity = 1.0        ' OPACITY EXPERIEMNTAL ONLY
+
+        ' ===================================
+        ' ===================================
+
+        ' When the user finishes with that window,
+        ' determine if the Then source port list needs To be updated.
+        '   When true, update the PWAD Directory.
+        '   When false, ignore all changes and keep the existing path.
+        If (newWindowInstance.updatePWADPath = True) Then
+            ' Update the PWAD Directory
+            PWADPath = newWindowInstance.PWADDirectory
+        End If
     End Sub
 
 
