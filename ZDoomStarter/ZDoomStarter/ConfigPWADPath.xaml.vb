@@ -65,6 +65,7 @@ Public Class ConfigPWADPath
         ' ---------------------------------
         Dim defaultEmptyMSG As String = "<< empty >>"
         ' ---------------------------------
+
         ' First check to make sure that the string is not empty (or Nothing).
         ' If it is nothing or not set, then set it accordingly.
         If PWADPath Is Nothing Then
@@ -72,6 +73,8 @@ Public Class ConfigPWADPath
             TextBoxDirectoryPath.Text = defaultEmptyMSG
         ElseIf PWADPath Is "" Then
             ' If the text is empty; provide something meaningful
+            ' Technically, this shouldn't really happen - but support it
+            '  just in case.
             TextBoxDirectoryPath.Text = defaultEmptyMSG
         Else
             ' Provide the path as the text
