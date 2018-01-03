@@ -13,6 +13,10 @@
 
 Public Class ConfigPWADPath
 #Region "Declarations and Initializations"
+    ' This will be available and set when the user selects a new directory that
+    ' holds the user's PWAD resources.  This variable is only meant for caching data, but not permanent storage.
+    Private newDirectoryRequest As String
+
     ' This will hold the current (and, if modified) PWAD directory
     '  This will be automatically set when this window is initialized; the
     '  parent window will set this variable in the New() function.
@@ -85,6 +89,45 @@ Public Class ConfigPWADPath
 
 
 
+    ' Select New Directory
+    ' ------------------------------------------
+    ' This function will allow the end-user to select a new directory that houses their PWADs.  When a new path has been selected, this function will store that path into a temporary variable for other member functions to utilize.  That information is understood to be available when this function returns 'True' to the calling function.  When nothing is selected, no data is kept - but returns 'False'
+    ' ----
+    ' DEPENDENCY NOTE:
+    '   Because WPF does NOT include an folder browser dialog, like with OpenFileDialog(),
+    '   we will have To use the FolderBrowserDialog() from the Forms.
+    '   More information is provided here:
+    '   https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/walkthrough-hosting-a-windows-forms-control-in-wpf-by-using-xaml
+    '   REFERENCES REQUIRED:
+    '       >> WindowsFormIntegration
+    '       >> System.Windows.Forms
+    ' -----------------------
+    ' Output:
+    '   Boolean
+    '       True = A valid directory has been chosen and cached for future use.
+    '       False = No directory was selected, thus no data is available for use.
+    Function SelectNewDirectory() As Boolean
+        ' Declarations and Initializations
+        ' ---------------------------------
+        ' WARNING: REFERENCES
+        Dim directoryBrowser As New System.Windows.Forms.FolderBrowserDialog()
+        ' ---------------------------------
+
+        If (directoryBrowser.ShowDialog() = System.Windows.Forms.DialogResult.OK) Then
+            ' If the user selected a path, then save it
+            newDirectoryRequest = directoryBrowser.SelectedPath
+
+            Return True
+        Else
+            newDirectoryRequest = Nothing
+
+            Return False
+        End If
+    End Function
+
+
+
+
     ' UI ELEMENTS
     ' =================================================
     ' =================================================
@@ -100,7 +143,18 @@ Public Class ConfigPWADPath
     ' the user to easily customize their game; without this, the 
     ' inconvenience could deter the user away.
     Private Sub ButtonBrowse_Click(sender As Object, e As RoutedEventArgs) Handles ButtonBrowse.Click
-
+        ' Ask the user for the directory and check to see if anything was selected.
+        If (SelectNewDirectory()) Then
+            ' If the user selected a path, then save it
+            PWADPath = newDirectoryRequest
+        Else
+            ' If in case the request was denied or the user canceled,
+            '   display a message stating that the change will not take place.
+            MessageBox.Show("Unable to change PWAD Directory!",
+                            "Change PWAD Directory Failure",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+        End If
     End Sub
 
 
