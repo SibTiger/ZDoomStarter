@@ -218,6 +218,19 @@ Class MainWindow
     ' Help File Menu: Display software information
     ' ------------------------------------------
     Private Sub HelpMenuAbout_Click(sender As Object, e As RoutedEventArgs)
-        ' TODO: Implement this
+        ' Create the form instance
+        Dim newWindowInstance As New AboutProduct()
+
+        ' Dim the parent window; visually show that it is not available for activity.
+        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+
+        ' This will open the desired window but will
+        '   also change focus from Parent to this new
+        '   window instance.
+        newWindowInstance.ShowDialog()
+
+        ' Restore the parent window's opacity setting;
+        '   visually show that it is now active.
+        Me.Opacity = 1.0        ' OPACITY EXPERIEMNTAL ONLY
     End Sub
 End Class
