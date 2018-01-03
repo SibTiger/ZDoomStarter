@@ -92,6 +92,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutProduct.xaml.vb">
+      <DependentUpon>AboutProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ConfigIWADs.xaml.vb">
       <DependentUpon>ConfigIWADs.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
     </Compile>
     <Compile Include="IWAD.vb" />
     <Compile Include="SourcePort.vb" />
+    <Page Include="AboutProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ConfigIWADs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
