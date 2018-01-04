@@ -78,6 +78,65 @@ Class MainWindow
 #Region "TESTING: PWAD Directory"
         PWADPath = "C:\WADs"
 #End Region
+
+        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
+        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName + "\\Source Port")
+        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName + "\\IWAD")
+        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
+        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
+        'My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", "AHH")
+        ' ----
+        'MsgBox(CStr(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", Nothing)))
+        'My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", "ASDF")
+        'MsgBox(CStr(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", Nothing)))
+        'My.Computer.Registry.CurrentUser.OpenSubKey("Software\ZDoom Starter", True).DeleteValue("Test")
+        'My.Computer.Registry.CurrentUser.DeleteSubKey("Software\ZDoom Starter")
+    End Sub
+
+
+
+
+    ' Window Exit
+    ' ------------------------------------------
+    ' This function will automatically be called once the main program is terminating.
+    Private Sub Window_Exit()
+        ' Save the user's settings to the Windows Registry
+        SaveRegistryKeys()
+    End Sub
+
+
+
+
+    ' Read Windows Registry Keys
+    ' ------------------------------------------
+    ' This function is dedicated to retrieving the user's previously saved
+    ' settings And store them in this program's environment.
+    Private Sub ReadRegistryKeys()
+
+    End Sub
+
+
+
+
+    ' Save Windows Registry Keys
+    ' ------------------------------------------
+    ' This function is dedicated to saving the user's current settings into the
+    ' Windows Registry for later use.
+    Private Sub SaveRegistryKeys()
+
+    End Sub
+
+
+
+
+    ' Delete Windows Registry Keys
+    ' ------------------------------------------
+    ' This function is dedicated to deleting the User's previously stored settings
+    ' in the Windows Registry.  When doing this, all settings will be reset to
+    ' their Default values.
+    Private Sub DeleteRegistryKeys()
+        ' Delete the SubKey.  With deleting the SubKey, all other entries inside are deleted as well.
+        My.Computer.Registry.CurrentUser.DeleteSubKey("Software\ZDoom Starter")
     End Sub
 
 
@@ -87,6 +146,7 @@ Class MainWindow
     ' =================================================
     ' =================================================
     ' =================================================
+
 
 
 
