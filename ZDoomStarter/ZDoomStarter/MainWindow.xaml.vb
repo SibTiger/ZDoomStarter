@@ -139,6 +139,42 @@ Class MainWindow
         ' If the root does not exist, then there is nothing to be done.
         If (Not (My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, False) Is Nothing)) Then
 
+            ' Capture the PWAD directory
+            PWADPath = My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, False).GetValue("PWADPath")
+
+            ' SOURCE PORT
+            ' **************************************
+
+            ' Retrieve the Source Port list size
+            Dim engineListSize As Int32 =
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue("Size")
+
+            ' Check to make sure that there exists at least one engine within the list.
+            ' If in case there is no engine provided within the list, then we will skip it.
+            If (engineListSize > 0) Then
+                Dim cacheData As SourcePort         ' This will be used to move data from the registry to the List<>.
+                MsgBox("adf")
+                ' Scan through the registry and retrieve the necessary data
+                For i As Integer = 0 To (engineListSize - 1)
+                    ' Capture the data from the Registry and cache it
+                    With cacheData
+                        MsgBox("Hit")
+                        ' Capture Nice Name
+                        .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "NiceName")
+                        ' Capture Custom Notes
+                        .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "CustomNotes")
+                        ' Capture Absolute Path
+                        .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "AbsolutePath")
+                    End With
+
+                    ' Insert the cache data and add it to our list.
+                    SourcePortList.Add(cacheData)
+
+                    For Each k As SourcePort In SourcePortList
+                        MsgBox(k.NiceName)
+                    Next
+                Next
+            End If
         End If
     End Sub
 
