@@ -152,27 +152,36 @@ Class MainWindow
             ' Check to make sure that there exists at least one engine within the list.
             ' If in case there is no engine provided within the list, then we will skip it.
             If (engineListSize > 0) Then
-                Dim cacheData As New SourcePort         ' This will be used to move data from the registry to the List<>.
 
                 ' Scan through the registry and retrieve the necessary data
                 For i As Integer = 0 To (engineListSize - 1)
-
                     ' Capture the data from the Registry and cache it
-                    With cacheData
-                        ' Capture Nice Name
-                        .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "NiceName")
-                        ' Capture Custom Notes
-                        .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "CustomNotes")
-                        ' Capture Absolute Path
-                        .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "AbsolutePath")
-                    End With
-
                     ' Insert the cache data and add it to our list.
-                    SourcePortList.Add(cacheData)
+                    SourcePortList.Add(New SourcePort() With {
+                        .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "NiceName"),
+                        .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "CustomNotes"),
+                        .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "AbsolutePath")
+                    })
+                Next
+            End If
 
-                    For Each k As SourcePort In SourcePortList
-                        MsgBox(k.NiceName)
-                    Next
+            ' IWAD GAME DATA
+            ' **************************************
+
+            ' Retrieve the IWAD list size
+            Dim gameDataListSize As Int32 = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue("Size")
+
+            ' Check to make sure that there exists at least one IWAD within the list.
+            ' If in case there is no IWAD provided within the list, then we will skip it.
+            If (gameDataListSize > 0) Then
+
+                ' Scan through the registry and retrieve the necessary data
+                For i As Integer = 0 To (gameDataListSize - 1)
+                    IWADList.Add(New IWAD() With {
+                        .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "NiceName"),
+                        .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "CustomNotes"),
+                        .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "AbsolutePath")
+                                 })
                 Next
             End If
         End If
