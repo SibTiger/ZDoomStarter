@@ -28,7 +28,7 @@
                 <MenuItem x:Name="ConfigureMenuPWADsDir" Header="PWAD's Directory"/>
             </MenuItem>
             <MenuItem x:Name="HelpMenu" Header="Help">
-                <MenuItem x:Name="HelpMenuWikiGitHub" Header="View Wiki [Github]" Click="HelpMenuWikiGitHub_Click"/>
+                <MenuItem x:Name="HelpMenuWikiGitHub" Header="View Wiki [GitHub]" Click="HelpMenuWikiGitHub_Click"/>
                 <Separator HorizontalAlignment="Left" Height="0" Width="175" RenderTransformOrigin="0.5,0.5">
                     <Separator.RenderTransform>
                         <TransformGroup>
@@ -39,8 +39,8 @@
                         </TransformGroup>
                     </Separator.RenderTransform>
                 </Separator>
-                <MenuItem x:Name="HelpMenuUpdatesGitHub" Header="Updates [Github]" Click="HelpMenuUpdatesGitHub_Click"/>
-                <MenuItem x:Name="HelpMenuReportIssueGitHub" Header="Report issue [Github]" Click="HelpMenuReportIssueGitHub_Click"/>
+                <MenuItem x:Name="HelpMenuUpdatesGitHub" Header="Updates [GitHub]" Click="HelpMenuUpdatesGitHub_Click"/>
+                <MenuItem x:Name="HelpMenuReportIssueGitHub" Header="Report issue [GitHub]" Click="HelpMenuReportIssueGitHub_Click"/>
                 <Separator HorizontalAlignment="Left" Height="0" Width="175" RenderTransformOrigin="0.5,0.5">
                     <Separator.RenderTransform>
                         <TransformGroup>
