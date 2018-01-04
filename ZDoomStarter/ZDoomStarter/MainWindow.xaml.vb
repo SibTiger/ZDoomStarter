@@ -58,61 +58,7 @@ Class MainWindow
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
-        'LoadHardCodeTest()
         ReadRegistryKeys()
-    End Sub
-
-
-
-    ' TEMPORARY: Load Hardcoded Test Values
-    ' ----------------------------------------
-    ' This function is only temporary and will be removed once the load and
-    ' save functionality is finalized.
-    Private Sub LoadHardCodeTest()
-#Region "TESTING: Source Port List"
-        ' Temporary Testing; remove when saving is possible
-        Dim Engine1 As New SourcePort
-        Dim Engine2 As New SourcePort
-
-        With Engine1
-            .AbsolutePath = ".\ZDoom.exe"
-            .CustomNotes = "Optional Notes"
-            .NiceName = "ZDoom"
-        End With
-
-        With Engine2
-            .AbsolutePath = ".\Zandronum.exe"
-            .CustomNotes = "Online Testing"
-            .NiceName = "Zandronum"
-        End With
-
-        SourcePortList.Add(Engine1)
-        SourcePortList.Add(Engine2)
-#End Region
-
-#Region "TESTING: IWAD List"
-        Dim IWAD1 As New IWAD
-        Dim IWAD2 As New IWAD
-
-        With IWAD1
-            .AbsolutePath = ".\ZDoom\IWAD\Doom2.wad"
-            .CustomNotes = "Doom 2: Hell on Earth"
-            .NiceName = "Doom II"
-        End With
-
-        With IWAD2
-            .AbsolutePath = ".\ZDoom\IWAD\Heretic.wad"
-            .CustomNotes = "Heretic: Shadow of the Serpent Riders"
-            .NiceName = "Heretic"
-        End With
-
-        IWADList.Add(IWAD1)
-        IWADList.Add(IWAD2)
-#End Region
-
-#Region "TESTING: PWAD Directory"
-        PWADPath = "C:\WADs"
-#End Region
     End Sub
 
 
