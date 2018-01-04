@@ -124,7 +124,14 @@ Class MainWindow
     ' This function is dedicated to retrieving the user's previously saved
     ' settings And store them in this program's environment.
     Private Sub ReadRegistryKeys()
-
+        ' Check to see if there is any data in the registry, we do this by checking if the root SubKey exists.
+        ' If the root exists, then we know that user configuration might be available for use.
+        ' If the root does not exist, then there is nothing to be done.
+        If (Not (My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, False) Is Nothing)) Then
+            MsgBox("Found")
+        Else
+            MsgBox("Nothing available")
+        End If
     End Sub
 
 
@@ -148,9 +155,6 @@ Class MainWindow
 
         ' Provide the program version that last wrote to the Registry.
         My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("Version", My.Application.Info.Version)
-
-        ' Set the firstRun; this will signify rather or not there is any user saved presets.
-        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("FirstRun", "false")
 
         ' Store the PWAD Directory
         My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("PWADPath", PWADPath)
