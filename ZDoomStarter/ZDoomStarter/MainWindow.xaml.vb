@@ -171,10 +171,11 @@ Class MainWindow
 
         ' SOURCE PORT
         ' **************************************
+        ' First, record the size of the list for proper loading during the next load.
+        My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue("Size", SourcePortList.Count)
+
         If (SourcePortList.Count > 0) Then
             ' If there exists Source Port entries, then we will record each engine and the information.
-            ' First, record the size of the list for proper loading during the next load.
-            My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue("Size", SourcePortList.Count)
 
             ' Mirror the data to the registry
             For Each i In SourcePortList
@@ -199,10 +200,11 @@ Class MainWindow
 
         ' IWAD GAME DATA
         ' **************************************
+        ' First, record the size of the list for proper loading during the next load.
+        My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue("Size", IWADList.Count)
+
         If (IWADList.Count > 0) Then
             ' If there exists IWAD entries, then we will record each engine and the information.
-            ' First, record the size of the list for proper loading during the next load.
-            My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue("Size", IWADList.Count)
 
             ' Mirror the data to the registry
             For Each i In IWADList
