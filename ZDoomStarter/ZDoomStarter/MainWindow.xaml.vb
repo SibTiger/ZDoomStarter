@@ -229,7 +229,7 @@ Class MainWindow
     ' their Default values.
     Private Sub DeleteRegistryKeys()
         ' Delete the SubKey.  With deleting the SubKey, all other entries inside are deleted as well.
-        My.Computer.Registry.CurrentUser.DeleteSubKey("Software\ZDoom Starter")
+        My.Computer.Registry.CurrentUser.DeleteSubKey(regkeyProgramRoot)
     End Sub
 
 
