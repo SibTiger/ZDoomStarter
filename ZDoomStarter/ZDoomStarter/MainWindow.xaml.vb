@@ -25,6 +25,30 @@ Class MainWindow
 
     ' This string will hold the PWAD directory that is available to this program.
     Public Property PWADPath As String
+
+    ' ----
+
+    ' REGISTRY VARIABLES
+    ' This will hold the Registry keys for this program.
+    ' This can be useful for saving, loading, or thrashing the program's registry settings
+    ' *******************
+    ' When saving values from arrays (or lists), it is critical that the Registry key's are fully
+    ' consistent.  If the keys are not managed sufficiently, then the data will NOT properly load
+    ' when the program is executed at the next session.  Thus, the standard here will be the following:
+    ' Source Port: EngineID + index number + variable name
+    '   Example: EngineID + 4 + Name
+    ' IWAD: GameDataID + index number + variable name
+    '   Example: GameDataID + 8 + Name
+    ' *******************
+    Private regkeyProgramRoot As String =
+            "Software\" +
+            My.Application.Info.ProductName     ' Program Root within the System Registry.
+    Private regKeySourcePort As String =
+            regkeyProgramRoot + "\\Source Port" ' Source Port SubKey within the System Registry.
+    Private regKeyIWAD As String =
+            regkeyProgramRoot + "\\IWAD"        ' IWAD SubKey within the System Registry.
+    Private Const engineKeyName As String = "EngineID"  ' Common key name for the Source Ports; useful for Lists or Arrays.
+    Private Const iwadKeyName As String = "GameDataID"  ' Common key name for the IWAD game data; useful for Lists or Arrays.
 #End Region
 
 
@@ -123,7 +147,85 @@ Class MainWindow
     ' This function is dedicated to saving the user's current settings into the
     ' Windows Registry for later use.
     Private Sub SaveRegistryKeys()
+        ' Declarations and Initialization
+        ' --------------------------------
+        Dim indexCounter As Int32 = 0       ' This will be used as a counter when processing through a list or an array.
+        ' --------------------------------
 
+
+        ' Assure that the subkeys exists
+        My.Computer.Registry.CurrentUser.CreateSubKey(regkeyProgramRoot)
+        My.Computer.Registry.CurrentUser.CreateSubKey(regKeySourcePort)
+        My.Computer.Registry.CurrentUser.CreateSubKey(regKeyIWAD)
+
+        ' Provide the program version that last wrote to the Registry.
+        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("Version", My.Application.Info.Version)
+
+        ' Set the firstRun; this will signify rather or not there is any user saved presets.
+        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("FirstRun", "false")
+
+        ' Store the PWAD Directory
+        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("PWADPath", PWADPath)
+
+        ' ----
+
+        ' SOURCE PORT
+        ' **************************************
+        If (SourcePortList.Count > 0) Then
+            ' If there exists Source Port entries, then we will record each engine and the information.
+            ' First, record the size of the list for proper loading during the next load.
+            My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue("Size", SourcePortList.Count)
+
+            ' Mirror the data to the registry
+            For Each i In SourcePortList
+                ' NOTE: indexCounter must be casted as a string as it represents an integer datatype, without casting (or translating) to a String - it will not properly mirror the data to the registry (or in my experience, hang).  Thus, we will use the CStr() function to do this.
+
+                ' MIRROR: Nice Name
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue(engineKeyName + CStr(indexCounter) + "NiceName", i.NiceName)
+
+                ' MIRROR: Custom Notes
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue(engineKeyName + CStr(indexCounter) + "CustomNotes", i.CustomNotes)
+
+                ' MIRROR: Absolute Path
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue(engineKeyName + CStr(indexCounter) + "AbsolutePath", i.AbsolutePath)
+
+                ' Update the index counter for the next iteration (if any)
+                indexCounter += 1
+            Next
+
+            ' Reset the indexCounter to zero
+            indexCounter = 0
+        End If
+
+        ' IWAD GAME DATA
+        ' **************************************
+        If (IWADList.Count > 0) Then
+            ' If there exists IWAD entries, then we will record each engine and the information.
+            ' First, record the size of the list for proper loading during the next load.
+            My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue("Size", IWADList.Count)
+
+            ' Mirror the data to the registry
+            For Each i In IWADList
+                ' NOTE: indexCounter must be casted as a string as it represents an integer datatype, without casting (or translating) to a String - it will not properly mirror the data to the registry (or in my experience, hang).  Thus, we will use the CStr() function to do this.
+
+                ' MIRROR: Nice Name
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue(iwadKeyName + CStr(indexCounter) + "NiceName", i.NiceName)
+
+                ' MIRROR: Custom Notes
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue(iwadKeyName + CStr(indexCounter) + "CustomNotes", i.CustomNotes)
+
+                ' MIRROR: Absolute Path
+                My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue(iwadKeyName + CStr(indexCounter) + "AbsolutePath", i.AbsolutePath)
+
+                ' Update the index counter for the next iteration (if any)
+                indexCounter += 1
+            Next
+
+            ' Reset the indexCounter to zero
+            indexCounter = 0
+        End If
+
+        MsgBox("Save complete!")
     End Sub
 
 
