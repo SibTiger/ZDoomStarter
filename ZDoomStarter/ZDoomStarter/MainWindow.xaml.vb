@@ -217,8 +217,6 @@ Class MainWindow
             ' Reset the indexCounter to zero
             indexCounter = 0
         End If
-
-        MsgBox("Save complete!")
     End Sub
 
 
