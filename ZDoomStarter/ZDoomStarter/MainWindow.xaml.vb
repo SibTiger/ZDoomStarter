@@ -58,6 +58,17 @@ Class MainWindow
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
+        'LoadHardCodeTest()
+        ReadRegistryKeys()
+    End Sub
+
+
+
+    ' TEMPORARY: Load Hardcoded Test Values
+    ' ----------------------------------------
+    ' This function is only temporary and will be removed once the load and
+    ' save functionality is finalized.
+    Private Sub LoadHardCodeTest()
 #Region "TESTING: Source Port List"
         ' Temporary Testing; remove when saving is possible
         Dim Engine1 As New SourcePort
@@ -102,7 +113,6 @@ Class MainWindow
 #Region "TESTING: PWAD Directory"
         PWADPath = "C:\WADs"
 #End Region
-        ReadRegistryKeys()
     End Sub
 
 
@@ -128,9 +138,7 @@ Class MainWindow
         ' If the root exists, then we know that user configuration might be available for use.
         ' If the root does not exist, then there is nothing to be done.
         If (Not (My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, False) Is Nothing)) Then
-            MsgBox("Found")
-        Else
-            MsgBox("Nothing available")
+
         End If
     End Sub
 
