@@ -102,7 +102,7 @@ Class MainWindow
 #Region "TESTING: PWAD Directory"
         PWADPath = "C:\WADs"
 #End Region
-
+        ReadRegistryKeys()
         'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
         'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName + "\\Source Port")
         'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName + "\\IWAD")
