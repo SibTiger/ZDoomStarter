@@ -103,18 +103,6 @@ Class MainWindow
         PWADPath = "C:\WADs"
 #End Region
         ReadRegistryKeys()
-        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
-        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName + "\\Source Port")
-        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName + "\\IWAD")
-        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
-        'My.Computer.Registry.CurrentUser.CreateSubKey("Software\\" + My.Application.Info.ProductName)
-        'My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", "AHH")
-        ' ----
-        'MsgBox(CStr(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", Nothing)))
-        'My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", "ASDF")
-        'MsgBox(CStr(My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Software\ZDoom Starter", "Test", Nothing)))
-        'My.Computer.Registry.CurrentUser.OpenSubKey("Software\ZDoom Starter", True).DeleteValue("Test")
-        'My.Computer.Registry.CurrentUser.DeleteSubKey("Software\ZDoom Starter")
     End Sub
 
 
