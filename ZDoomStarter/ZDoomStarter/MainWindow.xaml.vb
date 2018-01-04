@@ -101,13 +101,12 @@ Class MainWindow
 
                 ' Scan through the registry and retrieve the necessary data
                 For i As Integer = 0 To (engineListSize - 1)
-                    ' Capture the data from the Registry and cache it
-                    ' Insert the cache data and add it to our list.
+                    ' Capture the data from the Registry save it to the list directly.
                     SourcePortList.Add(New SourcePort() With {
                         .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "NiceName"),
                         .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "CustomNotes"),
                         .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "AbsolutePath")
-                    })
+                                       })
                 Next
             End If
 
@@ -123,6 +122,7 @@ Class MainWindow
 
                 ' Scan through the registry and retrieve the necessary data
                 For i As Integer = 0 To (gameDataListSize - 1)
+                    ' Capture the data from the Registry save it to the list directly.
                     IWADList.Add(New IWAD() With {
                         .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "NiceName"),
                         .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "CustomNotes"),
