@@ -152,13 +152,13 @@ Class MainWindow
             ' Check to make sure that there exists at least one engine within the list.
             ' If in case there is no engine provided within the list, then we will skip it.
             If (engineListSize > 0) Then
-                Dim cacheData As SourcePort         ' This will be used to move data from the registry to the List<>.
-                MsgBox("adf")
+                Dim cacheData As New SourcePort         ' This will be used to move data from the registry to the List<>.
+
                 ' Scan through the registry and retrieve the necessary data
                 For i As Integer = 0 To (engineListSize - 1)
+
                     ' Capture the data from the Registry and cache it
                     With cacheData
-                        MsgBox("Hit")
                         ' Capture Nice Name
                         .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "NiceName")
                         ' Capture Custom Notes
