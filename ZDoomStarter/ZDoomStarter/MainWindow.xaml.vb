@@ -368,6 +368,34 @@ Class MainWindow
 
 
 
+    ' Help File Menu: Allow the end-user to report an issue
+    ' ------------------------------------------
+    Private Sub HelpMenuReportIssueGitHub_Click(sender As Object, e As RoutedEventArgs)
+        ' URL for updates
+        Dim issueURL As String = "https://github.com/SibTiger/ZDoomStarter/issues"
+
+        ' This will merely open a hyper-link to this project's Issues page on GitHub.
+        ' NOTE: This should use the end-user's default web-browser.
+        Process.Start(issueURL)
+    End Sub
+
+
+
+
+    ' Help File Menu: Allow the end-user to view the Wiki page
+    ' ------------------------------------------
+    Private Sub HelpMenuWikiGitHub_Click(sender As Object, e As RoutedEventArgs)
+        ' URL for updates
+        Dim issueURL As String = "https://github.com/SibTiger/ZDoomStarter/wiki"
+
+        ' This will merely open a hyper-link to this project's Wiki page on GitHub.
+        ' NOTE: This should use the end-user's default web-browser.
+        Process.Start(issueURL)
+    End Sub
+
+
+
+
     ' Help File Menu: Display software information
     ' ------------------------------------------
     Private Sub HelpMenuAbout_Click(sender As Object, e As RoutedEventArgs)
