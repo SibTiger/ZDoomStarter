@@ -229,7 +229,7 @@ Class MainWindow
     ' their Default values.
     Private Sub DeleteRegistryKeys()
         ' Delete the SubKey.  With deleting the SubKey, all other entries inside are deleted as well.
-        My.Computer.Registry.CurrentUser.DeleteSubKey(regkeyProgramRoot)
+        My.Computer.Registry.CurrentUser.DeleteSubKeyTree(regkeyProgramRoot)
     End Sub
 
 
@@ -349,6 +349,17 @@ Class MainWindow
             ' Update the PWAD Directory
             PWADPath = newWindowInstance.PWADPath
         End If
+    End Sub
+
+
+
+
+    ' File Menu: Reset User's settings to default
+    ' ------------------------------------------
+    Private Sub FileMenuThrashSettings_Click(sender As Object, e As RoutedEventArgs)
+        ' Thrash the Registry
+        DeleteRegistryKeys()
+        MsgBox("Default settings has been applied!")
     End Sub
 
 

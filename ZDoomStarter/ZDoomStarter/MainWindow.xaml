@@ -9,6 +9,17 @@
     <Grid>
         <Menu x:Name="MainMenu" MinHeight="18" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <MenuItem x:Name="FileMenuThrashSettings" Header="Reset Settings" Click="FileMenuThrashSettings_Click"/>
+                <Separator HorizontalAlignment="Left" Height="0" Width="175" RenderTransformOrigin="0.5,0.5">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="-1"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
                 <MenuItem x:Name="FileMenuExit" Header="Exit"/>
             </MenuItem>
             <MenuItem x:Name="ConfigureMenu" Header="Configure">
