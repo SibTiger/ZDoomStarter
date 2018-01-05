@@ -128,6 +128,7 @@
     </Compile>
     <Compile Include="IWAD.vb" />
     <Compile Include="SourcePort.vb" />
+    <Compile Include="WindowsRegistry.vb" />
     <Page Include="AboutProduct.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

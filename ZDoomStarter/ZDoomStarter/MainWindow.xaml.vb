@@ -25,30 +25,6 @@ Class MainWindow
 
     ' This string will hold the PWAD directory that is available to this program.
     Public Property PWADPath As String
-
-    ' ----
-
-    ' REGISTRY VARIABLES
-    ' This will hold the Registry keys for this program.
-    ' This can be useful for saving, loading, or thrashing the program's registry settings
-    ' *******************
-    ' When saving values from arrays (or lists), it is critical that the Registry key's are fully
-    ' consistent.  If the keys are not managed sufficiently, then the data will NOT properly load
-    ' when the program is executed at the next session.  Thus, the standard here will be the following:
-    ' Source Port: EngineID + index number + variable name
-    '   Example: EngineID + 4 + Name
-    ' IWAD: GameDataID + index number + variable name
-    '   Example: GameDataID + 8 + Name
-    ' *******************
-    Private regkeyProgramRoot As String =
-            "Software\" +
-            My.Application.Info.ProductName     ' Program Root within the System Registry.
-    Private regKeySourcePort As String =
-            regkeyProgramRoot + "\\Source Port" ' Source Port SubKey within the System Registry.
-    Private regKeyIWAD As String =
-            regkeyProgramRoot + "\\IWAD"        ' IWAD SubKey within the System Registry.
-    Private Const engineKeyName As String = "EngineID"  ' Common key name for the Source Ports; useful for Lists or Arrays.
-    Private Const iwadKeyName As String = "GameDataID"  ' Common key name for the IWAD game data; useful for Lists or Arrays.
 #End Region
 
 
@@ -58,7 +34,20 @@ Class MainWindow
     ' ------------------------------------------
     ' This function will automatically execute once the window has been fully rendered
     Private Sub Window_Load() Handles MyBase.Loaded
-        ReadRegistryKeys()
+        ' Declarations and Initializations
+        ' ----------------------------------
+        ' Create an instance of the Registry class.  We will need this to read\write to or from the registry
+        Dim invokeRegistry As New WindowsRegistry()
+        ' ----------------------------------
+
+        ' Fetch the PWAD Directory
+        PWADPath = invokeRegistry.ReadRegistryPWADDirectory()
+
+        ' Fetch the Source Port list
+        SourcePortList = invokeRegistry.ReadRegistrySourcePort()
+
+        ' Fetch the IWAD list
+        IWADList = invokeRegistry.ReadRegistryGameData()
     End Sub
 
 
@@ -68,168 +57,14 @@ Class MainWindow
     ' ------------------------------------------
     ' This function will automatically be called once the main program is terminating.
     Private Sub Window_Exit()
+        ' Declarations and Initializations
+        ' ----------------------------------
+        ' Create an instance of the Registry class.  We will need this to read\write to or from the registry
+        Dim invokeRegistry As New WindowsRegistry()
+        ' ----------------------------------
+
         ' Save the user's settings to the Windows Registry
-        SaveRegistryKeys()
-    End Sub
-
-
-
-
-    ' Read Windows Registry Keys
-    ' ------------------------------------------
-    ' This function is dedicated to retrieving the user's previously saved
-    ' settings And store them in this program's environment.
-    Private Sub ReadRegistryKeys()
-        ' Check to see if there is any data in the registry, we do this by checking if the root SubKey exists.
-        ' If the root exists, then we know that user configuration might be available for use.
-        ' If the root does not exist, then there is nothing to be done.
-        If (Not (My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, False) Is Nothing)) Then
-
-            ' Capture the PWAD directory
-            PWADPath = My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, False).GetValue("PWADPath")
-
-            ' SOURCE PORT
-            ' **************************************
-
-            ' Retrieve the Source Port list size
-            Dim engineListSize As Int32 =
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue("Size")
-
-            ' Check to make sure that there exists at least one engine within the list.
-            ' If in case there is no engine provided within the list, then we will skip it.
-            If (engineListSize > 0) Then
-
-                ' Scan through the registry and retrieve the necessary data
-                For i As Integer = 0 To (engineListSize - 1)
-                    ' Capture the data from the Registry save it to the list directly.
-                    SourcePortList.Add(New SourcePort() With {
-                        .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "NiceName"),
-                        .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "CustomNotes"),
-                        .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, False).GetValue(engineKeyName + CStr(i) + "AbsolutePath")
-                                       })
-                Next
-            End If
-
-            ' IWAD GAME DATA
-            ' **************************************
-
-            ' Retrieve the IWAD list size
-            Dim gameDataListSize As Int32 = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue("Size")
-
-            ' Check to make sure that there exists at least one IWAD within the list.
-            ' If in case there is no IWAD provided within the list, then we will skip it.
-            If (gameDataListSize > 0) Then
-
-                ' Scan through the registry and retrieve the necessary data
-                For i As Integer = 0 To (gameDataListSize - 1)
-                    ' Capture the data from the Registry save it to the list directly.
-                    IWADList.Add(New IWAD() With {
-                        .NiceName = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "NiceName"),
-                        .CustomNotes = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "CustomNotes"),
-                        .AbsolutePath = My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, False).GetValue(iwadKeyName + CStr(i) + "AbsolutePath")
-                                 })
-                Next
-            End If
-        End If
-    End Sub
-
-
-
-
-    ' Save Windows Registry Keys
-    ' ------------------------------------------
-    ' This function is dedicated to saving the user's current settings into the
-    ' Windows Registry for later use.
-    Private Sub SaveRegistryKeys()
-        ' Declarations and Initialization
-        ' --------------------------------
-        Dim indexCounter As Int32 = 0       ' This will be used as a counter when processing through a list or an array.
-        ' --------------------------------
-
-
-        ' Assure that the subkeys exists
-        My.Computer.Registry.CurrentUser.CreateSubKey(regkeyProgramRoot)
-        My.Computer.Registry.CurrentUser.CreateSubKey(regKeySourcePort)
-        My.Computer.Registry.CurrentUser.CreateSubKey(regKeyIWAD)
-
-        ' Provide the program version that last wrote to the Registry.
-        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("Version", My.Application.Info.Version)
-
-        ' Store the PWAD Directory
-        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("PWADPath", PWADPath)
-
-        ' ----
-
-        ' SOURCE PORT
-        ' **************************************
-        ' First, record the size of the list for proper loading during the next load.
-        My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue("Size", SourcePortList.Count)
-
-        If (SourcePortList.Count > 0) Then
-            ' If there exists Source Port entries, then we will record each engine and the information.
-
-            ' Mirror the data to the registry
-            For Each i In SourcePortList
-                ' NOTE: indexCounter must be casted as a string as it represents an integer datatype, without casting (or translating) to a String - it will not properly mirror the data to the registry (or in my experience, hang).  Thus, we will use the CStr() function to do this.
-
-                ' MIRROR: Nice Name
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue(engineKeyName + CStr(indexCounter) + "NiceName", i.NiceName)
-
-                ' MIRROR: Custom Notes
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue(engineKeyName + CStr(indexCounter) + "CustomNotes", i.CustomNotes)
-
-                ' MIRROR: Absolute Path
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeySourcePort, True).SetValue(engineKeyName + CStr(indexCounter) + "AbsolutePath", i.AbsolutePath)
-
-                ' Update the index counter for the next iteration (if any)
-                indexCounter += 1
-            Next
-
-            ' Reset the indexCounter to zero
-            indexCounter = 0
-        End If
-
-        ' IWAD GAME DATA
-        ' **************************************
-        ' First, record the size of the list for proper loading during the next load.
-        My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue("Size", IWADList.Count)
-
-        If (IWADList.Count > 0) Then
-            ' If there exists IWAD entries, then we will record each engine and the information.
-
-            ' Mirror the data to the registry
-            For Each i In IWADList
-                ' NOTE: indexCounter must be casted as a string as it represents an integer datatype, without casting (or translating) to a String - it will not properly mirror the data to the registry (or in my experience, hang).  Thus, we will use the CStr() function to do this.
-
-                ' MIRROR: Nice Name
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue(iwadKeyName + CStr(indexCounter) + "NiceName", i.NiceName)
-
-                ' MIRROR: Custom Notes
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue(iwadKeyName + CStr(indexCounter) + "CustomNotes", i.CustomNotes)
-
-                ' MIRROR: Absolute Path
-                My.Computer.Registry.CurrentUser.OpenSubKey(regKeyIWAD, True).SetValue(iwadKeyName + CStr(indexCounter) + "AbsolutePath", i.AbsolutePath)
-
-                ' Update the index counter for the next iteration (if any)
-                indexCounter += 1
-            Next
-
-            ' Reset the indexCounter to zero
-            indexCounter = 0
-        End If
-    End Sub
-
-
-
-
-    ' Delete Windows Registry Keys
-    ' ------------------------------------------
-    ' This function is dedicated to deleting the User's previously stored settings
-    ' in the Windows Registry.  When doing this, all settings will be reset to
-    ' their Default values.
-    Private Sub DeleteRegistryKeys()
-        ' Delete the SubKey.  With deleting the SubKey, all other entries inside are deleted as well.
-        My.Computer.Registry.CurrentUser.DeleteSubKeyTree(regkeyProgramRoot)
+        invokeRegistry.WriteRegistry(PWADPath, SourcePortList, IWADList)
     End Sub
 
 
@@ -357,8 +192,16 @@ Class MainWindow
     ' File Menu: Reset User's settings to default
     ' ------------------------------------------
     Private Sub FileMenuThrashSettings_Click(sender As Object, e As RoutedEventArgs)
+        ' Declarations and Initializations
+        ' ----------------------------------
+        ' Create an instance of the Registry class.  We will need this to read\write to or from the registry
+        Dim invokeRegistry As New WindowsRegistry()
+        ' ----------------------------------
+
         ' Thrash the Registry
-        DeleteRegistryKeys()
+        invokeRegistry.DeleteRegistryKeys()
+
+        ' Tell the user that the settings has been reset.
         MsgBox("Default settings has been applied!")
     End Sub
 
