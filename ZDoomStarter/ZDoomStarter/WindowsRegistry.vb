@@ -1,4 +1,18 @@
-﻿Public Class WindowsRegistry
+﻿' Windows Registry Functionality
+' ---------------------------------------
+' =======================================
+' This class is designed to perform Registry operations safely
+' and assure that the data is saved and loaded correctly with
+' minimal conflicts.  Since we are working with I/O and more
+' importantly, the Registry, we must make sure that we are
+' dealing with the data appropriately and efficiently with no
+' conflicts.
+' ---------------------------------------
+
+
+
+
+Public Class WindowsRegistry
 #Region "Declarations and Initializations"
     ' REGISTRY SubKey and Key VARIABLES
     ' This will hold the Registry keys for this program.
@@ -325,6 +339,7 @@
         End If
     End Sub
 #End Region
+
 
 
 
