@@ -246,7 +246,14 @@ Public Class WindowsRegistry
         My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("Version", My.Application.Info.Version)
 
         ' Store the PWAD Directory into the Windows Registry
-        My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("PWADPath", PWADPath)
+        If (PWADPath Is Nothing) Then
+            ' If in case the PWAD Path is set to 'Nothing', than insert a valid 'nothing' statement that will not
+            ' cause conflicts when inserting data into the Windows Registry.  Remember, the Windows Registry will not
+            ' accept 'Null' or 'Nothing' values.
+            My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("PWADPath", "")
+        Else
+            My.Computer.Registry.CurrentUser.OpenSubKey(regkeyProgramRoot, True).SetValue("PWADPath", PWADPath)
+        End If
     End Sub
 
 
