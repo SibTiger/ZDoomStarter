@@ -201,6 +201,15 @@ Class MainWindow
         ' Thrash the Registry
         invokeRegistry.DeleteRegistryKeys()
 
+        ' Thrash the Source Port List
+        SourcePortList.Clear()
+
+        ' Thrash the IWAD List
+        IWADList.Clear()
+
+        ' Clear the PWAD Directory
+        PWADPath = ""
+
         ' Tell the user that the settings has been reset.
         MsgBox("Default settings has been applied!")
     End Sub
