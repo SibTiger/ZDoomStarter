@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
-        Title="ZDoom Starter" Height="350" Width="525" ResizeMode="NoResize" Closing="Window_Exit">
+        Title="ZDoom Starter" Height="480" Width="640" ResizeMode="NoResize" Closing="Window_Exit">
     <Grid>
         <Menu x:Name="MainMenu" MinHeight="18" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -54,5 +54,10 @@
                 <MenuItem x:Name="HelpMenuAbout" Header="About" Click="HelpMenuAbout_Click"/>
             </MenuItem>
         </Menu>
+        <GroupBox Header="Select: Source Port" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,23,0,0">
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Loaded="ComboBoxSourcePort_Loaded" SelectionChanged="ComboBoxSourcePort_SelectionChanged" IsReadOnly="True" Margin="10,10,-2,-1"/>
+        </GroupBox>
+        <GroupBox Header="Select: IWAD" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,88,0,0"/>
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="28,115,0,0"/>
     </Grid>
 </Window>
