@@ -291,4 +291,77 @@ Class MainWindow
         '   visually show that it is now active.
         Me.Opacity = 1.0        ' OPACITY EXPERIEMNTAL ONLY
     End Sub
+
+    Private Sub ComboBoxSourcePort_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
+    End Sub
+
+
+    Private Sub ComboBoxSourcePort_Loaded()
+
+    End Sub
+
+    Private Sub ComboBoxIWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
+    End Sub
+
+
+    Private Sub ComboBoxIWAD_Loaded()
+
+    End Sub
+
+
+    Private Sub ComboBoxSkilLevel_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
+    End Sub
+
+
+    Private Sub ComboBoxSkillLevel_Loaded()
+
+    End Sub
+
+
+    Private Sub ViewListPWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxFastMonsters_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxMonstersRespawn_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxDeathmatch_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxAVG_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxNoMusic_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxNoSFX_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxNoMultimedia_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub CheckBoxUseOldStartUp_Checked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub ButtonClear_Clicked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
+
+    End Sub
 End Class
