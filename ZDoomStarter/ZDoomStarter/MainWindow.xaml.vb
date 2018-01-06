@@ -364,4 +364,12 @@ Class MainWindow
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
 
     End Sub
+
+    Private Sub ButtonAddPWAD_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub ButtonRemovePWAD_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
 End Class
