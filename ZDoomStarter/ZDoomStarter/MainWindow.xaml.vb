@@ -231,6 +231,20 @@ Class MainWindow
 
 
 
+    ' Help File Menu: Allow the end-user to view the the ZDoom Wiki (Command Line Documentation)
+    ' ------------------------------------------
+    Private Sub HelpMenuWikiZDoom_Click(sender As Object, e As RoutedEventArgs)
+        ' URL for updates
+        Dim issueURL As String = "https://zdoom.org/wiki/Command_line_parameters"
+
+        ' This will merely open a hyper-link to this project's Issues page on GitHub.
+        ' NOTE: This should use the end-user's default web-browser.
+        Process.Start(issueURL)
+    End Sub
+
+
+
+
     ' Help File Menu: Allow the end-user to report an issue
     ' ------------------------------------------
     Private Sub HelpMenuReportIssueGitHub_Click(sender As Object, e As RoutedEventArgs)
