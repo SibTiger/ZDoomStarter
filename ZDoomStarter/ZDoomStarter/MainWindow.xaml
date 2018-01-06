@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
-        Title="ZDoom Starter" Height="480" Width="640" ResizeMode="NoResize" Closing="Window_Exit">
+        Title="ZDoom Starter" Height="418" Width="640" ResizeMode="NoResize" Closing="Window_Exit">
     <Grid>
         <Menu x:Name="MainMenu" MinHeight="18" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -29,6 +29,7 @@
             </MenuItem>
             <MenuItem x:Name="HelpMenu" Header="Help">
                 <MenuItem x:Name="HelpMenuWikiGitHub" Header="View Wiki [GitHub]" Click="HelpMenuWikiGitHub_Click"/>
+                <MenuItem x:Name="HelpMenuWikiZDoom" Header="View ZDoom Wiki [CommandLine]" Click="HelpMenuWikiZDoom_Click"/>
                 <Separator HorizontalAlignment="Left" Width="175" RenderTransformOrigin="0.5,0.5">
                     <Separator.RenderTransform>
                         <TransformGroup>
@@ -59,5 +60,34 @@
         </GroupBox>
         <GroupBox Header="Select: IWAD" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,88,0,0"/>
         <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="28,115,0,0"/>
+        <GroupBox Header="Select: PWADs" HorizontalAlignment="Left" Height="292" VerticalAlignment="Top" Width="210" Margin="414,23,0,0">
+            <ListView HorizontalAlignment="Left" Height="250" VerticalAlignment="Top" SelectionChanged="ViewListPWAD_SelectionChanged" Width="183" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="10,10,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+        <GroupBox Header="Game Play Options" HorizontalAlignment="Left" Height="190" VerticalAlignment="Top" Width="199" Margin="210,23,0,0">
+            <Grid HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="189" Margin="0,0,-2,-3">
+                <CheckBox Content="Fast Monsters" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                <CheckBox Content="Monsters Respawn" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0" Checked="CheckBox_Checked"/>
+                <CheckBox Content="Austin Virtual Gaming" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" Checked="CheckBox_Checked_1"/>
+                <CheckBox Content="Deathmatch" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
+                <CheckBox Content="No Music" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
+                <CheckBox Content="No Sound Effects" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,110,0,0"/>
+                <CheckBox Content="Disable Multimedia" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0"/>
+                <CheckBox Content="Use Old Startup Screen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Select: Skill Level" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,153,0,0">
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="10,10,0,0"/>
+        </GroupBox>
+        <GroupBox Header="Advanced: Custom Parameters" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top" Width="399" Margin="10,218,0,0">
+            <TextBox HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" Margin="10,10,0,0"/>
+        </GroupBox>
+        <Button Content="Launch" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="185,351,0,0"/>
+        <Button Content="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="386,351,0,0"/>
     </Grid>
 </Window>
