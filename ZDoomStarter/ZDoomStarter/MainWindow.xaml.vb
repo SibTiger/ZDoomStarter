@@ -27,10 +27,12 @@ Class MainWindow
     Public Property PWADPath As String
 
     Public Property SkillLevelList As New List(Of String)(New String() {"Hey, not too rough",
-                                                                    "Hurt me plenty",
-                                                                    "Ultra-Violence",
-                                                                    "Nightmare!"})
+                                                                        "Hurt me plenty",
+                                                                        "Ultra-Violence",
+                                                                        "Nightmare!"})
 
+    Private PWADList As New List(Of PWAD)
+    Private selectedPWADListItem As Int32 = -1
     Dim selectedSourcePortID As Int32 = -1
     Dim selectedIWADID As Int32 = -1
     Dim selectedSkillLevelID As Int32 = -1
@@ -394,23 +396,57 @@ Class MainWindow
 
 
     Private Sub ViewListPWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-
+        selectedPWADListItem = ListViewPWADs.SelectedIndex
     End Sub
 
+    Private Sub ClearViewListPWAD()
+        ListViewPWADs.Items.Clear()
+    End Sub
+
+    Private Sub RenderViewListPWAD()
+        For Each i As PWAD In PWADList
+            ListViewPWADs.Items.Add(i.NiceName)
+        Next
+    End Sub
+
+    Private Sub UpdateViewListPWAD()
+        ClearViewListPWAD()
+        RenderViewListPWAD()
+    End Sub
+
+    Private Sub ButtonAddPWAD_Click(sender As Object, e As RoutedEventArgs)
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim browseFileDialog As New _
+            Microsoft.Win32.OpenFileDialog()    ' Create an instance of the OpenFileDialog
+        ' ----------------------------------
+
+        browseFileDialog.InitialDirectory = PWADPath
+
+        If (browseFileDialog.ShowDialog()) Then
+            ' Successful result
+            PWADList.Add(New PWAD() With {
+                .AbsolutePath = browseFileDialog.FileName,
+                .NiceName = browseFileDialog.SafeFileName
+                })
+
+        End If
+        UpdateViewListPWAD()
+    End Sub
+
+
+    Private Sub ButtonRemovePWAD_Click(sender As Object, e As RoutedEventArgs)
+        If ((Not (selectedPWADListItem = -1)) And (PWADList.Count >= selectedPWADListItem)) Then
+            PWADList.RemoveAt(selectedPWADListItem)
+        End If
+        UpdateViewListPWAD()
+    End Sub
 
     Private Sub ButtonClear_Clicked(sender As Object, e As RoutedEventArgs)
 
     End Sub
 
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub ButtonAddPWAD_Click(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub ButtonRemovePWAD_Click(sender As Object, e As RoutedEventArgs)
 
     End Sub
 End Class
