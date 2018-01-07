@@ -448,13 +448,136 @@ Class MainWindow
 
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
         Dim executeCommand As New ProcessStartInfo
-        executeCommand.FileName = ""
-        executeCommand.Arguments = ""
+        'executeCommand.FileName = ""
+        'executeCommand.Arguments = ""
 
-        Process.Start(executeCommand)
+        MsgBox(LaunchBuilder_ExecutablePath)
+        MsgBox(LaunchBuilder_Arguments())
+
+        'Process.Start(executeCommand)
     End Sub
 
-    Private Function LaunchBuilder_Arguments() As String
+    Private Function LaunchBuilder_ExecutablePath() As String
+        Dim indexCounter As Int32 = 0
 
+        For Each i As IWAD In IWADList
+            If (selectedIWADID = indexCounter) Then
+                Return i.AbsolutePath
+            End If
+        Next
+    End Function
+
+    Private Function LaunchBuilder_Arguments() As String
+        Dim indexCounter As Int32 = 0
+        Dim iwadPath As String = ""
+        Dim pwadPaths As String = ""
+        Dim gamePlayStyle As String = ""
+        Dim arguments As String = ""
+
+        ' Get the path of the IWAD
+        For Each i As IWAD In IWADList
+            If (indexCounter = selectedIWADID) Then
+                iwadPath = i.AbsolutePath
+            End If
+            indexCounter += 1
+        Next
+
+        ' Reset the counter
+        indexCounter = 0
+
+        'Get the path of the PWADs
+        If (Not (PWADList.Count = Nothing)) Then
+            For Each i As PWAD In PWADList
+                ' If in case path variable is empty
+                If (Not (pwadPaths = Nothing)) Then
+                    pwadPaths = i.AbsolutePath
+                Else
+                    pwadPaths = pwadPaths + ", " + i.AbsolutePath
+                End If
+            Next
+        End If
+
+        ' Check the check boxes
+        If (CheckBoxFastMonsters.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-fast"
+            Else
+                gamePlayStyle = gamePlayStyle + " -fast"
+            End If
+        End If
+
+        If (CheckBoxFastMonsters.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-nomonsters"
+            Else
+                gamePlayStyle = gamePlayStyle + " -nomonsters"
+            End If
+        End If
+
+        If (CheckBoxDeathmatch.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-deathmatch"
+            Else
+                gamePlayStyle = gamePlayStyle + " -deathmatch"
+            End If
+        End If
+
+        If (CheckBoxAVG.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-avg"
+            Else
+                gamePlayStyle = gamePlayStyle + " -avg"
+            End If
+        End If
+
+        If (CheckBoxNoMusic.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-nomusic"
+            Else
+                gamePlayStyle = gamePlayStyle + " -nomusic"
+            End If
+        End If
+
+        If (CheckBoxNoSFX.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "nosfx"
+            Else
+                gamePlayStyle = gamePlayStyle + " -nosfx"
+            End If
+        End If
+
+        If (CheckBoxNoMultimedia.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-nosound"
+            Else
+                gamePlayStyle = gamePlayStyle + " -nosound"
+            End If
+        End If
+
+        If (CheckBoxUseOldStartup.IsChecked = True) Then
+            If (gamePlayStyle = Nothing) Then
+                gamePlayStyle = "-nostartup"
+            Else
+                gamePlayStyle = gamePlayStyle + " -nostartup"
+            End If
+        End If
+
+        arguments = "-iwad " + iwadPath
+
+        If (Not (pwadPaths = Nothing)) Then
+            arguments = arguments + " -file " + pwadPaths
+        End If
+
+        If (Not (gamePlayStyle = Nothing)) Then
+            arguments = arguments + " " + gamePlayStyle
+        End If
+
+        If (Not (TextBoxCustomParameters.Text = Nothing)) Then
+            arguments = arguments + " " + TextBoxCustomParameters.Text
+        End If
+
+        arguments = arguments + " -skill " + selectedSkillLevelID
+
+        Return arguments
     End Function
 End Class
