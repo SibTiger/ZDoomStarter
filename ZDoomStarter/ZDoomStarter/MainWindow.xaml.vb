@@ -26,16 +26,44 @@ Class MainWindow
     ' This string will hold the PWAD directory that is available to this program.
     Public Property PWADPath As String
 
+    ' This list will hold the basic Skill Level used in Doom.  Understandably this particular
+    ' skill level list is not really valid with Heretic or Hexen, but it is merely impossible
+    ' to determine the skill level dynamically as other PWADs can merely alter them in the
+    ' (Z)MAPINFO or GAMEINFO ZDoom lump file.  As such, we will just stay to the basic and
+    ' commonly known skill level list.
     Public Property SkillLevelList As New List(Of String)(New String() {"Hey, not too rough",
                                                                         "Hurt me plenty",
                                                                         "Ultra-Violence",
                                                                         "Nightmare!"})
 
+    ' ----
+
+    ' This list will hold PWADs that the user adds into the PWAD load list.
     Private PWADList As New List(Of PWAD)
+
+    ' ----
+
+    ' PWADList Index that was selected from the ListView.  This is mainly useful for removing
+    ' the requested PWAD off the List.
     Private selectedPWADListItem As Int32 = -1
-    Dim selectedSourcePortID As Int32 = -1
-    Dim selectedIWADID As Int32 = -1
-    Dim selectedSkillLevelID As Int32 = -1
+
+    ' ----
+
+    ' Selected Source Port from the Combo Box.  This is mainly useful for finding the engine
+    ' that the user has requested to use.
+    Private selectedSourcePortID As Int32 = -1
+
+    ' ----
+
+    ' Selected IWAD from the Combo Box.  This is mainly useful for finding the IWAD that the
+    ' user has requested to use.
+    Private selectedIWADID As Int32 = -1
+
+    ' ----
+
+    ' Selected Skill Level from the Combo Box.  This is mainly useful for finding the Skill Level
+    ' that the user has requested to play.
+    Private selectedSkillLevelID As Int32 = -1
 #End Region
 
 
@@ -112,13 +140,12 @@ Class MainWindow
     ' Configure File Menu: Configure Source Ports
     ' ------------------------------------------
     Private Sub ConfigureMenuSourcePorts_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuSourcePorts.Click
-
         ' Create the form instance
         Dim newWindowInstance As New ConfigSourcePorts(SourcePortList)
 
         ' Dim the parent window; visually show that it is not available
         '  for activity
-        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+        Me.Opacity = 0.5
 
         ' This will open the desired window
         '  but will also change focus from
@@ -127,7 +154,7 @@ Class MainWindow
 
         ' Restore the parent window's opacity setting; visually show
         '  that it is now active.
-        Me.Opacity = 1.0        ' OPACITY EXPERIMENTAL ONLY
+        Me.Opacity = 1.0
 
         ' ===================================
         ' ===================================
@@ -151,14 +178,14 @@ Class MainWindow
         Dim newWindowInstance As New ConfigIWADs(IWADList)
 
         ' Dim the parent window; visually show that it is not available for activity
-        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+        Me.Opacity = 0.5
 
         ' This will open the desired window by will also change
         ' focus from Parent to this new window instance
         newWindowInstance.ShowDialog()
 
         ' Restore the parent window's opacity setting; visually show that it is now active.
-        Me.Opacity = 1.0        ' OPACITY EXPERIEMENTAL ONLY
+        Me.Opacity = 1.0
 
         ' ===================================
         ' ===================================
@@ -182,7 +209,7 @@ Class MainWindow
         Dim newWindowInstance As New ConfigPWADPath(PWADPath)
 
         ' Dim the parent window; visually show that it is not available for activity.
-        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+        Me.Opacity = 0.5
 
         ' This will open the desired window but will
         '   also change focus from Parent to this new
@@ -191,7 +218,7 @@ Class MainWindow
 
         ' Restore the parent window's opacity setting;
         '   visually show that it is now active.
-        Me.Opacity = 1.0        ' OPACITY EXPERIEMNTAL ONLY
+        Me.Opacity = 1.0
 
         ' ===================================
         ' ===================================
@@ -300,7 +327,7 @@ Class MainWindow
         Dim newWindowInstance As New AboutProduct()
 
         ' Dim the parent window; visually show that it is not available for activity.
-        Me.Opacity = 0.5        ' OPACITY EXPERIMENTAL ONLY
+        Me.Opacity = 0.5
 
         ' This will open the desired window but will
         '   also change focus from Parent to this new
@@ -309,7 +336,7 @@ Class MainWindow
 
         ' Restore the parent window's opacity setting;
         '   visually show that it is now active.
-        Me.Opacity = 1.0        ' OPACITY EXPERIEMNTAL ONLY
+        Me.Opacity = 1.0
     End Sub
 
 
