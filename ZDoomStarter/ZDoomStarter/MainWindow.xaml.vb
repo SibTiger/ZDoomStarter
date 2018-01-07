@@ -792,6 +792,8 @@ Class MainWindow
     '   File Path [String]
     '       The absolute file path of the executable file
     '       that was selected.
+    '       NOTE: '!ERR' will be returned if an error occurs
+    '               mainly when the scan fails.
     Private Function LaunchBuilderExecutablePath() As String
         ' Declarations and Initializations
         ' ----------------------------------
@@ -815,6 +817,34 @@ Class MainWindow
         ' If in case something goes horribly wrong, return an error
         ' message.
         Return "!ERR"
+    End Function
+
+
+
+
+    ' Launch Builder: Check File Exists
+    ' ------------------------------------------
+    ' This function is designed to merely determine if a file
+    ' exists within its given absolute path.
+    ' -----------------------
+    ' Parameters
+    '   dataFile [String]
+    '       The absolute path with the binary or datafile.
+    '       Example: C:\Programs\Games\GZDoom\gzdoom.exe
+    ' -----------------------
+    ' Output
+    '   State [Bool]
+    '       True = An error occurred or the file does not exist within
+    '               the given path.
+    '       False = File exists
+    Private Function LaunchBuilderCheckFileExists(dataFile As String) As Boolean
+        If (System.IO.File.Exists(dataFile)) Then
+            ' The file exists
+            Return False
+        Else
+            ' The file was not found or some issue occurred.
+            Return True
+        End If
     End Function
 
 
