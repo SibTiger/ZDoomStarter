@@ -641,6 +641,8 @@ Class MainWindow
     Private Sub UpdateViewListPWAD()
         ClearViewListPWAD()         ' Thrash all entries within the UI component
         RenderViewListPWAD()        ' Add in the new PWAD List into the UI component
+        selectedPWADListItem =
+            selectItemNotAvailable  ' Revert the selected entry to its default value - not selected value.
     End Sub
 
 
@@ -688,7 +690,7 @@ Class MainWindow
     ' it is possible to remove the PWAD from the list.  Once removed, the view list will be refreshed.
     Private Sub ButtonRemovePWAD_Click(sender As Object, e As RoutedEventArgs)
         ' Make sure that the user actually clicked an item from the list.
-        If ((Not (selectedPWADListItem = -1)) And (PWADList.Count >= selectedPWADListItem)) Then
+        If (Not (selectedPWADListItem > selectItemNotAvailable)) Then
             ' Remove the entry from the list.
             PWADList.RemoveAt(selectedPWADListItem)
 
@@ -700,14 +702,63 @@ Class MainWindow
 
 
 
-
-    Private Sub ButtonClear_Clicked(sender As Object, e As RoutedEventArgs)
-        ' Clear the selected Skill Level from the UI Combo Box component
-        ComboBoxSkillLevel.SelectedValue = ""
-        ' Reset the Skill Level index to the default - not selected - value.
-        selectedSkillLevelID = selectItemNotAvailable
+    ' Clear PWAD List
+    ' ------------------------------------------
+    ' This function, when called, will thrash the entire PWAD List.
+    Private Sub ClearPWADList()
+        PWADList.Clear()
     End Sub
 
+
+
+
+    ' Button Clear [EVENT: Click]
+    ' ------------------------------------------
+    ' When the user requests for all fields to be cleared, this function will take place.
+    ' This function will revert all selected items and other UI components to default values,
+    ' provide a clean-slate.  Their user settings are not touched in this process, only the game
+    ' play settings are altered.
+    Private Sub ButtonClear_Clicked(sender As Object, e As RoutedEventArgs)
+        ' Reset the User-Selected indexes (mainly from Combo Boxes)
+        selectedIWADID = selectItemNotAvailable         ' Revert IWAD selection
+        selectedSourcePortID = selectItemNotAvailable   ' Revert Source Port selection
+        selectedSkillLevelID = selectItemNotAvailable   ' Revert Skill Level selection
+
+        ' Clear the text from the Skill Level Combo Box UI component.  This will show
+        ' that nothing was selected yet.
+        ComboBoxSkillLevel.SelectedValue = ""
+
+        ' Clear the PWAD List
+        ClearPWADList()         ' Thrash the PWAD List
+        UpdateViewListPWAD()    ' Refresh the PWAD ViewList UI Component
+
+        ' Clear the Custom Parameter Text Box UI component
+        TextBoxCustomParameters.Text = Nothing
+
+        ' Uncheck all available flags
+        CheckBoxFastMonsters.IsChecked = False      ' Fast Monsters
+        CheckBoxMonstersRespawn.IsChecked = False   ' Monsters Respawn
+        CheckBoxDeathmatch.IsChecked = False        ' Deathmatch
+        CheckBoxAVG.IsChecked = False               ' Austin Virtual Gaming
+        CheckBoxNoMusic.IsChecked = False           ' No Music
+        CheckBoxNoSFX.IsChecked = False             ' No Sound Effects
+        CheckBoxNoMultimedia.IsChecked = False      ' No Music nor Sound Effects
+        CheckBoxUseOldStartup.IsChecked = False     ' No Startup Screen (Use old Doom startup)
+    End Sub
+
+
+
+
+    ' Button Launch [EVENT: Click]
+    ' ------------------------------------------
+    ' When the user requests to start their game, this function will execute.
+    ' This function will assure that all information is ready from the user and
+    ' take all the available information - and transform it so the engine can
+    ' understand the arguments.
+    ' NOTE: Not all source ports are a like, but we assume that ZDoom and its
+    ' children (forks) are being used and the likelihood of the settings being
+    ' accepted.  If the engine does not accept a setting, then the user must act
+    ' accordingly.
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
         Dim executeCommand As New ProcessStartInfo
         'executeCommand.FileName = ""
