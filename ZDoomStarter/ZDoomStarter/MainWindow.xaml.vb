@@ -724,9 +724,11 @@ Class MainWindow
         selectedSourcePortID = selectItemNotAvailable   ' Revert Source Port selection
         selectedSkillLevelID = selectItemNotAvailable   ' Revert Skill Level selection
 
-        ' Clear the text from the Skill Level Combo Box UI component.  This will show
+        ' Clear the text from the Combo Box UI components.  This will show
         ' that nothing was selected yet.
-        ComboBoxSkillLevel.SelectedValue = ""
+        ComboBoxSkillLevel.SelectedValue = ""   ' Skill Level
+        ComboBoxIWAD.SelectedValue = ""         ' IWAD
+        ComboBoxSourcePort.SelectedValue = ""   ' Source Port
 
         ' Clear the PWAD List
         ClearPWADList()         ' Thrash the PWAD List
