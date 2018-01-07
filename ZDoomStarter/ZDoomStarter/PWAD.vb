@@ -1,8 +1,19 @@
-﻿Public Class PWAD
+﻿' Patch WAD (PWAD)
+' ---------------------------------------
+' =======================================
+' This class is designed to hold the basic information
+' regarding the PWAD's when they are added to this program.
+' ---------------------------------------
+
+
+
+
+Public Class PWAD
 #Region "Declarations and Initializations"
     Private _absolutePath As String     ' Absolute path to that executable
     Private _niceName As String         ' Name of that executable
 #End Region
+
 
 
 
