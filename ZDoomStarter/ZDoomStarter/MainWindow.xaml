@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZDoomStarter"
         mc:Ignorable="d"
-        Title="ZDoom Starter" Height="397" Width="640" ResizeMode="NoResize" Closing="Window_Exit">
+        Title="ZDoom Starter" Height="397" Width="649" ResizeMode="NoResize" Closing="Window_Exit">
     <Grid>
         <Menu x:Name="MainMenu" MinHeight="18" VerticalAlignment="Top">
             <MenuItem x:Name="FileMenu" Header="File" HorizontalAlignment="Left" VerticalAlignment="Center">
