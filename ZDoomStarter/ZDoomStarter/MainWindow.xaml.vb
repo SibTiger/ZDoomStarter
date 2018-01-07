@@ -762,25 +762,60 @@ Class MainWindow
     ' accepted.  If the engine does not accept a setting, then the user must act
     ' accordingly.
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
+        ' Declarations and Initializations
+        ' ----------------------------------
         Dim executeCommand As New ProcessStartInfo
+        Dim binaryAbsPath As String
+        ' ----------------------------------
+
         'executeCommand.FileName = ""
         'executeCommand.Arguments = ""
 
-        MsgBox(LaunchBuilder_ExecutablePath)
-        MsgBox(LaunchBuilder_Arguments())
+        MsgBox(LaunchBuilderExecutablePath)
+        'MsgBox(LaunchBuilder_Arguments())
 
         'Process.Start(executeCommand)
     End Sub
 
-    Private Function LaunchBuilder_ExecutablePath() As String
-        Dim indexCounter As Int32 = 0
 
-        For Each i As IWAD In IWADList
-            If (selectedIWADID = indexCounter) Then
+
+
+    ' Launch Builder: Find Executable Path
+    ' ------------------------------------------
+    ' This function is designed to find the absolute path
+    ' of the executable binary file from the Source Port list
+    ' and return that to the calling function.
+    ' This seems redundant to me as I could have swore I could just
+    ' invoke the list with an index key, but I guess that is not possible?
+    ' -----------------------
+    ' Output
+    '   File Path [String]
+    '       The absolute file path of the executable file
+    '       that was selected.
+    Private Function LaunchBuilderExecutablePath() As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 0       ' Index key
+        ' ----------------------------------
+
+        ' Scan the Source Port list and find the desired engine
+        ' that the user choose to utilize.
+        For Each i As SourcePort In SourcePortList
+            ' Did we find the right index key that matches?
+            If (selectedSourcePortID = indexCounter) Then
+                ' We found the right key, now return the path of
+                ' that executable.
                 Return i.AbsolutePath
             End If
         Next
+
+        ' If in case something goes horribly wrong, return an error
+        ' message.
+        Return "!ERR"
     End Function
+
+
+
 
     Private Function LaunchBuilder_Arguments() As String
         Dim indexCounter As Int32 = 0
