@@ -652,7 +652,7 @@ Class MainWindow
     ' ------------------------------------------
     ' When the user requests to add a new PWAD to the list, this function will be called.
     ' This function will allow the user to quickly add new PWADs to the PWAD list and will
-    ' append the changes to the PWAD listview UI component.
+    ' append the changes to the PWAD List View UI component.
     Private Sub ButtonAddPWAD_Click(sender As Object, e As RoutedEventArgs)
         ' Declarations and Initializations
         ' ----------------------------------
