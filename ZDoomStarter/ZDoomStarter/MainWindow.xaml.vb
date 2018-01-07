@@ -598,25 +598,59 @@ Class MainWindow
 
 
 
+
+    ' PWAD View List [EVENT: Selection Changed]
+    ' ------------------------------------------
+    ' When this event raises, we will automatically cache the entry index that was selected by the user.
+    ' We may need this index when the user removes an item from the PWAD list.
     Private Sub ViewListPWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         selectedPWADListItem = ListViewPWADs.SelectedIndex
     End Sub
 
+
+
+
+    ' Clear PWAD List View
+    ' ------------------------------------------
+    ' When this function is called, this function will clear all entries that was made in the ListView
+    ' UI Component.
     Private Sub ClearViewListPWAD()
         ListViewPWADs.Items.Clear()
     End Sub
 
+
+
+
+    ' Render PWAD ViewList
+    ' ------------------------------------------
+    ' This function will regenerate the PWAD ViewList with the latest changes in the PWAD list.
     Private Sub RenderViewListPWAD()
+        ' Scan through the PWAD list and add them to the ViewList UI Component
         For Each i As PWAD In PWADList
             ListViewPWADs.Items.Add(i.NiceName)
         Next
     End Sub
 
+
+
+
+    ' Update PWAD View List
+    ' ------------------------------------------
+    ' When called, this will refresh the ViewList UI component.
+    ' This is useful when updating the ViewList with the latest changes against the list.
     Private Sub UpdateViewListPWAD()
-        ClearViewListPWAD()
-        RenderViewListPWAD()
+        ClearViewListPWAD()         ' Thrash all entries within the UI component
+        RenderViewListPWAD()        ' Add in the new PWAD List into the UI component
     End Sub
 
+
+
+
+    ' Button Add PWAD [EVENT: Click]
+    ' ------------------------------------------
+    ' When the user requests to add a new PWAD to the list, this function will be called.
+    ' This function will allow the user to quickly add new PWADs to the PWAD list and will
+    ' append the changes to the PWAD listview UI component.
     Private Sub ButtonAddPWAD_Click(sender As Object, e As RoutedEventArgs)
         ' Declarations and Initializations
         ' ----------------------------------
@@ -624,29 +658,54 @@ Class MainWindow
             Microsoft.Win32.OpenFileDialog()    ' Create an instance of the OpenFileDialog
         ' ----------------------------------
 
-        browseFileDialog.InitialDirectory = PWADPath
+        ' If the user provided a path to their PWAD directory, then we will simply use that.
+        ' This is only for convenience sakes.
+        If ((Not (PWADPath = Nothing)) And (Not (PWADPath = ""))) Then
+            browseFileDialog.InitialDirectory = PWADPath
+        End If
+
 
         If (browseFileDialog.ShowDialog()) Then
-            ' Successful result
+            ' Successful result; immediately store the information directly into the PWAD list.
             PWADList.Add(New PWAD() With {
                 .AbsolutePath = browseFileDialog.FileName,
                 .NiceName = browseFileDialog.SafeFileName
                 })
 
         End If
+
+        ' Update the PWAD View List UI component
         UpdateViewListPWAD()
     End Sub
 
 
+
+
+    ' Button Remove PWAD [EVENT: Click]
+    ' ------------------------------------------
+    ' This function will be called when the user requests a selected PWAD to be removed from the list.
+    ' This requires the user to first select an entry from the PWAD ViewList UI component and then from there
+    ' it is possible to remove the PWAD from the list.  Once removed, the view list will be refreshed.
     Private Sub ButtonRemovePWAD_Click(sender As Object, e As RoutedEventArgs)
+        ' Make sure that the user actually clicked an item from the list.
         If ((Not (selectedPWADListItem = -1)) And (PWADList.Count >= selectedPWADListItem)) Then
+            ' Remove the entry from the list.
             PWADList.RemoveAt(selectedPWADListItem)
+
+            ' Update the ViewList UI Component
+            UpdateViewListPWAD()
         End If
-        UpdateViewListPWAD()
     End Sub
+
+
+
+
 
     Private Sub ButtonClear_Clicked(sender As Object, e As RoutedEventArgs)
-
+        ' Clear the selected Skill Level from the UI Combo Box component
+        ComboBoxSkillLevel.SelectedValue = ""
+        ' Reset the Skill Level index to the default - not selected - value.
+        selectedSkillLevelID = selectItemNotAvailable
     End Sub
 
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
