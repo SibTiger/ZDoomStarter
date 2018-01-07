@@ -807,6 +807,9 @@ Class MainWindow
                 ' that executable.
                 Return i.AbsolutePath
             End If
+
+            ' Update the counter
+            indexCounter += 1
         Next
 
         ' If in case something goes horribly wrong, return an error
