@@ -765,6 +765,9 @@ Class MainWindow
         Dim executeCommand As New ProcessStartInfo
         Dim pathBinaryFile As String            ' Holds the source port path.
         Dim pathIWADFile As String              ' Holds the IWAD path.
+        Dim pwadsInclusion As String            ' Holds the entire PWAD load sequence.
+        Dim customParameters As String          ' Holds the custom parameters.
+        Dim gameFlags As String                 ' Holds the game play flags.
         ' ----------------------------------
 
         ' STUFF WE WILL NEED LATER
@@ -804,6 +807,19 @@ Class MainWindow
                             MessageBoxImage.Error)
             Return  ' An error occurred, leave the function and avoid any further execution.
         End If
+
+        ' PATCH WAD
+        ' -----------
+        ' Get the entire PWAD load sequence
+        pwadsInclusion = LaunchBuilderPWADInclusion()
+
+        ' Custom Parameters
+        ' -----------
+        customParameters = LaunchBuilderCustomParameters()
+
+        ' Game Play Flags
+        ' -----------
+        'gameFlags =
     End Sub
 
 
@@ -913,6 +929,66 @@ Class MainWindow
         Else
             ' The file was not found or some issue occurred.
             Return True
+        End If
+    End Function
+
+
+
+
+    ' Launch Builder: PWAD Inclusion
+    ' ------------------------------------------
+    ' This function is designed to grab all PWADs that the user
+    ' requested to use in this instance.  We will scan through
+    ' the PWADList and put all of the PWADs paths into one string
+    ' that can be used when invoking the source port engine.
+    ' -----------------------
+    ' Output
+    '   PWAD paths (combined)
+    '       This will hold all PWAD paths combined into one string.
+    '       For example: "C:\myWad.wad, C:\UTNT.pk3, C:\NewMonsters.deh"
+    '       NOTE: If no PWAD was requested, than 'Nothing' will be returned.
+    Private Function LaunchBuilderPWADInclusion() As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim catenateString As String = ""    ' This will hold all of the PWAD paths
+        ' ----------------------------------
+
+        If (Not (PWADList.Count = 0)) Then
+            ' PWADList contains one or more PWADs to load
+            ' Scan through each index of the PWADList and store
+            ' all of the PWAD absolute paths into a catenate variable.
+            For Each i As PWAD In PWADList
+                catenateString = catenateString + ", " + i.AbsolutePath
+            Next
+
+            ' Return our concatenated string
+            Return catenateString
+        Else
+            ' Nothing was included; no PWADs to load
+            Return Nothing
+        End If
+    End Function
+
+
+
+
+    ' Launch Builder: Custom Parameters
+    ' ------------------------------------------
+    ' This function will merely get the custom parameters and return
+    ' the parameter, if any was provided by the end-user.
+    ' If in case we need to do any formations\transformations or use
+    ' a list (which I would recommend in the next major version, if any)
+    ' we will need this function to be available and ready for use.
+    ' -----------------------
+    ' Output
+    '   Custom Parameters [String]
+    '       This hold the requested custom parameters.
+    '       NOTE: if no parameters are giving, then 'Nothing' will be returned.
+    Private Function LaunchBuilderCustomParameters() As String
+        If (TextBoxCustomParameters.Text = Nothing) Then
+            Return Nothing
+        Else
+            Return TextBoxCustomParameters.Text
         End If
     End Function
 
