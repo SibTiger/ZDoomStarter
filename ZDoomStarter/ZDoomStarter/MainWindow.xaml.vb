@@ -25,6 +25,10 @@ Class MainWindow
 
     ' This string will hold the PWAD directory that is available to this program.
     Public Property PWADPath As String
+
+    Dim selectedSourcePortID As Int32 = -1
+    Dim selectedIWADID As Int32 = -1
+    Dim selectedSkillLevel As Int32 = -1
 #End Region
 
 
@@ -48,6 +52,12 @@ Class MainWindow
 
         ' Fetch the IWAD list
         IWADList = invokeRegistry.ReadRegistryGameData()
+
+        ' Populate the Source Port ComboBox
+        RenderComboBoxSourcePort()
+
+        ' Populate the IWAD ComboBox
+        RenderComboBoxIWAD()
     End Sub
 
 
@@ -70,7 +80,7 @@ Class MainWindow
 
 
 
-    ' UI ELEMENTS
+    ' UI ELEMENTS: File Menu
     ' =================================================
     ' =================================================
     ' =================================================
@@ -231,7 +241,7 @@ Class MainWindow
 
 
 
-    ' Help File Menu: Allow the end-user to view the the ZDoom Wiki (Command Line Documentation)
+    ' Help File Menu: Allow the end-user to view the ZDoom Wiki (Command Line Documentation)
     ' ------------------------------------------
     Private Sub HelpMenuWikiZDoom_Click(sender As Object, e As RoutedEventArgs)
         ' URL for updates
@@ -292,70 +302,73 @@ Class MainWindow
         Me.Opacity = 1.0        ' OPACITY EXPERIEMNTAL ONLY
     End Sub
 
-    Private Sub ComboBoxSourcePort_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
 
+
+
+    ' UI ELEMENTS: Game Play Environment
+    ' =================================================
+    ' =================================================
+    ' =================================================
+
+
+
+
+    Private Sub RenderComboBoxSourcePort()
+        Dim indexCounter As Int32 = 1
+        For Each i As SourcePort In SourcePortList
+            ComboBoxSourcePort.Items.Add(CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)
+            indexCounter += 1
+        Next
+    End Sub
+
+    Private Sub ClearComboBoxSourcePort()
+        ComboBoxSourcePort.Items.Clear()
+    End Sub
+
+    Private Sub ComboBoxSourcePort_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        Dim indexCounter As Int32 = 1
+        For Each i As SourcePort In SourcePortList
+            If (ComboBoxSourcePort.SelectedItem = (CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)) Then
+                selectedSourcePortID = indexCounter - 1
+                MsgBox(selectedSourcePortID)
+            End If
+
+            indexCounter += 1
+        Next
     End Sub
 
 
-    Private Sub ComboBoxSourcePort_Loaded()
-
+    Private Sub RenderComboBoxIWAD()
+        Dim indexCounter As Int32 = 1
+        For Each i As IWAD In IWADList
+            ComboBoxIWAD.Items.Add(CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)
+            indexCounter += 1
+        Next
     End Sub
 
     Private Sub ComboBoxIWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-
+        Dim indexCounter As Int32 = 1
+        For Each i As IWAD In IWADList
+            ComboBoxIWAD.Items.Add(CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)
+            indexCounter += 1
+        Next
     End Sub
 
 
-    Private Sub ComboBoxIWAD_Loaded()
-
+    Private Sub ClearComboBoxIWAD()
+        ComboBoxIWAD.Items.Clear()
     End Sub
-
 
     Private Sub ComboBoxSkilLevel_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-
+        ComboBoxSkillLevel.SelectedIndex = selectedSkillLevel
     End Sub
 
-
-    Private Sub ComboBoxSkillLevel_Loaded()
-
-    End Sub
 
 
     Private Sub ViewListPWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
 
     End Sub
 
-    Private Sub CheckBoxFastMonsters_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxMonstersRespawn_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxDeathmatch_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxAVG_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxNoMusic_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxNoSFX_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxNoMultimedia_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
-
-    Private Sub CheckBoxUseOldStartUp_Checked(sender As Object, e As RoutedEventArgs)
-
-    End Sub
 
     Private Sub ButtonClear_Clicked(sender As Object, e As RoutedEventArgs)
 

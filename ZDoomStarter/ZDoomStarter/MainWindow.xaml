@@ -56,10 +56,14 @@
             </MenuItem>
         </Menu>
         <GroupBox Header="Select: Source Port" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,23,0,0">
-            <ComboBox x:Name="ComboBoxSourcePort" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Loaded="ComboBoxSourcePort_Loaded" SelectionChanged="ComboBoxSourcePort_SelectionChanged" IsReadOnly="True" Margin="10,10,-2,-1"/>
+            <ComboBox x:Name="ComboBoxSourcePort" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" SelectionChanged="ComboBoxSourcePort_SelectionChanged" IsReadOnly="True" Margin="10,10,-2,-1">
+                <ComboBox.BindingGroup>
+                    <BindingGroup/>
+                </ComboBox.BindingGroup>
+            </ComboBox>
         </GroupBox>
         <GroupBox Header="Select: IWAD" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,88,0,0"/>
-        <ComboBox x:Name="ComboBoxIWAD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="28,115,0,0" SelectionChanged="ComboBoxIWAD_SelectionChanged" Loaded="ComboBoxIWAD_Loaded"/>
+        <ComboBox x:Name="ComboBoxIWAD" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="28,115,0,0" SelectionChanged="ComboBoxIWAD_SelectionChanged"/>
         <GroupBox Header="Select: PWADs" HorizontalAlignment="Left" Height="323" VerticalAlignment="Top" Width="210" Margin="414,23,0,0">
             <Grid HorizontalAlignment="Left" Height="299" VerticalAlignment="Top" Width="200" Margin="0,0,-2,0">
                 <ListView x:Name="ListViewPWADs" HorizontalAlignment="Left" Height="250" VerticalAlignment="Top" SelectionChanged="ViewListPWAD_SelectionChanged" Width="183" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="10,10,0,0">
@@ -75,18 +79,18 @@
         </GroupBox>
         <GroupBox Header="Game Play Options" HorizontalAlignment="Left" Height="190" VerticalAlignment="Top" Width="199" Margin="210,23,0,0">
             <Grid HorizontalAlignment="Left" Height="171" VerticalAlignment="Top" Width="189" Margin="0,0,-2,-3">
-                <CheckBox x:Name="CheckBoxFastMonsters" Content="Fast Monsters" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Checked="CheckBoxFastMonsters_Checked"/>
-                <CheckBox x:Name="CheckBoxMonstersRespawn" Content="Monsters Respawn" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0" Checked="CheckBoxMonstersRespawn_Checked"/>
-                <CheckBox x:Name="CheckBoxAVG" Content="Austin Virtual Gaming" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0" Checked="CheckBoxAVG_Checked"/>
-                <CheckBox x:Name="CheckBoxDeathmatch" Content="Deathmatch" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" Checked="CheckBoxDeathmatch_Checked"/>
-                <CheckBox x:Name="CheckBoxNoMusic" Content="No Music" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0" Checked="CheckBoxNoMusic_Checked"/>
-                <CheckBox x:Name="CheckBoxNoSFX" Content="No Sound Effects" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,110,0,0" Checked="CheckBoxNoSFX_Checked"/>
-                <CheckBox x:Name="CheckBoxNoMultimedia" Content="Disable Multimedia" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0" Checked="CheckBoxNoMultimedia_Checked"/>
-                <CheckBox x:Name="CheckBoxUseOldStartup" Content="Use Old Startup Screen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0" Checked="CheckBoxUseOldStartUp_Checked"/>
+                <CheckBox x:Name="CheckBoxFastMonsters" Content="Fast Monsters" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                <CheckBox x:Name="CheckBoxMonstersRespawn" Content="Monsters Respawn" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"/>
+                <CheckBox x:Name="CheckBoxAVG" Content="Austin Virtual Gaming" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,70,0,0"/>
+                <CheckBox x:Name="CheckBoxDeathmatch" Content="Deathmatch" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
+                <CheckBox x:Name="CheckBoxNoMusic" Content="No Music" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
+                <CheckBox x:Name="CheckBoxNoSFX" Content="No Sound Effects" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,110,0,0"/>
+                <CheckBox x:Name="CheckBoxNoMultimedia" Content="Disable Multimedia" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0"/>
+                <CheckBox x:Name="CheckBoxUseOldStartup" Content="Use Old Startup Screen" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,0,0"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Select: Skill Level" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,153,0,0">
-            <ComboBox x:Name="ComboBoxSkillLevel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="10,10,0,0" SelectionChanged="ComboBoxSkilLevel_SelectionChanged" Loaded="ComboBoxSkillLevel_Loaded"/>
+            <ComboBox x:Name="ComboBoxSkillLevel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="10,10,0,0" SelectionChanged="ComboBoxSkilLevel_SelectionChanged"/>
         </GroupBox>
         <GroupBox Header="Advanced: Custom Parameters" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top" Width="399" Margin="10,218,0,0">
             <TextBox x:Name="TextBoxCustomParameters" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" Margin="10,10,0,0"/>
