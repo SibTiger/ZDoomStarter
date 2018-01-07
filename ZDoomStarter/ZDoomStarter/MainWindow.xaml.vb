@@ -447,6 +447,14 @@ Class MainWindow
     End Sub
 
     Private Sub ButtonLaunch_Clicked(sender As Object, e As RoutedEventArgs)
+        Dim executeCommand As New ProcessStartInfo
+        executeCommand.FileName = ""
+        executeCommand.Arguments = ""
 
+        Process.Start(executeCommand)
     End Sub
+
+    Private Function LaunchBuilder_Arguments() As String
+
+    End Function
 End Class
