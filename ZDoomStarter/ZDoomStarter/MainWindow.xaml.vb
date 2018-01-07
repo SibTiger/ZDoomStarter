@@ -26,9 +26,14 @@ Class MainWindow
     ' This string will hold the PWAD directory that is available to this program.
     Public Property PWADPath As String
 
+    Public Property SkillLevelList As New List(Of String)(New String() {"Hey, not too rough",
+                                                                    "Hurt me plenty",
+                                                                    "Ultra-Violence",
+                                                                    "Nightmare!"})
+
     Dim selectedSourcePortID As Int32 = -1
     Dim selectedIWADID As Int32 = -1
-    Dim selectedSkillLevel As Int32 = -1
+    Dim selectedSkillLevelID As Int32 = -1
 #End Region
 
 
@@ -58,6 +63,9 @@ Class MainWindow
 
         ' Populate the IWAD ComboBox
         RenderComboBoxIWAD()
+
+        ' Populate the Skill Level ComboBox
+        RenderComboBoxSkillLevel()
     End Sub
 
 
@@ -349,7 +357,11 @@ Class MainWindow
     Private Sub ComboBoxIWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim indexCounter As Int32 = 1
         For Each i As IWAD In IWADList
-            ComboBoxIWAD.Items.Add(CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)
+            If (ComboBoxIWAD.SelectedItem = (CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)) Then
+                selectedIWADID = indexCounter - 1
+                MsgBox(selectedIWADID)
+            End If
+
             indexCounter += 1
         Next
     End Sub
@@ -359,8 +371,24 @@ Class MainWindow
         ComboBoxIWAD.Items.Clear()
     End Sub
 
+    Private Sub RenderComboBoxSkillLevel()
+        Dim indexCounter As Int32 = 1
+        For Each i As String In SkillLevelList
+            ComboBoxSkillLevel.Items.Add(CStr(indexCounter) + ") " + i)
+            indexCounter += 1
+        Next
+    End Sub
+
     Private Sub ComboBoxSkilLevel_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        ComboBoxSkillLevel.SelectedIndex = selectedSkillLevel
+        Dim indexCounter As Int32 = 1
+        For Each i As String In SkillLevelList
+            If (ComboBoxSkillLevel.SelectedItem = (CStr(indexCounter) + ") " + i)) Then
+                selectedSkillLevelID = indexCounter - 1
+                MsgBox(selectedSkillLevelID)
+            End If
+
+            indexCounter += 1
+        Next
     End Sub
 
 
