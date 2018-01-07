@@ -666,14 +666,12 @@ Class MainWindow
             browseFileDialog.InitialDirectory = PWADPath
         End If
 
-
         If (browseFileDialog.ShowDialog()) Then
             ' Successful result; immediately store the information directly into the PWAD list.
             PWADList.Add(New PWAD() With {
                 .AbsolutePath = browseFileDialog.FileName,
                 .NiceName = browseFileDialog.SafeFileName
                 })
-
         End If
 
         ' Update the PWAD View List UI component
@@ -765,16 +763,47 @@ Class MainWindow
         ' Declarations and Initializations
         ' ----------------------------------
         Dim executeCommand As New ProcessStartInfo
-        Dim binaryAbsPath As String
+        Dim pathBinaryFile As String            ' Holds the source port path.
+        Dim pathIWADFile As String              ' Holds the IWAD path.
         ' ----------------------------------
 
+        ' STUFF WE WILL NEED LATER
         'executeCommand.FileName = ""
         'executeCommand.Arguments = ""
-
-        MsgBox(LaunchBuilderExecutablePath)
-        'MsgBox(LaunchBuilder_Arguments())
-
         'Process.Start(executeCommand)
+        ' =================================
+
+
+
+        ' SOURCE PORT
+        ' -----------
+        ' Get the absolute path of the source port engine
+        pathBinaryFile = LaunchBuilderFindExecutablePath()
+
+        ' Test to make sure that the executable exists
+        If ((pathBinaryFile Is "!ERR") Or (LaunchBuilderCheckFileExists(pathBinaryFile))) Then
+            ' File does not exists or there was an error
+            MessageBox.Show("The selected source port path or file does not exist!" & vbCrLf & "File: " + pathBinaryFile,
+                            "File does not Exist!",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+            Return  ' An error occurred, leave the function and avoid any further execution.
+        End If
+
+        ' INTERNAL WAD
+        ' -----------
+        ' Get the absolute path of the IWAD file
+        pathIWADFile = LaunchBuilderFindIWADPath()
+
+        ' Test to make sure that the executable exists
+        If ((pathIWADFile Is "!ERR") Or (LaunchBuilderCheckFileExists(pathIWADFile))) Then
+            ' File does not exists or there was an error
+            MessageBox.Show("The selected IWAD path or file does not exist!" & vbCrLf & "File: " + pathIWADFile,
+                            "File does not Exist!",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Error)
+            Return  ' An error occurred, leave the function and avoid any further execution.
+        End If
     End Sub
 
 
@@ -794,7 +823,7 @@ Class MainWindow
     '       that was selected.
     '       NOTE: '!ERR' will be returned if an error occurs
     '               mainly when the scan fails.
-    Private Function LaunchBuilderExecutablePath() As String
+    Private Function LaunchBuilderFindExecutablePath() As String
         ' Declarations and Initializations
         ' ----------------------------------
         Dim indexCounter As Int32 = 0       ' Index key
@@ -807,6 +836,46 @@ Class MainWindow
             If (selectedSourcePortID = indexCounter) Then
                 ' We found the right key, now return the path of
                 ' that executable.
+                Return i.AbsolutePath
+            End If
+
+            ' Update the counter
+            indexCounter += 1
+        Next
+
+        ' If in case something goes horribly wrong, return an error
+        ' message.
+        Return "!ERR"
+    End Function
+
+
+
+
+    ' Launch Builder: Find IWAD Path
+    ' ------------------------------------------
+    ' This function is designed to find the absolute path
+    ' of the IWAD file from the IWAD list and return that
+    ' to the calling function.
+    ' -----------------------
+    ' Output
+    '   File Path [String]
+    '       The absolute file path of the IWAD file that was
+    '       selected.
+    '       NOTE: '!ERR' will be returned if an error occurs
+    '               mainly when the scan fails.
+    Private Function LaunchBuilderFindIWADPath() As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 0       ' Index key
+        ' ----------------------------------
+
+        ' Scan the IWAD list and find the desired game file
+        ' that the user choose to utilize.
+        For Each i As IWAD In IWADList
+            ' Did we find the right index key that matches?
+            If (selectedIWADID = indexCounter) Then
+                ' We found the right key, now return the path of
+                ' that IWAD file.
                 Return i.AbsolutePath
             End If
 
