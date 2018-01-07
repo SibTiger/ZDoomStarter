@@ -690,7 +690,7 @@ Class MainWindow
     ' it is possible to remove the PWAD from the list.  Once removed, the view list will be refreshed.
     Private Sub ButtonRemovePWAD_Click(sender As Object, e As RoutedEventArgs)
         ' Make sure that the user actually clicked an item from the list.
-        If (Not (selectedPWADListItem > selectItemNotAvailable)) Then
+        If (selectedPWADListItem > selectItemNotAvailable) Then
             ' Remove the entry from the list.
             PWADList.RemoveAt(selectedPWADListItem)
 
