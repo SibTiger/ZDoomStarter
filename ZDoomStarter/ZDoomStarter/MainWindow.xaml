@@ -30,7 +30,7 @@
             <MenuItem x:Name="HelpMenu" Header="Help">
                 <MenuItem x:Name="HelpMenuWikiGitHub" Header="View Wiki [GitHub]" Click="HelpMenuWikiGitHub_Click"/>
                 <MenuItem x:Name="HelpMenuWikiZDoom" Header="View ZDoom Wiki [CommandLine]" Click="HelpMenuWikiZDoom_Click"/>
-                <Separator HorizontalAlignment="Left" Width="175" RenderTransformOrigin="0.5,0.5">
+                <Separator RenderTransformOrigin="0.5,0.5" Margin="0,2" HorizontalAlignment="Left" Width="270">
                     <Separator.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="-1"/>
@@ -42,7 +42,7 @@
                 </Separator>
                 <MenuItem x:Name="HelpMenuUpdatesGitHub" Header="Updates [GitHub]" Click="HelpMenuUpdatesGitHub_Click"/>
                 <MenuItem x:Name="HelpMenuReportIssueGitHub" Header="Report issue [GitHub]" Click="HelpMenuReportIssueGitHub_Click"/>
-                <Separator HorizontalAlignment="Left" Width="175" RenderTransformOrigin="0.5,0.5">
+                <Separator HorizontalAlignment="Left" Width="270" RenderTransformOrigin="0.5,0.5">
                     <Separator.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="-1"/>

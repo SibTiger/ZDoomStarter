@@ -276,6 +276,12 @@ Class MainWindow
         ' Clear the PWAD Directory
         PWADPath = ""
 
+        ' Refresh the Source Port Combo Box
+        RefreshComboBoxSourcePort()
+
+        ' Refresh the IWAD Combo Box
+        RefreshComboBoxIWAD()
+
         ' Tell the user that the settings has been reset.
         MsgBox("Default settings has been applied!")
     End Sub
