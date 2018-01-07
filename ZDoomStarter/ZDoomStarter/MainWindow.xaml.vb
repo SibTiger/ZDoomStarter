@@ -43,27 +43,34 @@ Class MainWindow
 
     ' ----
 
+    ' This variable, when used, determines that an item from a list within the UI
+    ' environment was never set or selected.  This is mainly useful when refreshing
+    ' a UI Component.
+    Private Const selectItemNotAvailable As Int32 = -1
+
+    ' ----
+
     ' PWADList Index that was selected from the ListView.  This is mainly useful for removing
     ' the requested PWAD off the List.
-    Private selectedPWADListItem As Int32 = -1
+    Private selectedPWADListItem As Int32 = selectItemNotAvailable
 
     ' ----
 
     ' Selected Source Port from the Combo Box.  This is mainly useful for finding the engine
     ' that the user has requested to use.
-    Private selectedSourcePortID As Int32 = -1
+    Private selectedSourcePortID As Int32 = selectItemNotAvailable
 
     ' ----
 
     ' Selected IWAD from the Combo Box.  This is mainly useful for finding the IWAD that the
     ' user has requested to use.
-    Private selectedIWADID As Int32 = -1
+    Private selectedIWADID As Int32 = selectItemNotAvailable
 
     ' ----
 
     ' Selected Skill Level from the Combo Box.  This is mainly useful for finding the Skill Level
     ' that the user has requested to play.
-    Private selectedSkillLevelID As Int32 = -1
+    Private selectedSkillLevelID As Int32 = selectItemNotAvailable
 #End Region
 
 
@@ -140,8 +147,11 @@ Class MainWindow
     ' Configure File Menu: Configure Source Ports
     ' ------------------------------------------
     Private Sub ConfigureMenuSourcePorts_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuSourcePorts.Click
+        ' Declarations and Initializations
+        ' ----------------------------------
         ' Create the form instance
         Dim newWindowInstance As New ConfigSourcePorts(SourcePortList)
+        ' ----------------------------------
 
         ' Dim the parent window; visually show that it is not available
         '  for activity
@@ -165,6 +175,9 @@ Class MainWindow
         If (newWindowInstance.updateSourcePortList = True) Then
             ' Update the source port list
             SourcePortList = newWindowInstance.DisplayEngineList
+
+            ' Refresh the source port combo box
+            RefreshComboBoxSourcePort()
         End If
     End Sub
 
@@ -174,8 +187,11 @@ Class MainWindow
     ' Configure File Menu: Configure IWAD's
     ' ------------------------------------------
     Private Sub ConfigureMenuIWADs_Click(sender As Object, e As RoutedEventArgs) Handles ConfigureMenuIWADs.Click
+        ' Declarations and Initializations
+        ' ----------------------------------
         ' Create the form instance
         Dim newWindowInstance As New ConfigIWADs(IWADList)
+        ' ----------------------------------
 
         ' Dim the parent window; visually show that it is not available for activity
         Me.Opacity = 0.5
@@ -194,8 +210,11 @@ Class MainWindow
         '   When true, update the IWAD list
         '   When false, ignore all changes and keep the existing list as-is.
         If (newWindowInstance.updateIWADList = True) Then
-            ' Update the source port list
+            ' Update the IWAD list
             IWADList = newWindowInstance.DisplayIWADList
+
+            ' Refresh the IWAD Combo box
+            RefreshComboBoxIWAD()
         End If
     End Sub
 
@@ -350,73 +369,224 @@ Class MainWindow
 
 
 
+    ' Render Source Port Combo Box
+    ' ------------------------------------------
+    ' When called, this function will populate the Source Port Combo Box using the
+    ' Source Port list.
+    ' Because it seems as if I can not get the index when the user _selects_ an item
+    ' from the ComboBox but the 'string', we will formulate a string to be unique.
+    ' If we only use the engine name (or NiceName), it is possible that the list
+    ' might contain duplicates but the binaries could vary in versions.  For example
+    ' Zandronum 1.0 and Zandronum 2.0.  To avoid this conflict, we will artificially add
+    ' the following: an index number (natural number, user friendly), engine name, and custom notes.
+    ' The index number will assure we use the right engine that was selected from the list, the
+    ' custom notes will only be useful for the end-user as a means of knowing what they selected.
     Private Sub RenderComboBoxSourcePort()
-        Dim indexCounter As Int32 = 1
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 1       ' Artificial index key
+        ' ----------------------------------
+
+        ' Scan through the Source Port list and add each entry into the Combo Box UI Component.
         For Each i As SourcePort In SourcePortList
+            ' Add the item into the combo box.
             ComboBoxSourcePort.Items.Add(CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)
+
+            ' Update the index key.
             indexCounter += 1
         Next
     End Sub
 
+
+
+
+    ' Clear Source Port Combo Box
+    ' ------------------------------------------
+    ' This function will clear all entries within the ComboBox.
+    ' This can be useful when refreshing the list.
     Private Sub ClearComboBoxSourcePort()
         ComboBoxSourcePort.Items.Clear()
     End Sub
 
+
+
+
+    ' Refresh Source Port Combo Box
+    ' ------------------------------------------
+    ' When called, this function will refresh the Source Port Combo Box
+    ' by utilizing the Clear and Render functions.  This is ideal if in
+    ' case the Source Port list has been updated.
+    Private Sub RefreshComboBoxSourcePort()
+        ClearComboBoxSourcePort()       ' Clear the combo box
+        RenderComboBoxSourcePort()      ' Regenerate the entries within the combo box.
+        selectedSourcePortID =
+            selectItemNotAvailable      ' Revert the cached selection to the default error number.
+    End Sub
+
+
+
+
+    ' ComboBox Source Port [EVENT: SelectionChanged]
+    ' ------------------------------------------
+    ' When the user selects an entry from the ComboBox, we can not easily get
+    ' the index from that selection - but only the string.  With that, we used
+    ' a work around to circumvent this functionality.  The work around is as
+    ' follows: Index Key (natural numbering scheme) + engine name + notes
+    ' With that information, we will use that string and test the values against
+    ' the Source Port list.
+    ' NOTE: The index key must be translated to the Whole Number scheme.
     Private Sub ComboBoxSourcePort_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        Dim indexCounter As Int32 = 1
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 1       ' Index Key; Natural number
+        ' ----------------------------------
+
+        ' Scan through all entries in the Source Port list
         For Each i As SourcePort In SourcePortList
+            ' Find that one entry that matches what the user selected against the source port list.
             If (ComboBoxSourcePort.SelectedItem = (CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)) Then
+                ' Found the entry within the list.  Capture the actual Index Key (whole number)
+                ' as we will need this for later.
                 selectedSourcePortID = indexCounter - 1
-                MsgBox(selectedSourcePortID)
             End If
 
-            indexCounter += 1
+            indexCounter += 1       ' Increment the index key.
         Next
     End Sub
 
 
+
+
+    ' Render IWAD Combo Box
+    ' ------------------------------------------
+    ' When called, this function will populate the IWAD Combo Box using the IWAD list.
+    ' Because it seems as if I can not get the index when the user _selects_ an item
+    ' from the ComboBox but the 'string', we will formulate a string to be unique.
+    ' If we only use the file name (or NiceName), it is possible that the list
+    ' might contain duplicates but the files could vary in versions.  For example
+    ' Knee Deep in ZDoom 1.0 and Knee Deep in ZDoom 1.1.  To avoid this conflict, we will artificially add
+    ' the following: an index number (natural number, user friendly), file name, and custom notes.
+    ' The index number will assure we use the right file that was selected from the list, the
+    ' custom notes will only be useful for the end-user as a means of knowing what they selected.
     Private Sub RenderComboBoxIWAD()
-        Dim indexCounter As Int32 = 1
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 1       ' Artificial index key
+        ' ----------------------------------
+
+        ' Scan through the IWAD list and add each entry into the Combo Box UI Component.
         For Each i As IWAD In IWADList
+            ' Add the item into the combo box.
             ComboBoxIWAD.Items.Add(CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)
+
+            ' Update the index key
             indexCounter += 1
         Next
     End Sub
 
+
+
+
+    ' IWAD Combo Box [EVENT: Selection Changed]
+    ' ------------------------------------------
+    ' When the user selects an entry from the ComboBox, we can not easily get
+    ' the index from that selection - but only the string.  With that, we used
+    ' a work around to circumvent this functionality.  The work around is as
+    ' follows: Index Key (natural numbering scheme) + IWAD name + notes
+    ' With that information, we will use that string and test the values against
+    ' the IWAD list.
+    ' NOTE: The index key must be translated to the Whole Number scheme.
     Private Sub ComboBoxIWAD_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        Dim indexCounter As Int32 = 1
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 1       ' Index Key; Natural number
+        ' ----------------------------------
+
+        ' Scan through all entries in the IWAD list
         For Each i As IWAD In IWADList
+            ' Find that one entry that matches what the user selected against the IWAD list.
             If (ComboBoxIWAD.SelectedItem = (CStr(indexCounter) + ") " + i.NiceName + " - " + i.CustomNotes)) Then
+                ' Found the entry within the list.  Capture the actual Index Key (whole number)
+                ' as we will need this for later.
                 selectedIWADID = indexCounter - 1
-                MsgBox(selectedIWADID)
             End If
 
-            indexCounter += 1
+            indexCounter += 1       ' Increment the index key
         Next
     End Sub
 
 
+
+
+    ' Refresh IWAD Combo Box
+    ' ------------------------------------------
+    ' When called, this function will refresh the IWAD Combo Box
+    ' by utilizing the Clear and Render functions.  This is ideal if in
+    ' case the IWAD list has been updated.
+    Private Sub RefreshComboBoxIWAD()
+        ClearComboBoxIWAD()         ' Clear the combo box
+        RenderComboBoxIWAD()        ' Regenerate the entries within the combo box
+        selectedIWADID =
+            selectItemNotAvailable  ' Revert the cached selection to the default error number.
+    End Sub
+
+
+
+
+    ' Clear IWAD Combo Box
+    ' ------------------------------------------
+    ' This function will clear all entries within the ComboBox.
+    ' This can be useful when refreshing the list.
     Private Sub ClearComboBoxIWAD()
         ComboBoxIWAD.Items.Clear()
     End Sub
 
+
+
+
+    ' Render Skill Level Combo Box
+    ' ------------------------------------------
+    ' When called, this function will populate the Skill Level Combo Box.
+    ' To be consistent, we will follow the same convention with the other
+    ' combo boxes.  Thus, index key + Skill Level
     Private Sub RenderComboBoxSkillLevel()
-        Dim indexCounter As Int32 = 1
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 1       ' Counter
+        ' ----------------------------------
+
+        ' Scan through each entry within the skill level list.
         For Each i As String In SkillLevelList
+            ' Add the entry into the combo list.
             ComboBoxSkillLevel.Items.Add(CStr(indexCounter) + ") " + i)
+
+            ' Increment the counter
             indexCounter += 1
         Next
     End Sub
 
-    Private Sub ComboBoxSkilLevel_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        Dim indexCounter As Int32 = 1
+
+
+
+    ' Skill Level Combo Box [EVENT: SelectionChanged]
+    ' ------------------------------------------
+    ' When the event raises, this function will find the desired skill level and save the
+    ' index key for use later on.
+    Private Sub ComboBoxSkillLevel_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim indexCounter As Int32 = 1       ' Counter
+        ' ----------------------------------
+
+        ' Scan through each entry within the Skill Level list
         For Each i As String In SkillLevelList
+            ' Find the selected skill level from the list
             If (ComboBoxSkillLevel.SelectedItem = (CStr(indexCounter) + ") " + i)) Then
+                ' Found the entry, save the actual index key.
                 selectedSkillLevelID = indexCounter - 1
-                MsgBox(selectedSkillLevelID)
             End If
 
-            indexCounter += 1
+            indexCounter += 1       ' Increment the index key.
         Next
     End Sub
 

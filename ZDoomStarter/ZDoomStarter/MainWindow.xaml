@@ -90,7 +90,7 @@
             </Grid>
         </GroupBox>
         <GroupBox Header="Select: Skill Level" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="195" Margin="10,153,0,0">
-            <ComboBox x:Name="ComboBoxSkillLevel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="10,10,0,0" SelectionChanged="ComboBoxSkilLevel_SelectionChanged"/>
+            <ComboBox x:Name="ComboBoxSkillLevel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" Margin="10,10,0,0" SelectionChanged="ComboBoxSkillLevel_SelectionChanged"/>
         </GroupBox>
         <GroupBox Header="Advanced: Custom Parameters" HorizontalAlignment="Left" Height="66" VerticalAlignment="Top" Width="399" Margin="10,218,0,0">
             <TextBox x:Name="TextBoxCustomParameters" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" Margin="10,10,0,0"/>
