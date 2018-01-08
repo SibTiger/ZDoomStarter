@@ -1072,7 +1072,7 @@ Class MainWindow
     Private Function LaunchBuilderPWADInclusion() As String
         ' Declarations and Initializations
         ' ----------------------------------
-        Dim catenateString As String = ""    ' This will hold all of the PWAD paths
+        Dim catenateString As String = Nothing    ' This will hold all of the PWAD paths
         ' ----------------------------------
 
         If (Not (PWADList.Count = 0)) Then
@@ -1080,6 +1080,12 @@ Class MainWindow
             ' Scan through each index of the PWADList and store
             ' all of the PWAD absolute paths into a catenate variable.
             For Each i As PWAD In PWADList
+                ' If this is the first entry, then just throw the value without any formatting.
+                If (catenateString = Nothing) Then
+                    catenateString = i.AbsolutePath
+                End If
+
+                ' with other values existing, append it.
                 catenateString = catenateString + ", " + i.AbsolutePath
             Next
 
