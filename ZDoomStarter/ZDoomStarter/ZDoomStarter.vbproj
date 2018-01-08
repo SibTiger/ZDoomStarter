@@ -127,6 +127,7 @@
       <DependentUpon>ConfigPWADPath.xaml</DependentUpon>
     </Compile>
     <Compile Include="IWAD.vb" />
+    <Compile Include="LaunchBuilder.vb" />
     <Compile Include="PWAD.vb" />
     <Compile Include="SourcePort.vb" />
     <Compile Include="WindowsRegistry.vb" />
