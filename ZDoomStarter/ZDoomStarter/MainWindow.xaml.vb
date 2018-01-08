@@ -879,6 +879,41 @@ Class MainWindow
         ' ----------------------------------
         Dim catenatedString As String   ' This will hold all of the
         ' ----------------------------------
+
+        ' SETUP: Internal WAD
+        ' ========================
+        catenatedString = "-iwad " + fileIWAD
+
+        ' SETUP: Skill Level
+        ' ========================
+        catenatedString = catenatedString + " -skill " + CStr(skillLevel)
+
+        ' SETUP: Patch WAD
+        ' ========================
+        ' Check if any PWADs were included, if not - proceed without.
+        If (Not (filePWADs = Nothing)) Then
+            ' Include the requested PWADs
+            catenatedString = catenatedString + " -file " + filePWADs
+        End If
+
+        ' SETUP: Game Flags
+        ' ========================
+        ' Check if any flags were set, if not - proceed without.
+        If (Not (gameFlags = Nothing)) Then
+            ' Include the requested flags
+            catenatedString = catenatedString + " " + gameFlags
+        End If
+
+        ' SETUP: Custom Parameters
+        ' ========================
+        ' Check if the user provided any parameters, if not - proceed without.
+        If (Not (customParameters = Nothing)) Then
+            ' Include the requested parameters
+            catenatedString = catenatedString + " " + customParameters
+        End If
+
+        ' Now finally return the constructed string
+        Return catenatedString
     End Function
 
 
