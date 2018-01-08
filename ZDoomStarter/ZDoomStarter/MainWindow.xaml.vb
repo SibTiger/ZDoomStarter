@@ -31,7 +31,8 @@ Class MainWindow
     ' to determine the skill level dynamically as other PWADs can merely alter them in the
     ' (Z)MAPINFO or GAMEINFO ZDoom lump file.  As such, we will just stay to the basic and
     ' commonly known skill level list.
-    Public Property SkillLevelList As New List(Of String)(New String() {"Hey, not too rough",
+    Public Property SkillLevelList As New List(Of String)(New String() {"I'm too young to die",
+                                                                        "Hey, Not too rough",
                                                                         "Hurt me plenty",
                                                                         "Ultra-Violence",
                                                                         "Nightmare!"})
