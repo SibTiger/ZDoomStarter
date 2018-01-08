@@ -1,0 +1,1 @@
+This directory is dedicated for holding data that is needed for the GitHub services, such as the wiki for example.
