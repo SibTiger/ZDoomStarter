@@ -768,6 +768,8 @@ Class MainWindow
         Dim pwadsInclusion As String            ' Holds the entire PWAD load sequence.
         Dim customParameters As String          ' Holds the custom parameters.
         Dim gameFlags As String                 ' Holds the game play flags.
+        Dim executeParameters As String         ' Holds the final parameter set that will be used with the source port.
+        Dim executeFilePath As String           ' Holds the location of the Batch file that holds all the environment settings.
         ' ----------------------------------
 
         ' Make sure that the bare minimum requirements are fulfilled.
@@ -823,11 +825,78 @@ Class MainWindow
         ' -----------
         gameFlags = LaunchBuilderGamePlayFlags()
 
-        'MsgBox(LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters))
-        executeCommand.FileName = pathBinaryFile
-        executeCommand.Arguments = LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters)
-        Process.Start(executeCommand)
+        ' Store the concatenated parameters into one large variable
+        executeParameters = LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters)
+
+        ' Generate the Batch file
+        executeFilePath = LaunchBuilderMakeBatchFile(pathBinaryFile, executeParameters)
+
+        ' Execute the batch file
+        Process.Start(executeFilePath).WaitForExit()
+
+        ' Delete the batch file
+        LaunchBuilderDeleteBatchFile(executeFilePath)
     End Sub
+
+
+
+
+    ' Launch Builder: Delete Batch File
+    ' ------------------------------------------
+    ' This function will delete the batch file that was used for generating the entire request.
+    ' -----------------------
+    ' Parameters:
+    '   fileAbsPath [String]
+    '       Absolute file path of the batch script.
+    Private Sub LaunchBuilderDeleteBatchFile(fileAbsPath As String)
+        ' Delete the file if possible
+        If (System.IO.File.Exists(fileAbsPath)) Then
+            ' File exists, delete it.
+            My.Computer.FileSystem.DeleteFile(fileAbsPath)
+        End If
+    End Sub
+
+
+
+
+    ' Launch Builder: Make Batch File
+    ' ------------------------------------------
+    ' This function will generate a batch file that will execute the commands that the user requested.
+    ' This is merely a work around as I am not particularly sure as to how to get the commands to work
+    ' correctly in VB.net.  I really dislike this approach and this should be axed once I can figure this out.
+    ' -----------------------
+    ' Parameters:
+    '   executable [String]
+    '       The executable that is to be executed
+    '   parameters [String]
+    '       The executable parameters
+    Private Function LaunchBuilderMakeBatchFile(executable As String, parameters As String) As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        ' Instantiate StreamWriter
+        Dim file As System.IO.StreamWriter
+        ' Compile the executable and the parameters into one statement
+        Dim exeCommand As String = executable + " " + parameters
+        ' Batch file name, something unique that shouldn't conflict with the end-user's data.
+        Dim filePath As String = My.Computer.FileSystem.SpecialDirectories.Desktop +
+            "\__" + My.Application.Info.ProductName + "_loadgame.bat"
+        ' Enforce the UTF8 and disallow the BOM.  Without this setup: BOM is thrown in the text file - cmd is not able to understand it, and
+        ' all text defaults to latest Unicode standards.  With what we are working with - I don't know if the engines remotely support it.
+        Dim utf8WithoutByteOrderMark As New System.Text.UTF8Encoding(False)
+        ' ----------------------------------
+
+        ' Initialize the stream to the desired file
+        file = My.Computer.FileSystem.OpenTextFileWriter(filePath, False, utf8WithoutByteOrderMark)
+
+        ' Write the command to the batch script file
+        file.WriteLine(exeCommand)
+
+        ' Close the stream
+        file.Close()
+
+        ' Return the absolute file path of the Batch script
+        Return filePath
+    End Function
 
 
 
@@ -867,7 +936,7 @@ Class MainWindow
 
         ' SETUP: Internal WAD
         ' ========================
-        catenatedString = "-iwad " + fileIWAD
+        catenatedString = "-iwad " + Chr(34) + fileIWAD + Chr(34)
 
         ' SETUP: Skill Level
         ' ========================
@@ -1067,11 +1136,11 @@ Class MainWindow
             For Each i As PWAD In PWADList
                 ' If this is the first entry, then just throw the value without any formatting.
                 If (catenateString = Nothing) Then
-                    catenateString = i.AbsolutePath
+                    catenateString = Chr(34) + i.AbsolutePath + Chr(34)
+                Else
+                    ' with other values existing, append it.
+                    catenateString = catenateString + " " + Chr(34) + i.AbsolutePath + Chr(34)
                 End If
-
-                ' with other values existing, append it.
-                catenateString = catenateString + " " + i.AbsolutePath
             Next
 
             ' Return our concatenated string
