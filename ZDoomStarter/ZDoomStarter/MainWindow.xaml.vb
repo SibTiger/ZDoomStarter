@@ -776,7 +776,15 @@ Class MainWindow
         'Process.Start(executeCommand)
         ' =================================
 
-
+        ' Make sure that the bare minimum requirements are fulfilled.
+        If (LaunchBuilderRequiredFields()) Then
+            ' Missing one or more required fields
+            MessageBox.Show("Please be sure that the following is provided:" & vbCrLf & "    Source Port" & vbCrLf & "    IWAD" & vbCrLf & "    Skill Level",
+                "Missing one or more fields",
+                MessageBoxButton.OK,
+                MessageBoxImage.Exclamation)
+            Return  ' We are missing some information that is required, unable to continue - the user must provide the missing information.
+        End If
 
         ' SOURCE PORT
         ' -----------
@@ -823,6 +831,7 @@ Class MainWindow
 
         MsgBox("Executable Location: " + pathBinaryFile)
         MsgBox("IWAD Location: " + pathIWADFile)
+        MsgBox("Skill Level: " + CStr(selectedSkillLevelID))
         If (Not (pwadsInclusion = Nothing)) Then
             MsgBox("PWAD Paths: " + pwadsInclusion)
         End If
@@ -835,6 +844,34 @@ Class MainWindow
             MsgBox("Flags: " + gameFlags)
         End If
     End Sub
+
+
+
+
+    ' Launch Builder: Required Fields
+    ' ------------------------------------------
+    ' This function will make sure that the all of the required fields are populated.
+    ' At a bare minimum, we must assure that the fields are populated:
+    '   > Source port
+    '   > IWAD
+    '   > Skill Level
+    ' All other fields are not required but acceptable for use.
+    ' -----------------------
+    ' Output
+    '   State [Bool]
+    '       True = One or more fields are not complete.
+    '       False = All required fields are provided
+    Private Function LaunchBuilderRequiredFields() As Boolean
+        If ((selectedSkillLevelID = selectItemNotAvailable) Or
+                (selectedSourcePortID = selectItemNotAvailable) Or
+                (selectedIWADID = selectItemNotAvailable)) Then
+            ' One or more required fields are not set.
+            Return True
+        Else
+            ' All required fields are populated
+            Return False
+        End If
+    End Function
 
 
 
