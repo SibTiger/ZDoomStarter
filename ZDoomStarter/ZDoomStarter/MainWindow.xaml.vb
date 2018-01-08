@@ -819,7 +819,21 @@ Class MainWindow
 
         ' Game Play Flags
         ' -----------
-        'gameFlags =
+        gameFlags = LaunchBuilderGamePlayFlags()
+
+        MsgBox("Executable Location: " + pathBinaryFile)
+        MsgBox("IWAD Location: " + pathIWADFile)
+        If (Not (pwadsInclusion = Nothing)) Then
+            MsgBox("PWAD Paths: " + pwadsInclusion)
+        End If
+
+        If (Not (customParameters = Nothing)) Then
+            MsgBox("Custom Parameters: " + customParameters)
+        End If
+
+        If (Not (gameFlags = Nothing)) Then
+            MsgBox("Flags: " + gameFlags)
+        End If
     End Sub
 
 
@@ -986,8 +1000,10 @@ Class MainWindow
     '       NOTE: if no parameters are giving, then 'Nothing' will be returned.
     Private Function LaunchBuilderCustomParameters() As String
         If (TextBoxCustomParameters.Text = Nothing) Then
+            ' Nothing was provided in the TextBox
             Return Nothing
         Else
+            ' Return the parameters the user provided
             Return TextBoxCustomParameters.Text
         End If
     End Function
@@ -995,117 +1011,120 @@ Class MainWindow
 
 
 
-    Private Function LaunchBuilder_Arguments() As String
-        Dim indexCounter As Int32 = 0
-        Dim iwadPath As String = ""
-        Dim pwadPaths As String = ""
-        Dim gamePlayStyle As String = ""
-        Dim arguments As String = ""
+    ' Launch Builder: Game Play Flags
+    ' ------------------------------------------
+    ' This function is designed to inspect what game play flags were
+    ' set and compile each flag, if true\checked, to a concatenated string
+    ' that common ZDoom engines can understand.
+    ' -----------------------
+    ' Output
+    '   Game play flags [String]
+    '       This will provide the flags that the user requested in a
+    '       concatenated value.
+    '       NOTE: If no flags were provided, then 'Nothing' will be returned.
+    Private Function LaunchBuilderGamePlayFlags() As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim gameFlags As String = Nothing
+        ' ----------------------------------
 
-        ' Get the path of the IWAD
-        For Each i As IWAD In IWADList
-            If (indexCounter = selectedIWADID) Then
-                iwadPath = i.AbsolutePath
-            End If
-            indexCounter += 1
-        Next
-
-        ' Reset the counter
-        indexCounter = 0
-
-        'Get the path of the PWADs
-        If (Not (PWADList.Count = Nothing)) Then
-            For Each i As PWAD In PWADList
-                ' If in case path variable is empty
-                If (Not (pwadPaths = Nothing)) Then
-                    pwadPaths = i.AbsolutePath
-                Else
-                    pwadPaths = pwadPaths + ", " + i.AbsolutePath
-                End If
-            Next
-        End If
-
-        ' Check the check boxes
+        ' Fast Monsters
+        ' ================
         If (CheckBoxFastMonsters.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-fast"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-fast"
             Else
-                gamePlayStyle = gamePlayStyle + " -fast"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -fast"
             End If
         End If
 
-        If (CheckBoxFastMonsters.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-nomonsters"
+        ' Monsters Respawn
+        ' ================
+        If (CheckBoxMonstersRespawn.IsChecked = True) Then
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-respawn"
             Else
-                gamePlayStyle = gamePlayStyle + " -nomonsters"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -respawn"
             End If
         End If
 
+        ' Deathmatch
+        ' ================
         If (CheckBoxDeathmatch.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-deathmatch"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-deathmatch"
             Else
-                gamePlayStyle = gamePlayStyle + " -deathmatch"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -deathmatch"
             End If
         End If
 
+        ' Austin Virtual Gaming
+        ' ================
         If (CheckBoxAVG.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-avg"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-avg"
             Else
-                gamePlayStyle = gamePlayStyle + " -avg"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -avg"
             End If
         End If
 
+        ' No Music
+        ' ================
         If (CheckBoxNoMusic.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-nomusic"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-nomusic"
             Else
-                gamePlayStyle = gamePlayStyle + " -nomusic"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -nomusic"
             End If
         End If
 
+        ' No Sound Effects
+        ' ================
         If (CheckBoxNoSFX.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "nosfx"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "nosfx"
             Else
-                gamePlayStyle = gamePlayStyle + " -nosfx"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -nosfx"
             End If
         End If
 
+        ' No Multimedia [No Sound Effects & No Music]
+        ' ================
         If (CheckBoxNoMultimedia.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-nosound"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-nosound"
             Else
-                gamePlayStyle = gamePlayStyle + " -nosound"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -nosound"
             End If
         End If
 
+        ' Use Old Startup
+        ' ================
         If (CheckBoxUseOldStartup.IsChecked = True) Then
-            If (gamePlayStyle = Nothing) Then
-                gamePlayStyle = "-nostartup"
+            If (gameFlags = Nothing) Then
+                ' First flag to be set, throw the flag as is.
+                gameFlags = "-nostartup"
             Else
-                gamePlayStyle = gamePlayStyle + " -nostartup"
+                ' If other values exists, concatenate them.
+                gameFlags = gameFlags + " -nostartup"
             End If
         End If
 
-        arguments = "-iwad " + iwadPath
-
-        If (Not (pwadPaths = Nothing)) Then
-            arguments = arguments + " -file " + pwadPaths
-        End If
-
-        If (Not (gamePlayStyle = Nothing)) Then
-            arguments = arguments + " " + gamePlayStyle
-        End If
-
-        If (Not (TextBoxCustomParameters.Text = Nothing)) Then
-            arguments = arguments + " " + TextBoxCustomParameters.Text
-        End If
-
-        arguments = arguments + " -skill " + selectedSkillLevelID
-
-        Return arguments
+        ' Return the desired flags
+        Return gameFlags
     End Function
 End Class
