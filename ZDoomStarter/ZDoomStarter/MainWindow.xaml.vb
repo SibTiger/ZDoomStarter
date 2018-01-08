@@ -770,12 +770,6 @@ Class MainWindow
         Dim gameFlags As String                 ' Holds the game play flags.
         ' ----------------------------------
 
-        ' STUFF WE WILL NEED LATER
-        'executeCommand.FileName = ""
-        'executeCommand.Arguments = ""
-        'Process.Start(executeCommand)
-        ' =================================
-
         ' Make sure that the bare minimum requirements are fulfilled.
         If (LaunchBuilderRequiredFields()) Then
             ' Missing one or more required fields
@@ -843,7 +837,49 @@ Class MainWindow
         If (Not (gameFlags = Nothing)) Then
             MsgBox("Flags: " + gameFlags)
         End If
+
+        MsgBox(LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters))
+        'executeCommand.FileName = ""
+        'executeCommand.Arguments = ""
+        'Process.Start(executeCommand)
     End Sub
+
+
+
+
+    ' Launch Builder: Constructor Builder
+    ' ------------------------------------------
+    ' This function is designed to catenate all arguments provided - into one single string.
+    ' But the string must be formatted in such a way that ZDoom can understand it.  To do this,
+    ' we will use the ZDoom's CommandLine parameters provided in the link:
+    '   https://zdoom.org/wiki/Command_line_parameters
+    ' -----------------------
+    ' Parameters
+    '   fileIWAD [String]
+    '       The absolute path of the IWAD file itself.
+    '   filePWADs [String]
+    '       The absolute paths of the PWAD files (if any).
+    '   skillLevel [Integer]
+    '       The skill level number
+    '   gameFlags [String]
+    '       The game play flags
+    '   customParameters [String]
+    '       Customized parameters that the end-user provided.
+    ' -----------------------
+    ' Output
+    '   Executable Argument [String]
+    '       Concatenated string that contains all values that should
+    '       be understandable With ZDoom Or its child forks.
+    Private Function LaunchBuilderConstructorBuilder(fileIWAD As String,
+                                                            filePWADs As String,
+                                                            skillLevel As Integer,
+                                                            gameFlags As String,
+                                                            customParameters As String) As String
+        ' Declarations and Initializations
+        ' ----------------------------------
+        Dim catenatedString As String   ' This will hold all of the
+        ' ----------------------------------
+    End Function
 
 
 
