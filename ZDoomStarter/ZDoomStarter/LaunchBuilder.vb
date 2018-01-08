@@ -31,6 +31,7 @@ Public Class LaunchBuilder
 
 
 
+
     ' Constructor Window
     ' ------------------------------------------
     ' This is the constructor for this class.
@@ -38,21 +39,37 @@ Public Class LaunchBuilder
     ' -----------------------
     ' Parameters:
     '   skillLevelID [Int32]
+    '       Skill Level that was requested by the end user.
     '   sourcePortID [Int32]
+    '       Source port that the user requested to utilize.
     '   internalWADID [Int32]
+    '       IWAD that was requested to be used.
     '   nothingSelectedID [Int32]
+    '       Default value when nothing was selected.
     '   IWADList [List<IWAD>]
+    '       IWAD List
     '   PWADList [List<PWAD>]
+    '       PWAD List
     '   SourcePortList [List<SourcePort>]
+    '       Source Port List
     '   customParameters [UI: TextBox]
+    '       Customized Parameters that the user provided (if any)
     '   flagFastMonsters [UI: CheckBox]
+    '       CheckBox for Fast Monsters
     '   flagMonstersRespawn [UI: CheckBox]
+    '       CheckBox for Monsters Respawn
     '   flagDeathmatch [UI: CheckBox]
+    '       CheckBox for the Deathmatch Game Mode
     '   flagAVG [UI: CheckBox]
+    '       CheckBox for Austin Virtual Gaming
     '   flagNoMusic [UI: CheckBox]
+    '       CheckBox for No Music
     '   flagNoSFX [UI: CheckBox]
+    '       CheckBox for No Sound Effects
     '   flagNoMultimedia [UI: CheckBox]
+    '       CheckBox for No Multimedia
     '   flagOldStartup [UI: CheckBox]
+    '       CheckBox for using the old startup sequence
     Public Sub New(skillLevelID As Int32,
                    sourcePortID As Int32,
                    internalWADID As Int32,
@@ -69,23 +86,24 @@ Public Class LaunchBuilder
                    flagNoSFX As CheckBox,
                    flagNoMultimedia As CheckBox,
                    flagOldStartup As CheckBox)
-        internalWADList = New List(Of IWAD)(IWADList)
-        patchWADList = New List(Of PWAD)(PWADList)
-        Me.sourcePortList = New List(Of SourcePort)(SourcePortList)
-        selectItemNotAvailable = nothingSelectedID
-        selectedSkillLevelID = skillLevelID
-        selectedSourcePortID = sourcePortID
-        selectedIWADID = internalWADID
+        internalWADList = New List(Of IWAD)(IWADList)   ' IWAD List
+        patchWADList = New List(Of PWAD)(PWADList)      ' PWAD List
+        Me.sourcePortList = New _
+            List(Of SourcePort)(SourcePortList)         ' Source Port List
+        selectItemNotAvailable = nothingSelectedID      ' Default value when nothing was selected.
+        selectedSkillLevelID = skillLevelID             ' Skill Level that was requested by the end user.
+        selectedSourcePortID = sourcePortID             ' Source port that the user requested to utilize.
+        selectedIWADID = internalWADID                  ' IWAD that was requested to be used.
         ' ----
-        TextBoxCustomParameters = customParameters
-        CheckBoxFastMonsters = flagFastMonsters
-        CheckBoxMonstersRespawn = flagMonstersRespawn
-        CheckBoxDeathmatch = flagDeathmatch
-        CheckBoxAVG = flagAVG
-        CheckBoxNoMusic = flagNoMusic
-        CheckBoxNoSFX = flagNoSFX
-        CheckBoxNoMultimedia = flagNoMultimedia
-        CheckBoxUseOldStartup = flagOldStartup
+        TextBoxCustomParameters = customParameters      ' Customized Parameters that the user provided (if any)
+        CheckBoxFastMonsters = flagFastMonsters         ' CheckBox for Fast Monsters
+        CheckBoxMonstersRespawn = flagMonstersRespawn   ' CheckBox for Monsters Respawn
+        CheckBoxDeathmatch = flagDeathmatch             ' CheckBox for the Deathmatch Game Mode
+        CheckBoxAVG = flagAVG                           ' CheckBox for Austin Virtual Gaming
+        CheckBoxNoMusic = flagNoMusic                   ' CheckBox for No Music
+        CheckBoxNoSFX = flagNoSFX                       ' CheckBox for No Sound Effects
+        CheckBoxNoMultimedia = flagNoMultimedia         ' CheckBox for No Multimedia
+        CheckBoxUseOldStartup = flagOldStartup          ' CheckBox for using the old startup sequence
     End Sub
 
 
