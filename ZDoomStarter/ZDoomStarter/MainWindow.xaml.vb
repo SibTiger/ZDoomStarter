@@ -823,25 +823,10 @@ Class MainWindow
         ' -----------
         gameFlags = LaunchBuilderGamePlayFlags()
 
-        MsgBox("Executable Location: " + pathBinaryFile)
-        MsgBox("IWAD Location: " + pathIWADFile)
-        MsgBox("Skill Level: " + CStr(selectedSkillLevelID))
-        If (Not (pwadsInclusion = Nothing)) Then
-            MsgBox("PWAD Paths: " + pwadsInclusion)
-        End If
-
-        If (Not (customParameters = Nothing)) Then
-            MsgBox("Custom Parameters: " + customParameters)
-        End If
-
-        If (Not (gameFlags = Nothing)) Then
-            MsgBox("Flags: " + gameFlags)
-        End If
-
-        MsgBox(LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters))
-        'executeCommand.FileName = ""
-        'executeCommand.Arguments = ""
-        'Process.Start(executeCommand)
+        'MsgBox(LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters))
+        executeCommand.FileName = pathBinaryFile
+        executeCommand.Arguments = LaunchBuilderConstructorBuilder(pathIWADFile, pwadsInclusion, selectedSkillLevelID, gameFlags, customParameters)
+        Process.Start(executeCommand)
     End Sub
 
 
