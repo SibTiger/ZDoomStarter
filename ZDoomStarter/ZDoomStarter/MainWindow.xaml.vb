@@ -590,7 +590,7 @@ Class MainWindow
             ' Find the selected skill level from the list
             If (ComboBoxSkillLevel.SelectedItem = (CStr(indexCounter) + ") " + i)) Then
                 ' Found the entry, save the actual index key.
-                selectedSkillLevelID = indexCounter - 1
+                selectedSkillLevelID = indexCounter
             End If
 
             indexCounter += 1       ' Increment the index key.
