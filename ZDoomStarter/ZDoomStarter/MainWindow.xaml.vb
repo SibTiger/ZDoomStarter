@@ -1086,7 +1086,7 @@ Class MainWindow
                 End If
 
                 ' with other values existing, append it.
-                catenateString = catenateString + ", " + i.AbsolutePath
+                catenateString = catenateString + " " + i.AbsolutePath
             Next
 
             ' Return our concatenated string
