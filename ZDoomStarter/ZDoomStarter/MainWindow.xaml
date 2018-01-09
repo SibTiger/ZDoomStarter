@@ -24,8 +24,8 @@
             </MenuItem>
             <MenuItem x:Name="ConfigureMenu" Header="Configure">
                 <MenuItem x:Name="ConfigureMenuSourcePorts" Header="Source Ports"/>
-                <MenuItem x:Name="ConfigureMenuIWADs" Header="IWAD's"/>
-                <MenuItem x:Name="ConfigureMenuPWADsDir" Header="PWAD's Directory"/>
+                <MenuItem x:Name="ConfigureMenuIWADs" Header="IWADs"/>
+                <MenuItem x:Name="ConfigureMenuPWADsDir" Header="PWADs Directory"/>
             </MenuItem>
             <MenuItem x:Name="HelpMenu" Header="Help">
                 <MenuItem x:Name="HelpMenuWikiGitHub" Header="View Wiki [GitHub]" Click="HelpMenuWikiGitHub_Click"/>
